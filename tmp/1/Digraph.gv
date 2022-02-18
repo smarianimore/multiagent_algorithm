@@ -1,0 +1,10 @@
+digraph {
+	graph [rankdir=LR]
+	Pr -> L
+	Pr -> S
+	L -> Pow
+	Pow -> C
+	H -> Pow
+	S -> H
+	S -> C
+}

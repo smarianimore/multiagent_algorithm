@@ -1,0 +1,1003 @@
+
+
+#### 2022-01-19 16:24:49.081726
+Notes:	Incremental do size
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 100
+
+Topology: DiGraph with 7 nodes and 6 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'O', 'W'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')] 
+Computational time: 2.69 s
+New edges: 0 
+Missed edges: 0 
+Recovered edges: 6
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 100
+
+Topology: DiGraph with 9 nodes and 9 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 8.9 s
+New edges: 3 
+Missed edges: 4 
+Recovered edges: 5
+Recover rate: 55.55555555555556 %
+Missed rate: 44.44444444444444 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 100
+
+Topology: DiGraph with 10 nodes and 12 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 13.04 s
+New edges: 4 
+Missed edges: 5 
+Recovered edges: 7
+Recover rate: 58.333333333333336 %
+Missed rate: 41.66666666666667 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 100
+
+Topology: DiGraph with 13 nodes and 15 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'CO', 'A', 'CO2', 'W', 'B', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T'), ('B', 'W'), ('O', 'T')] 
+Computational time: 15.24 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 39.87 s
+
+#### 2022-01-19 16:26:34.615146
+Notes:	Incremental do size
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 400
+
+Topology: DiGraph with 7 nodes and 6 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'O', 'W'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')] 
+Computational time: 9.84 s
+New edges: 0 
+Missed edges: 0 
+Recovered edges: 6
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 400
+
+Topology: DiGraph with 9 nodes and 9 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 21.95 s
+New edges: 1 
+Missed edges: 1 
+Recovered edges: 8
+Recover rate: 88.88888888888889 %
+Missed rate: 11.11111111111111 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 400
+
+Topology: DiGraph with 10 nodes and 12 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 39.49 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 400
+
+Topology: DiGraph with 13 nodes and 15 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'CO', 'A', 'CO2', 'W', 'B', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T'), ('B', 'W'), ('O', 'T')] 
+Computational time: 68.32 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 139.6 s
+
+
+#### 2022-01-19 16:30:55.824221
+Notes:	Incremental do size
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 800
+
+Topology: DiGraph with 7 nodes and 6 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'O', 'W'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')] 
+Computational time: 18.19 s
+New edges: 0 
+Missed edges: 0 
+Recovered edges: 6
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 800
+
+Topology: DiGraph with 9 nodes and 9 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 36.15 s
+New edges: 1 
+Missed edges: 0 
+Recovered edges: 9
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 800
+
+Topology: DiGraph with 10 nodes and 12 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 94 s
+New edges: 4 
+Missed edges: 5 
+Recovered edges: 7
+Recover rate: 58.333333333333336 %
+Missed rate: 41.66666666666667 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 800
+
+Topology: DiGraph with 13 nodes and 15 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'CO', 'A', 'CO2', 'W', 'B', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T'), ('B', 'W'), ('O', 'T')] 
+Computational time: 128.78 s
+New edges: 3 
+Missed edges: 2 
+Recovered edges: 13
+Recover rate: 86.66666666666667 %
+Missed rate: 13.333333333333334 %
+
+Elapsed total time: 9225.640000000001 s
+
+#### 2022-01-19 19:09:52.098283
+Notes:	Incremental do size
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 1200
+
+Topology: DiGraph with 7 nodes and 6 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'O', 'W'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')] 
+Computational time: 26.9 s
+New edges: 0 
+Missed edges: 0 
+Recovered edges: 6
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 1200
+
+Topology: DiGraph with 9 nodes and 9 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 68.63 s
+New edges: 1 
+Missed edges: 0 
+Recovered edges: 9
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 1200
+
+Topology: DiGraph with 10 nodes and 12 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 137.83 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 10
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 1200
+
+Topology: DiGraph with 13 nodes and 15 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'CO', 'A', 'CO2', 'W', 'B', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T'), ('B', 'W'), ('O', 'T')] 
+Computational time: 188.58 s
+New edges: 3 
+Missed edges: 2 
+Recovered edges: 13
+Recover rate: 86.66666666666667 %
+Missed rate: 13.333333333333334 %
+
+Elapsed total time: 421.94000000000005 s
+
+#### 2022-01-19 19:17:55.419439
+Notes:	Incremental do size
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 1500
+
+Topology: DiGraph with 7 nodes and 6 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'O', 'W'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')] 
+Computational time: 34.98 s
+New edges: 0 
+Missed edges: 0 
+Recovered edges: 6
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 1500
+
+Topology: DiGraph with 9 nodes and 9 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 82.75 s
+New edges: 1 
+Missed edges: 1 
+Recovered edges: 8
+Recover rate: 88.88888888888889 %
+Missed rate: 11.11111111111111 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 1500
+
+Topology: DiGraph with 10 nodes and 12 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 171.45 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 10
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.1
+do_size = 1500
+
+Topology: DiGraph with 13 nodes and 15 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'CO', 'A', 'CO2', 'W', 'B', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T'), ('B', 'W'), ('O', 'T')] 
+Computational time: 264.83 s
+New edges: 3 
+Missed edges: 2 
+Recovered edges: 13
+Recover rate: 86.66666666666667 %
+Missed rate: 13.333333333333334 %
+
+Elapsed total time: 554.01 s
+
+#### 2022-01-20 10:41:11.196834
+Notes:	do_conf doubled
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.8
+ci_conf = 0.1
+do_size = 1200
+
+Topology: DiGraph with 7 nodes and 6 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'O', 'W'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')] 
+Computational time: 26.45 s
+New edges: 0 
+Missed edges: 0 
+Recovered edges: 6
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.8
+ci_conf = 0.1
+do_size = 1200
+
+Topology: DiGraph with 9 nodes and 9 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 68.16 s
+New edges: 1 
+Missed edges: 0 
+Recovered edges: 9
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.8
+ci_conf = 0.1
+do_size = 1200
+
+Topology: DiGraph with 10 nodes and 12 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 142.53 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 10
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.8
+ci_conf = 0.1
+do_size = 1200
+
+Topology: DiGraph with 13 nodes and 15 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'CO', 'A', 'CO2', 'W', 'B', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T'), ('B', 'W'), ('O', 'T')] 
+Computational time: 217.39 s
+New edges: 3 
+Missed edges: 2 
+Recovered edges: 13
+Recover rate: 86.66666666666667 %
+Missed rate: 13.333333333333334 %
+
+Elapsed total time: 454.53 s
+
+#### 2022-01-20 10:53:53.960317
+Notes:	ci_conf increased
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.8
+ci_conf = 0.4
+do_size = 1200
+
+Topology: DiGraph with 7 nodes and 6 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'O', 'W'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')] 
+Computational time: 29.73 s
+New edges: 1 
+Missed edges: 0 
+Recovered edges: 6
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.8
+ci_conf = 0.4
+do_size = 1200
+
+Topology: DiGraph with 9 nodes and 9 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 69.96 s
+New edges: 1 
+Missed edges: 0 
+Recovered edges: 9
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.8
+ci_conf = 0.4
+do_size = 1200
+
+Topology: DiGraph with 10 nodes and 12 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 144.37 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 10
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.8
+ci_conf = 0.4
+do_size = 1200
+
+Topology: DiGraph with 13 nodes and 15 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'CO', 'A', 'CO2', 'W', 'B', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T'), ('B', 'W'), ('O', 'T')] 
+Computational time: 220.45 s
+New edges: 5 
+Missed edges: 2 
+Recovered edges: 13
+Recover rate: 86.66666666666667 %
+Missed rate: 13.333333333333334 %
+
+Elapsed total time: 464.51 s
+
+#### 2022-01-20 12:25:27.058228
+Notes:	high do_conf and low everything else
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.8
+ci_conf = 0.1
+do_size = 100
+
+Topology: DiGraph with 7 nodes and 6 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'O', 'W'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')] 
+Computational time: 3.11 s
+New edges: 0 
+Missed edges: 0 
+Recovered edges: 6
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.8
+ci_conf = 0.1
+do_size = 100
+
+Topology: DiGraph with 9 nodes and 9 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 9.36 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.8
+ci_conf = 0.1
+do_size = 100
+
+Topology: DiGraph with 10 nodes and 12 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 16.04 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.8
+ci_conf = 0.1
+do_size = 100
+
+Topology: DiGraph with 13 nodes and 15 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'CO', 'A', 'CO2', 'W', 'B', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T'), ('B', 'W'), ('O', 'T')] 
+Computational time: 22.96 s
+New edges: 2 
+Missed edges: 1 
+Recovered edges: 14
+Recover rate: 93.33333333333333 %
+Missed rate: 6.666666666666667 %
+
+Elapsed total time: 51.47 s
+
+#### 2022-01-20 12:37:46.154949
+Notes:	high do_conf and low everything else
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.95
+ci_conf = 0.1
+do_size = 100
+
+Topology: DiGraph with 7 nodes and 6 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'O', 'W'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')] 
+Computational time: 2.8 s
+New edges: 0 
+Missed edges: 0 
+Recovered edges: 6
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.95
+ci_conf = 0.1
+do_size = 100
+
+Topology: DiGraph with 9 nodes and 9 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 11.41 s
+New edges: 2 
+Missed edges: 1 
+Recovered edges: 8
+Recover rate: 88.88888888888889 %
+Missed rate: 11.11111111111111 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.95
+ci_conf = 0.1
+do_size = 100
+
+Topology: DiGraph with 10 nodes and 12 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 17.02 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.95
+ci_conf = 0.1
+do_size = 100
+
+Topology: DiGraph with 13 nodes and 15 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'CO', 'A', 'CO2', 'W', 'B', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T'), ('B', 'W'), ('O', 'T')] 
+Computational time: 23.65 s
+New edges: 2 
+Missed edges: 1 
+Recovered edges: 14
+Recover rate: 93.33333333333333 %
+Missed rate: 6.666666666666667 %
+
+Elapsed total time: 54.879999999999995 s
+
+#### 2022-01-20 12:41:30.725455
+Notes:	high ci_conf and low everything else
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.8
+do_size = 100
+
+Topology: DiGraph with 7 nodes and 6 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'O', 'W'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')] 
+Computational time: 5.47 s
+New edges: 3 
+Missed edges: 0 
+Recovered edges: 6
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.8
+do_size = 100
+
+Topology: DiGraph with 9 nodes and 9 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 19.22 s
+New edges: 7 
+Missed edges: 4 
+Recovered edges: 5
+Recover rate: 55.55555555555556 %
+Missed rate: 44.44444444444444 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.8
+do_size = 100
+
+Topology: DiGraph with 10 nodes and 12 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 25.01 s
+New edges: 5 
+Missed edges: 4 
+Recovered edges: 8
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.8
+do_size = 100
+
+Topology: DiGraph with 13 nodes and 15 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'CO', 'A', 'CO2', 'W', 'B', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T'), ('B', 'W'), ('O', 'T')] 
+Computational time: 37.13 s
+New edges: 9 
+Missed edges: 2 
+Recovered edges: 13
+Recover rate: 86.66666666666667 %
+Missed rate: 13.333333333333334 %
+
+Elapsed total time: 86.83000000000001 s
+
+#### 2022-01-20 12:44:46.570768
+Notes:	high ci_conf and low everything else
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.95
+do_size = 100
+
+Topology: DiGraph with 7 nodes and 6 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'O', 'W'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')] 
+Computational time: 9.44 s
+New edges: 4 
+Missed edges: 0 
+Recovered edges: 6
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.95
+do_size = 100
+
+Topology: DiGraph with 9 nodes and 9 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 30.74 s
+New edges: 9 
+Missed edges: 4 
+Recovered edges: 5
+Recover rate: 55.55555555555556 %
+Missed rate: 44.44444444444444 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.95
+do_size = 100
+
+Topology: DiGraph with 10 nodes and 12 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 45.89 s
+New edges: 9 
+Missed edges: 4 
+Recovered edges: 8
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.4
+ci_conf = 0.95
+do_size = 100
+
+Topology: DiGraph with 13 nodes and 15 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'CO', 'A', 'CO2', 'W', 'B', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T'), ('B', 'W'), ('O', 'T')] 
+Computational time: 111.21 s
+New edges: 15 
+Missed edges: 2 
+Recovered edges: 13
+Recover rate: 86.66666666666667 %
+Missed rate: 13.333333333333334 %
+
+Elapsed total time: 197.27999999999997 s
+
+#### 2022-01-20 12:57:05.232024
+Notes:	search for the best recover rate
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.9
+ci_conf = 0.4
+do_size = 1000
+
+Topology: DiGraph with 7 nodes and 6 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'O', 'W'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')] 
+Computational time: 22.0 s
+New edges: 1 
+Missed edges: 0 
+Recovered edges: 6
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.9
+ci_conf = 0.4
+do_size = 1000
+
+Topology: DiGraph with 9 nodes and 9 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 57.57 s
+New edges: 1 
+Missed edges: 0 
+Recovered edges: 9
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.9
+ci_conf = 0.4
+do_size = 1000
+
+Topology: DiGraph with 10 nodes and 12 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 115.91 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 10
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.9
+ci_conf = 0.4
+do_size = 1000
+
+Topology: DiGraph with 13 nodes and 15 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'CO', 'A', 'CO2', 'W', 'B', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T'), ('B', 'W'), ('O', 'T')] 
+Computational time: 184.88 s
+New edges: 4 
+Missed edges: 1 
+Recovered edges: 14
+Recover rate: 93.33333333333333 %
+Missed rate: 6.666666666666667 %
+
+Elapsed total time: 380.36 s
+
+#### 2022-01-20 16:17:05.451581
+Notes:	search for the best recover rate
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.9
+ci_conf = 0.5
+do_size = 1500
+
+Topology: DiGraph with 7 nodes and 6 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'O', 'W'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')] 
+Computational time: 58.14 s
+New edges: 1 
+Missed edges: 0 
+Recovered edges: 6
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.9
+ci_conf = 0.5
+do_size = 1500
+
+Topology: DiGraph with 9 nodes and 9 edges 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 117.0 s
+New edges: 1 
+Missed edges: 0 
+Recovered edges: 9
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.9
+ci_conf = 0.5
+do_size = 1500
+
+Topology: DiGraph with 10 nodes and 12 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'B', 'W', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('B', 'W'), ('W', 'T'), ('O', 'T')] 
+Computational time: 198.95 s
+New edges: 2 
+Missed edges: 1 
+Recovered edges: 11
+Recover rate: 91.66666666666666 %
+Missed rate: 8.333333333333332 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_conf = 0.9
+ci_conf = 0.5
+do_size = 1500
+
+Topology: DiGraph with 13 nodes and 15 edges 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'H', 'C', 'T', 'CO', 'A', 'CO2', 'W', 'B', 'O'] 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T'), ('B', 'W'), ('O', 'T')] 
+Computational time: 304.36 s
+New edges: 5 
+Missed edges: 1 
+Recovered edges: 14
+Recover rate: 93.33333333333333 %
+Missed rate: 6.666666666666667 %
+
+Elapsed total time: 678.45 s
