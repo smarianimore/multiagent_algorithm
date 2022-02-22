@@ -16,7 +16,6 @@ class Agent:
         self.obs_data = obs_data
         self.conditional_prob = ConditionalProbability(self.obs_data, self.edges)
         self.bn = self.build_network()
-        self.model = {}
         self.undirected_edges = []
         self.incomplete = []
 
@@ -63,15 +62,19 @@ class Agent:
     def remove_edge(self, edge):
         self.edges.remove(edge)
 
-    def concatenate_data(self, data_to_concatenate, override=False):
+    def add_undirected_edges(self, undirected_edges):
+        for edge in undirected_edges:
+            self.undirected_edges.append(edge)
+
+    def concatenate_data(self, data_to_concatenate, override=True):
         # Concatenate original data with received data
         # Pay attention on:
         # - identifier for each sample
         # - dimensions
         # - no duplicate data (as columns name)
 
-        # Check if data are already present, if so decide to keep data already present or change with received new data
-        drops = []
+        # When a column is already present, decide if keep it or override it
+        drops = []  # list of same column names for agent data and received data
         for col in data_to_concatenate.columns:
             if col in self.obs_data.columns:
                 drops.append(col)
@@ -87,28 +90,23 @@ class Agent:
         # self.obs_data = pd.merge(self.obs_data, data_to_concatenate, how='outer', on='index')
         self.obs_data = pd.concat([self.obs_data, data_to_concatenate], axis=1)
 
-        # Decide how to manage NaN values
+        # Decide how to manage NaN values if present
 
-    def learning(self, parameters, mod, edges=None):
-        # parameters = {
-        #     'max_cond_vars': max_cond_vars,
-        #     'do_size': do_size,
-        #     'do_conf': do_conf,
-        #     'ci_conf': ci_conf
-        # }
+    def learning(self, nodes, parameters, non_doable, mod, bn=None, obs_data=None, edges=None):
 
-        # Learn
-        estimator = CausalLeaner(nodes=self.nodes, non_dobale=self.non_doable, edges=edges, env=self.bn, obs_data=self.obs_data)
-        self.model, self.undirected_edges = estimator.learn(mod=mod, max_cond_vars=parameters['max_cond_vars'], do_size=parameters['do_size'], do_conf=parameters['do_conf'], ci_conf=parameters['ci_conf'])
+        estimator = CausalLeaner(nodes=nodes, non_dobale=non_doable, edges=edges, env=bn, obs_data=obs_data)
+        model, undirected_edges = estimator.learn(mod=mod, max_cond_vars=parameters['max_cond_vars'], do_size=parameters['do_size'], do_conf=parameters['do_conf'], ci_conf=parameters['ci_conf'])
+
+        return model, undirected_edges
 
     # Check for incomplete nodes: for now this step is simulated, we add variables manually
-    def check_incomplete(self):
-        # Example
-        incomplete = ['T']
-
-        for node in incomplete:
-            if node in self.nodes:
-                self.incomplete.append(node)
+    # def check_incomplete(self):
+    #     # Example
+    #     incomplete = ['T']
+    #
+    #     for node in incomplete:
+    #         if node in self.nodes:
+    #             self.incomplete.append(node)
 
     def print_structure(self):
         dot = draw(self.edges)
@@ -122,26 +120,28 @@ class Agent:
 
         nodes_to_send = []
         if len(nodes_to_investigate) != 0:
-            nodes_to_send = list(set(nodes_to_investigate))
+            nodes_to_send.extend(nodes_to_investigate)
         if len(undirected_edges) != 0:
-            nodes_to_send.append(list(set(self.nodes_from_edges(undirected_edges))))
+            nodes_to_send.extend(self.nodes_from_edges(undirected_edges))
+
+        nodes_to_send = list(set(nodes_to_send))
 
         if len(nodes_to_send) != 0:
-            # Build the list of non_doable
             non_doable = []
             for node in nodes_to_send:
                 if node in self.non_doable:
                     non_doable.append(node)
 
-            # Data have to be passed when performing offline intervention simulations
-            # Select only data referring to selected nodes and choose an amount of sample to send
+            # Data are necessary for the chi-square
+            # Example: Pow->W (non-doable->doable)
+            # In this case we need data both for Pow and for W, because the chi-square compares the distributions
             obs_data = self.obs_data
             data_to_send = obs_data.drop(columns=[x for x in obs_data.columns if x not in nodes_to_send])
 
             # Build message
             msg = dict()
             msg['nodes'] = nodes_to_send
-            msg['non_doable'] = list(non_doable)
+            msg['non_doable'] = non_doable
             msg['data'] = data_to_send
         else:
             return None
@@ -150,14 +150,22 @@ class Agent:
 
     def build_response_msg(self, discovered_edges: list):
         msg = dict()
-        if discovered_edges:
+
+        non_doable = []
+        nodes = self.nodes_from_edges(discovered_edges)
+        for node in nodes:
+            if node in self.non_doable:
+                non_doable.append(node)
+
+        if len(discovered_edges) != 0:
             msg['edges'] = discovered_edges
+            msg['non_doable'] = non_doable
             return msg
         else:
             return None
 
     def read_request(self, request_msg):
-        # Extract nodes and data from request and add them to agent
+
         if request_msg:
             msg = request_msg
         else:
@@ -167,51 +175,45 @@ class Agent:
         if all(item in self.nodes for item in msg['nodes']):
             print('Nodes already known, checking the previous learning results...')
             return False  # Not going to learn
+        else:
+            # Code for adding new nodes to structure
+            # for node in msg['nodes']:
+            #     if node not in self.nodes:
+            #         self.add_node(node)
+            #
+            # for node in msg['non_doable']:
+            #     if node not in self.non_doable:
+            #         self.add_non_doable(node)
+            #
+            # # Concatenation of observational data
+            # if msg['data'] is not None:
+            #     self.concatenate_data(msg['data'])
 
-        for node in msg['nodes']:
-            if node not in self.nodes:
-                self.add_node(node)
-
-        for node in msg['non_doable']:
-            if node not in self.non_doable:
-                self.add_non_doable(node)
-
-        # Concatenation of observational data
-        self.concatenate_data(msg['data'])
-
-        return True  # Going to learn
+            return True  # Going to learn
 
     def read_response(self, response):
+        # We consider trusted the communication between agents, so we directly integrate the response
+        # without repeat the learning
+
         if len(response) != 0:
             # Read nodes and add to structure
-            new_nodes = self.nodes_from_edges(response)
+            new_nodes = self.nodes_from_edges(response['edges'])
             for node in new_nodes:
                 if node not in self.nodes:
                     self.add_node(node)
+
+            for node in response['non_doable']:
+                if node not in self.non_doable:
+                    self.add_non_doable(node)
+
             # Read edges and add to structure
-            for t in response:
+            for t in response['edges']:
                 if t not in self.edges:
                     self.add_edge(t)
+        else:
+            print('Empty response, nothing added')
 
-        print('Empty response, nothing added')
 
-
-if __name__ == "__main__":
-    nodes = ['Pr', 'L', 'Pow', 'H', 'C', 'S']
-    edges = [("Pr", "L"), ("Pr", "S"), ("L", "Pow"), ("S", "H"), ("H", "Pow"), ("S", "C"), ("C", "Pow")]
-    non_doable = ['Pr', 'Pow']
-    dataset = pd.read_csv("ocik\\demo\\store\\test\\network.csv", sep=',')
-    dataset.reset_index(inplace=True)
-
-    obs_data = dataset.drop(columns=[x for x in dataset.columns if x not in nodes or x != 'index'])
-    print(obs_data.columns)
-    exit(100)
-    agent = Agent(nodes, non_doable, edges, obs_data)
-
-    t = dataset.drop(columns=[x for x in dataset.columns if x != 'T' or x != 'index'])
-    print(t.columns)
-    # agent.concatenate_data(t)
-    # print(agent.obs_data)
 
 
 
