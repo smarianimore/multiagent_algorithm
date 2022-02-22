@@ -1,8 +1,7 @@
 import pandas as pd
 import json
-from requests import get, put, post
-import numpy as np
-from conversion import conversion
+from requests import get, put
+from utils.conversion import conversion
 from time import sleep
 
 

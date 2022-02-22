@@ -75,10 +75,10 @@ binLight = {
 
 heater = {
       "positionY":238,
-      "name":"heater",
+      "name":"Heater-1bd6fdc99a",
       "fault":"no",
       "location":"room",
-      "id":"heater",
+      "id":"Heater-1bd6fdc99a",
       "state":"activated",
       "services":[
          "fr.liglab.adele.icasa.device.PowerObservable",
@@ -116,16 +116,16 @@ heater = {
          {
             "unit":"N/A",
             "name":"Location",
-            "value":"room"
+            "value":"outside"
          }
       ],
       "positionX":541
    }
 
 # Execute put to update
-resp = put(f'{put_device}/heater', data=json.dumps(heater))
+resp = put(f'{put_device}/Heater-1bd6fdc99a', data=json.dumps(heater))
 print(resp.status_code)
 
 # Check if updated successfully
-req = get(f'{get_device}/heater')
+req = get(f'{get_device}/Heater-1bd6fdc99a')
 print(req.json())

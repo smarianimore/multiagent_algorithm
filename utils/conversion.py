@@ -3,6 +3,9 @@ import pandas as pd
 
 
 def conversion(dataset, nodes=None):
+    # Avoid warnings
+    pd.options.mode.chained_assignment = None
+
     df = dataset.copy()
 
     # Converting the values from Double to Int (Binary)

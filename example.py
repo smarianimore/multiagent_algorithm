@@ -1,11 +1,8 @@
-from ocik import Asia, Room, Circuit, RoomBase, RoomComplete, Test, BigRoom
+from ocik import RoomBase
 from ocik import CausalLeaner
-from ocik.network import BayesianNetwork
-from graphviz import Digraph, Graph, Source
 import pandas as pd
 import time
-import numpy as np
-from drawing import draw, difference
+from utils.drawing import difference
 
 import os
 os.environ["PATH"] += os.pathsep + 'C:\\Users\\pakyr\\.conda\\envs\\bayesianEnv\\Library\\bin\\graphviz'

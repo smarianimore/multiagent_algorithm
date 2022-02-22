@@ -23,7 +23,7 @@ class ConditionalProbability:
 
 
 if __name__ == "__main__":
-    dataset = pd.read_csv("ocik\\demo\\store\\test\\network.csv", sep=',')
+    dataset = pd.read_csv("../ocik/demo/store/test/network.csv", sep=',')
     edges = [("Pr", "L"), ("L", "Pow"), ("H", "Pow"), ("C", "Pow"), ("H", "T"), ("C", "T"),
             ("B", "W"), ("O", "T"), ("W", "T")]
     p = ConditionalProbability(dataset, edges).get_node_prob('T')

@@ -1,11 +1,8 @@
 import pandas as pd
 import json
 import requests
-from requests.auth import HTTPBasicAuth
 from time import sleep
 import numpy as np
-from tqdm import tqdm
-from conversion import conversion
 
 
 class iCasa:

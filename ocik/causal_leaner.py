@@ -71,9 +71,10 @@ def has_influence(src: str,  # DOC: node to intervene on
 
 
 class CausalLeaner:
-    def __init__(self, nodes: list, non_dobale: list, env=None, obs_data=None):
+    def __init__(self, nodes: list, non_dobale: list, edges=None, env=None, obs_data=None):
         self.env = env
         self.nodes = nodes
+        self.edges = edges
         self.non_doable = non_dobale
         self.obs_data = obs_data
 
@@ -90,10 +91,20 @@ class CausalLeaner:
         lim_neighbors = 0
         separating_sets = dict()
 
-        # Step 1: Initialize a fully connected directed graph
-        completeG = nx.complete_graph(n=self.nodes, create_using=nx.Graph)
-        G = nx.DiGraph(list(completeG.edges()))
-        graph = nx.DiGraph(list(G.edges()) + list(G.reverse().edges()))
+        # COMPLETE LEARNING
+        if self.edges is None:
+            # Step 1: Initialize a fully connected directed graph
+            completeG = nx.complete_graph(n=self.nodes, create_using=nx.Graph)
+            G = nx.DiGraph(list(completeG.edges()))
+            graph = nx.DiGraph(list(G.edges()) + list(G.reverse().edges()))
+        # PARTIAL LEARNING
+        else:
+            # Step 1: Initialize a partial graph
+            G = nx.DiGraph(list(self.edges))
+            graph = nx.DiGraph(list(self.edges))
+
+            if mod == 'offline':
+                return 'Only allowed online mode with partial learning!'
 
         non_doable = set(self.non_doable)
         doable = set(graph.nodes) - non_doable
@@ -249,7 +260,7 @@ class CausalLeaner:
                 graph.remove_edge(src, dst)
         print('undirected', undirected_edge)
         if len(undirected_edge) == 0:
-            return graph, None
+            return graph, undirected_edge
         else:
             # Set if include or not the undirected edges in the final graph
             pdag = PDAG(directed_ebunch=list(graph.edges())) #, undirected_ebunch=list(undirected_edge))
