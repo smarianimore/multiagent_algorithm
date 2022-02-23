@@ -1,5 +1,20 @@
 # Code to transform the dataset in int 0/1 values
 import pandas as pd
+import random
+
+
+def evidence_to_numeric(evidence):
+    node = str(tuple(evidence.items())[0][0])
+    value = tuple(evidence.items())[0][1]
+
+    numericals = ['H', 'C']
+
+    # A conversion is required only when dealing with doable numerical nodes
+    if node in numericals:
+        if node == 'H' or node == 'C':
+            return {node: random.randint(0, 500) if value == 0 else random.randint(501, 1000)}
+    else:
+        return evidence
 
 
 def conversion_2(dataset, nodes=None):

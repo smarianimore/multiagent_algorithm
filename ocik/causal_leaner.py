@@ -16,15 +16,21 @@ def simulate(src: str, dst: list, env, mod, cond_evidence: dict = {}, do_size=10
     print(f'\t\tevidencies for {src}: {evidences}')
 
     for i, evidence in enumerate(evidences):
-        # print('INTERVENTION: ', evidence)
+        print('INTERVENTION: ', evidence)
         # es: {'H': 0} -> intervention -> boolean DataFrame
 
         if mod == 'offline':
             # OFFLINE INTERVENTION
             do_result = env.do_evidence(evidence=evidence, size=do_size)
-        else:
+        elif mod == 'online':
             # ONLINE INTERVENTION
-            do_result = icasa().do(evidence=evidence, do_size=do_size)
+            # using iCasa device actualizations
+            # do_result = icasa().do(evidence=evidence, do_size=do_size)
+            # simulating values
+            do_result = icasa().simulate(evidence, do_size)
+        else:
+            print('Bad learning modality!')
+            exit(100)
 
         ev = evidence[src]
         result[ev] = {}

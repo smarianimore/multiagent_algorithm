@@ -116,7 +116,7 @@ heater = {
          {
             "unit":"N/A",
             "name":"Location",
-            "value":"outside"
+            "value":"room"
          }
       ],
       "positionX":541

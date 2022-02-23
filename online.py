@@ -3,6 +3,8 @@ import json
 from requests import get, put
 from utils.conversion import conversion
 from time import sleep
+from utils.conversion import evidence_to_numeric
+from utils.config import read_kind, read_devices, read_devices_short
 
 
 class icasa:
@@ -22,48 +24,9 @@ class icasa:
 
         self.data = None
 
-        self.read_kind = {"T": 'device',
-                          "S": 'device',
-                          "W": 'device',
-                          "CO2": 'device',
-                          "L": 'device',
-                          "H": 'device',
-                          "C": 'device',
-                          "O": 'device',
-                          "A": 'device',
-                          "Pr": 'device',
-                          "Jessica": 'person',
-                          "room": 'zone',
-                          "outdoor": 'zone'
-                        }
-
-        self.read_devices = {"Thermometer-b1f74267ed": 'thermometer.currentTemperature',
-                             "ToggleSwitch-d9704c5a0f": 'powerSwitch.currentStatus',
-                             "DoorWindowSensor-b041e06747": 'doorWindowSensor.opneningDetection',
-                             'COGasSensor-1bc0572e9e': 'carbonMonoxydeSensor.currentConcentration',
-                             "PushButton-5ec148b252": 'pushButton.pushAndHold',
-                             "CO2GasSensor-b66d761212": 'carbonDioxydeSensor.currentConcentration',
-                             "BinaryLight-5022136575": 'binaryLight.powerStatus',
-                             "Heater-1bd6fdc99a": 'heater.powerLevel',
-                             "Cooler-ce2209b064": 'cooler.powerLevel',
-                             "Thermometer-829cc07927": 'thermometer.currentTemperature',
-                             "Siren-d6c226252a": 'siren.status',
-                             "PresenceSensor-cd52a5fed8": 'presenceSensor.sensedPresence'
-                             }
-        self.read_devices_short = {
-            "S": "ToggleSwitch-d9704c5a0f",
-            "W": "DoorWindowSensor-b041e06747",
-            "CO": "COGasSensor-1bc0572e9e",
-            "B": "PushButton-5ec148b252",
-            "CO2": "CO2GasSensor-b66d761212",
-            "L": "BinaryLight-5022136575",
-            "H": "Heater-1bd6fdc99a",
-            "C": "Cooler-ce2209b064",
-            "O": "Thermometer-829cc07927",
-            "A": "Siren-d6c226252a",
-            "Pr": "PresenceSensor-cd52a5fed8",
-            "T": "Thermometer-b1f74267ed"
-        }
+        self.read_kind = read_kind
+        self.read_devices = read_devices
+        self.read_devices_short = read_devices_short
 
     # GET a new sample
     def sample(self):
@@ -110,7 +73,7 @@ class icasa:
 
         return self.sample()
 
-    def formatEvidence(self, evidence):
+    def format_evidence(self, evidence):
         return [(self.read_kind[name], (self.read_devices_short[name], self.read_devices[self.read_devices_short[name]]),
                  value) for name, value in evidence.items()]
 
@@ -119,7 +82,7 @@ class icasa:
             evidence = {}
 
         # Format evidence
-        evidence = self.formatEvidence(evidence)
+        evidence = self.format_evidence(evidence_to_numeric(evidence))
 
         column = [f'{k}' for k, v in self.read_devices_short.items()]
         # Append Pow column
@@ -142,6 +105,51 @@ class icasa:
 
         return df
 
+    def simulate(self, evidence, do_size=2):
+
+        evidence = evidence_to_numeric(evidence)
+
+        node = str(tuple(evidence.items())[0][0])
+        value = tuple(evidence.items())[0][1]
+
+        df = pd.DataFrame(columns=['Pr', 'L', 'T', 'W', 'H', 'Pow']).astype(int)
+
+        sample = {}
+        for i in range(do_size):
+
+            # Simulate past values
+            if i == 0:
+                for n in df.columns:
+                    if n == 'Pr':
+                        sample['Pr'] = 0
+                    elif n == 'L':
+                        sample['L'] = 0
+                    elif n == 'Pow':
+                        sample['Pow'] = 500
+                    elif n == 'H':
+                        sample['H'] = 600
+                    elif n == 'W':
+                        sample['W'] = 0
+                    elif n == 'T':
+                        sample['T'] = 293.15
+
+                # Intervention
+                sample[node] = value
+
+            # Change values based on intervention
+            if node == 'L':
+                sample['Pow'] = sample['Pow'] * 2 if sample['L'] == 1 else sample['Pow'] // 2
+            elif node == 'H':
+                sample['Pow'] = sample['Pow'] * 2 if sample['H'] > 500 else sample['Pow'] // 2
+                sample['T'] = sample['T'] * 2 if sample['H'] > 500 else sample['T'] // 2
+            elif node == 'W':
+                sample['T'] = sample['T'] * 2 if sample['W'] == 0 else sample['T'] // 2
+
+            # Add sample to dataset
+            df = df.append(pd.Series(sample, name=i))
+
+        return conversion(df)
+
 
 if __name__ == '__main__':
     home = icasa()
@@ -160,10 +168,14 @@ if __name__ == '__main__':
     # print(ret)
 
     # TEST do, status: working
-    evidence = {'O': 300.0}
-    ret = home.do(evidence)
-    print(ret)
+    # evidence = {'O': 300.0}
+    # ret = home.do(evidence)
+    # print(ret)
 
+    # TEST simulate, status: working
+    evidence = {'H': 1}
+    df = home.simulate(evidence, 10)
+    print(df)
 
 
 

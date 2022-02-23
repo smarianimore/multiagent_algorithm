@@ -88,9 +88,6 @@ agent_1.add_undirected_edges(undirected_edges_1)
 model_2, undirected_edges_2 = agent_2.learning(nodes=agent_2.nodes, non_doable=agent_2.non_doable, parameters=parameters, mod='offline', bn=agent_2.bn, obs_data=agent_2.obs_data)
 agent_2.add_undirected_edges(undirected_edges_2)
 
-# Test
-agent_2.add_undirected_edges([('CO2', 'A')])
-
 # dot = draw(model_2.edges())
 # dot.view(directory='tmp/2/')
 
