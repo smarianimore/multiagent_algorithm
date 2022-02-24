@@ -32,8 +32,8 @@ bn = room.get_network()
 
 obs_data_csv = pd.read_csv('ocik\\demo\\store\\room_base.csv')
 
-estimator = CausalLeaner(bn.nodes(), non_dobale=['Pr', 'Pow', 'T'], env=bn, obs_data=obs_data_csv)
-model, undirected_edges = estimator.learn(mod='online', max_cond_vars=4, do_size=2)
+estimator = CausalLeaner(bn.nodes(), non_dobale=['Pr', 'Pow', 'T', 'O'], env=bn, obs_data=obs_data_csv)
+model, undirected_edges = estimator.learn(mod='offline', max_cond_vars=4, do_size=500, do_conf=0.9, ci_conf=0.5)
 
 ##########################################################################
 

@@ -6,6 +6,7 @@ import networks
 import time
 from utils.config import parameters
 import pandas as pd
+from utils.drawing import draw
 
 
 # Select only the results in which there are nodes required
@@ -69,8 +70,13 @@ def concatenate_data(old_data, new_data, override=True):
 
 
 # Divide network
-network_1 = networks.get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'C', 'S'], False)
-network_2 = networks.get_network_from_nodes(['CO', 'CO2', 'A', 'W', 'B', 'T', 'O'], False)
+# network_1 = networks.get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'C', 'S'], False)
+# network_2 = networks.get_network_from_nodes(['CO', 'CO2', 'A', 'W', 'B', 'T', 'O'], False)
+
+# This example works with simulated online intervention (call to icasa.simulate())
+# The results shows the correct functioning of the algorithm
+network_1 = networks.get_network_from_nodes(['Pr', 'L', 'Pow'], False)
+network_2 = networks.get_network_from_nodes(['W', 'H', 'T'], False)
 
 # Initialize agents
 agent_1 = Agent(nodes=network_1['nodes'], non_doable=network_1['non_doable'], edges=network_1['edges'],  obs_data=network_1['dataset'])
@@ -83,18 +89,17 @@ start = time.time()
 # 1 - Offline Local learning
 model_1, undirected_edges_1 = agent_1.learning(nodes=agent_1.nodes, non_doable=agent_1.non_doable, parameters=parameters, mod='offline', bn=agent_1.bn, obs_data=agent_1.obs_data)
 agent_1.add_undirected_edges(undirected_edges_1)
-# dot = draw(model_1.edges())
-# dot.view(directory='tmp/1/')
+dot = draw(model_1.edges())
+dot.view(directory='tmp/1/')
 model_2, undirected_edges_2 = agent_2.learning(nodes=agent_2.nodes, non_doable=agent_2.non_doable, parameters=parameters, mod='offline', bn=agent_2.bn, obs_data=agent_2.obs_data)
 agent_2.add_undirected_edges(undirected_edges_2)
-
-# dot = draw(model_2.edges())
-# dot.view(directory='tmp/2/')
+dot = draw(model_2.edges())
+dot.view(directory='tmp/2/')
 
 # 2 - Request
 # For test reasons we choose the incomplete nodes manually
 # In this case agent 2 wants to send a request message
-nodes_to_investigate = ['W']
+nodes_to_investigate = ['H']
 if len(nodes_to_investigate) != 0:
     msg = agent_2.build_request_msg(nodes_to_investigate, agent_2.undirected_edges)
     # print('Request message ', msg)
@@ -139,9 +144,8 @@ agent_2.read_response(response)
 end = time.time()
 print('Time elapsed: ', (end-start), 's')
 
-print(agent_2.edges)
-# dot = draw(agent_2.edges)
-# dot.view(directory='tmp/3/')
+dot = draw(agent_2.edges)
+dot.view(directory='tmp/3/')
 
 
 

@@ -25,9 +25,9 @@ def simulate(src: str, dst: list, env, mod, cond_evidence: dict = {}, do_size=10
         elif mod == 'online':
             # ONLINE INTERVENTION
             # using iCasa device actualizations
-            # do_result = icasa().do(evidence=evidence, do_size=do_size)
+            do_result = icasa().do(evidence=evidence, do_size=do_size)
             # simulating values
-            do_result = icasa().simulate(evidence, do_size)
+            # do_result = icasa().simulate(evidence, do_size)
         else:
             print('Bad learning modality!')
             exit(100)

@@ -1,16 +1,13 @@
 digraph {
 	graph [rankdir=LR]
 	edge [color=blue]
-	Pow -> H
-	T -> O
-	T -> W
-	T -> H
+	Pow -> W
 	edge [color=red]
-	L -> Pow
-	H -> Pow
-	H -> T
 	O -> T
-	W -> T
 	edge [color=green]
 	Pr -> L
+	L -> Pow
+	W -> T
+	H -> Pow
+	H -> T
 }

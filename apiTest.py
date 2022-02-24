@@ -127,5 +127,5 @@ resp = put(f'{put_device}/Heater-1bd6fdc99a', data=json.dumps(heater))
 print(resp.status_code)
 
 # Check if updated successfully
-req = get(f'{get_device}/Heater-1bd6fdc99a')
+req = get(f'{get_devices}')
 print(req.json())

@@ -50,5 +50,3 @@ network_b = {
     "dataset": dataset if test else dataset.drop(columns=[x for x in dataset.columns if x not in nodes_b])
 }
 
-print(get_network_from_nodes(nodes_a, test=True))
-

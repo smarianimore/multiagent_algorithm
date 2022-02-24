@@ -4,8 +4,8 @@ from requests import get, put
 from utils.conversion import conversion
 from time import sleep
 from utils.conversion import evidence_to_numeric
-from utils.config import read_kind, read_devices, read_devices_short
-
+from utils.config import read_kind, read_devices, read_devices_short, HOST, PORT
+import socket
 
 class icasa:
     def __init__(self):
@@ -28,6 +28,9 @@ class icasa:
         self.read_devices = read_devices
         self.read_devices_short = read_devices_short
 
+        self.host = HOST
+        self.port = PORT
+
     # GET a new sample
     def sample(self):
         new_data = {}
@@ -47,31 +50,49 @@ class icasa:
                     new_data[[k for k, v in self.read_devices_short.items() if v == id][0]] = [param['value']]
 
         n_data = pd.DataFrame(new_data)
+
+        # Manually adding Pow value since it is not a device
+        light = 100 if n_data['L'].bool() else 0
+        n_data['Pow'] = light + n_data['H'] + n_data['C']
+
         return n_data
 
-    # Intervention: PUT request
-    def intervention(self, evidence, resp_time=0):
-        for kind, (name, property), value in evidence:
-            if kind == 'device':
-                resp = put(self.put_device_url + f'/{name}',
-                                    data=json.dumps({'id': name, property: value}))
-            elif kind == 'zone':
-                resp = put(self.put_zone_url + f'/{name}',
-                                    data=json.dumps({property: value}))
-            elif kind == 'person':
-                resp = put(self.put_device_url + f'/{name}',
-                           data=json.dumps({'id': name, property: value}))
-            else:
-                assert False, 'not recognize option: kind'
+    # The function actualizes the device values with a put request
+    # def intervention(self, evidence, resp_time=0):
+    #     for kind, (name, property), value in evidence:
+    #         if kind == 'device':
+    #             resp = put(self.put_device_url + f'/{name}',
+    #                                 data=json.dumps({'id': name, property: value}))
+    #         elif kind == 'zone':
+    #             resp = put(self.put_zone_url + f'/{name}',
+    #                                 data=json.dumps({property: value}))
+    #         elif kind == 'person':
+    #             resp = put(self.put_device_url + f'/{name}',
+    #                        data=json.dumps({'id': name, property: value}))
+    #         else:
+    #             assert False, 'not recognize option: kind'
+    #
+    #         if resp.status_code != 200:
+    #             print("pushing data fail!", "Error code: ", resp.status_code)
+    #
+    #     print('waiting for response...', end='')
+    #     sleep(resp_time) if resp_time > 0 else None
+    #     print('[OK]')
+    #
+    #     return self.sample()
 
-            if resp.status_code != 200:
-                print("pushing data fail!", "Error code: ", resp.status_code)
+    def intervention(self, evidence, resp_time=0):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.connect((self.host, self.port))
+
+        evidence = str(evidence) + "\n"
+        evidence = str.encode(evidence)
+        sock.sendall(evidence)
 
         print('waiting for response...', end='')
         sleep(resp_time) if resp_time > 0 else None
         print('[OK]')
 
-        return self.sample()
 
     def format_evidence(self, evidence):
         return [(self.read_kind[name], (self.read_devices_short[name], self.read_devices[self.read_devices_short[name]]),
@@ -91,20 +112,20 @@ class icasa:
         # Initialize dataset
         df = pd.DataFrame(columns={node: [] for node in column}).astype(int)
 
+        # Intervention
+        self.intervention(evidence)
+
         # Make interventions
         for i in range(do_size):
-            new_sample = self.intervention(evidence, resp_time=resp_time)
-
-            # Manually adding Pow value since it is not a device
-            light = 100 if new_sample['L'].bool() else 0
-            new_sample['Pow'] = light + new_sample['H'] + new_sample['C']
-
+            new_sample = self.sample()
             df = pd.concat([df, conversion(new_sample)], axis=0)
+            sleep(resp_time) if resp_time > 0 else None
 
         df.reset_index(drop=True, inplace=True)
 
         return df
 
+    # The function simulates the values without making a real intervention
     def simulate(self, evidence, do_size=2):
 
         evidence = evidence_to_numeric(evidence)
@@ -157,10 +178,6 @@ if __name__ == '__main__':
     # TEST sample, status: working
     # ret = home.sample()
     # print(ret)
-    # import warnings
-    # with warnings.catch_warnings():
-    #     warnings.simplefilter("ignore")
-    #     print(conversion(ret))
 
     # TEST intervention, status: working
     # evidence = ['BinaryLight-5022136575', 'binaryLight.powerStatus', 'true']
@@ -173,9 +190,13 @@ if __name__ == '__main__':
     # print(ret)
 
     # TEST simulate, status: working
-    evidence = {'H': 1}
-    df = home.simulate(evidence, 10)
-    print(df)
+    # evidence = {'H': 1}
+    # df = home.simulate(evidence, 10)
+    # print(df)
 
-
+    # TEST intervention
+    evidence = {'H': 0}
+    # print(home.do(evidence=evidence, do_size=10,  resp_time=3))
+    home.intervention(evidence)
+    print(home.sample())
 

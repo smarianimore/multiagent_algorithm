@@ -1,7 +1,7 @@
 # Network parameters
 parameters = {
     'max_cond_vars': 4,
-    'do_size': 100,
+    'do_size': 1,
     'do_conf': 0.9,
     'ci_conf': 0.5
 }
@@ -50,3 +50,6 @@ read_devices_short = {
     "Pr": "PresenceSensor-cd52a5fed8",
     "T": "Thermometer-b1f74267ed"
 }
+
+HOST = "localhost"
+PORT = 8080
