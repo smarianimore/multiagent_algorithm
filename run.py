@@ -70,13 +70,13 @@ def concatenate_data(old_data, new_data, override=True):
 
 
 # Divide network
-# network_1 = networks.get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'C', 'S'], False)
-# network_2 = networks.get_network_from_nodes(['CO', 'CO2', 'A', 'W', 'B', 'T', 'O'], False)
+network_1 = networks.get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'C', 'S'], False)
+network_2 = networks.get_network_from_nodes(['CO', 'CO2', 'A', 'W', 'B', 'T', 'O'], False)
 
 # This example works with simulated online intervention (call to icasa.simulate())
 # The results shows the correct functioning of the algorithm
-network_1 = networks.get_network_from_nodes(['Pr', 'L', 'Pow'], False)
-network_2 = networks.get_network_from_nodes(['W', 'H', 'T'], False)
+# network_1 = networks.get_network_from_nodes(['Pr', 'L', 'Pow'], False)
+# network_2 = networks.get_network_from_nodes(['W', 'H', 'T'], False)
 
 # Initialize agents
 agent_1 = Agent(nodes=network_1['nodes'], non_doable=network_1['non_doable'], edges=network_1['edges'],  obs_data=network_1['dataset'])

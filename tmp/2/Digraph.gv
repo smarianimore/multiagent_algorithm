@@ -1,5 +1,10 @@
 digraph {
 	graph [rankdir=LR]
+	CO -> A
+	A -> W
+	CO2 -> A
 	W -> T
-	H -> T
+	T -> B
+	B -> W
+	O -> W
 }

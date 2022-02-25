@@ -1,8 +1,15 @@
 digraph {
 	graph [rankdir=LR]
-	Pr -> L
-	T -> W
+	CO -> A
+	CO2 -> A
+	A -> W
+	B -> W
+	O -> T
+	W -> T
+	S -> H
+	S -> O
+	H -> Pow
+	T -> C
 	T -> H
-	Pow -> W
-	Pow -> H
+	T -> S
 }

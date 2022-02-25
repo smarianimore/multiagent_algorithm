@@ -1,10 +1,12 @@
 # Network parameters
 parameters = {
     'max_cond_vars': 4,
-    'do_size': 1,
+    'do_size': 500,
     'do_conf': 0.9,
     'ci_conf': 0.5
 }
+
+resp_time = 0
 
 # ONLINE
 read_kind = {"T": 'device',

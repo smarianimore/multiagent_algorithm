@@ -4,8 +4,9 @@ from requests import get, put
 from utils.conversion import conversion
 from time import sleep
 from utils.conversion import evidence_to_numeric
-from utils.config import read_kind, read_devices, read_devices_short, HOST, PORT
+from utils.config import read_kind, read_devices, read_devices_short, HOST, PORT, resp_time
 import socket
+
 
 class icasa:
     def __init__(self):
@@ -52,8 +53,8 @@ class icasa:
         n_data = pd.DataFrame(new_data)
 
         # Manually adding Pow value since it is not a device
-        light = 100 if n_data['L'].bool() else 0
-        n_data['Pow'] = light + n_data['H'] + n_data['C']
+        # light = 100 if n_data['L'].bool() else 0
+        # n_data['Pow'] = light + n_data['H'] * 1000 + n_data['C'] * 1000
 
         return n_data
 
@@ -81,29 +82,27 @@ class icasa:
     #
     #     return self.sample()
 
-    def intervention(self, evidence, resp_time=0):
+    # def format_evidence(self, evidence):
+    #     return [(self.read_kind[name], (self.read_devices_short[name],
+    #               self.read_devices[self.read_devices_short[name]]),
+    #               value) for name, value in evidence.items()]
+
+    def intervention(self, evidence):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect((self.host, self.port))
 
-        evidence = str(evidence) + "\n"
-        evidence = str.encode(evidence)
-        sock.sendall(evidence)
+        ev_str = str(evidence_to_numeric(evidence)) + "\n"
+        ev_byte = str.encode(ev_str)
+        sock.sendall(ev_byte)
 
-        print('waiting for response...', end='')
-        sleep(resp_time) if resp_time > 0 else None
-        print('[OK]')
+        print('Intervention ok')
 
-
-    def format_evidence(self, evidence):
-        return [(self.read_kind[name], (self.read_devices_short[name], self.read_devices[self.read_devices_short[name]]),
-                 value) for name, value in evidence.items()]
-
-    def do(self, evidence, do_size=2, resp_time=2):
+    def do(self, evidence, do_size=2, resp_time=resp_time):
         if evidence is None:
             evidence = {}
 
-        # Format evidence
-        evidence = self.format_evidence(evidence_to_numeric(evidence))
+        # Format evidence: necessary only with intervention via API
+        # evidence = self.format_evidence(evidence_to_numeric(evidence))
 
         column = [f'{k}' for k, v in self.read_devices_short.items()]
         # Append Pow column
@@ -112,12 +111,23 @@ class icasa:
         # Initialize dataset
         df = pd.DataFrame(columns={node: [] for node in column}).astype(int)
 
-        # Intervention
+        # Make intervention
         self.intervention(evidence)
 
-        # Make interventions
+        # Collect do_size samples
         for i in range(do_size):
             new_sample = self.sample()
+
+            # Pow
+            node = str(tuple(evidence.items())[0][0])
+            if node == 'L':
+                new_sample['Pow'] = 100 if new_sample['L'].bool() else 0
+            elif node == 'H':
+                # Giustificabile come al di sotto di una certa soglia il sensore non riesce a misurare la potenza
+                new_sample['Pow'] = new_sample['H'] * 1000 if new_sample['H'].item() > 500 else 0
+            elif node == 'C':
+                new_sample['Pow'] = new_sample['C'] * 1000 if new_sample['C'].item() > 500 else 0
+
             df = pd.concat([df, conversion(new_sample)], axis=0)
             sleep(resp_time) if resp_time > 0 else None
 
@@ -195,8 +205,10 @@ if __name__ == '__main__':
     # print(df)
 
     # TEST intervention
-    evidence = {'H': 0}
-    # print(home.do(evidence=evidence, do_size=10,  resp_time=3))
-    home.intervention(evidence)
-    print(home.sample())
+    evidence = {'L': 1}
+
+    print(home.do(evidence=evidence, do_size=5,  resp_time=1))
+    # home.intervention(evidence)
+    # print(home.sample())
+
 
