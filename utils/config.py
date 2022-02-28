@@ -1,9 +1,9 @@
 # Network parameters
 parameters = {
     'max_cond_vars': 4,
-    'do_size': 500,
+    'do_size': 5,
     'do_conf': 0.9,
-    'ci_conf': 0.5
+    'ci_conf': 0.1
 }
 
 resp_time = 0
@@ -47,11 +47,11 @@ read_devices_short = {
     "L": "BinaryLight-5022136575",
     "H": "Heater-1bd6fdc99a",
     "C": "Cooler-ce2209b064",
-    "O": "Thermometer-829cc07927",
+    "O": "Thermometer-b1f74267ed",
     "A": "Siren-d6c226252a",
     "Pr": "PresenceSensor-cd52a5fed8",
-    "T": "Thermometer-b1f74267ed"
+    "T": "Thermometer-829cc07927"
 }
 
-HOST = "localhost"
-PORT = 8080
+HOST = "127.0.0.1"
+PORT = 7777

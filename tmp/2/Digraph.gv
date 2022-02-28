@@ -3,8 +3,5 @@ digraph {
 	CO -> A
 	A -> W
 	CO2 -> A
-	W -> T
-	T -> B
 	B -> W
-	O -> W
 }

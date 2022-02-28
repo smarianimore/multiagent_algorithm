@@ -58,7 +58,7 @@ class icasa:
 
         return n_data
 
-    # The function actualizes the device values with a put request
+    # The function actualizes the device values with a PUT request (works only if PUTs work)
     # def intervention(self, evidence, resp_time=0):
     #     for kind, (name, property), value in evidence:
     #         if kind == 'device':
@@ -89,9 +89,14 @@ class icasa:
 
     def intervention(self, evidence):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.connect((self.host, self.port))
+        try:
+            sock.connect((self.host, self.port))
+        except:
+            print("Connection to server refused!")
+            return
 
-        ev_str = str(evidence_to_numeric(evidence)) + "\n"
+        # ev_str = str(evidence_to_numeric(evidence)) + "\n"
+        ev_str = str(evidence) + "\n"
         ev_byte = str.encode(ev_str)
         sock.sendall(ev_byte)
 
@@ -130,6 +135,7 @@ class icasa:
 
             df = pd.concat([df, conversion(new_sample)], axis=0)
             sleep(resp_time) if resp_time > 0 else None
+            # The insertion of a values reset at each intervention would help prediction
 
         df.reset_index(drop=True, inplace=True)
 
@@ -205,10 +211,10 @@ if __name__ == '__main__':
     # print(df)
 
     # TEST intervention
-    evidence = {'L': 1}
+    evidence = {'H': 0}
 
-    print(home.do(evidence=evidence, do_size=5,  resp_time=1))
-    # home.intervention(evidence)
-    # print(home.sample())
+    # print(home.do(evidence=evidence, do_size=5,  resp_time=1))
+    home.intervention(evidence)
+    print(home.sample())
 
 

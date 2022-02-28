@@ -1,5 +1,6 @@
 # This file contains a communication example between two agents
 # In particular, agent 1 and agent 2, where agent 2 sends a request to agent 1
+# Note that the code works also with empty requests
 
 from agent import Agent
 import networks
@@ -69,86 +70,98 @@ def concatenate_data(old_data, new_data, override=True):
     return pd.concat([old_data, new_data], axis=1)
 
 
-# Divide network
-network_1 = networks.get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'C', 'S'], False)
-network_2 = networks.get_network_from_nodes(['CO', 'CO2', 'A', 'W', 'B', 'T', 'O'], False)
+def run(agent_1, agent_2, nodes_to_investigate):
+    start = time.time()
 
-# This example works with simulated online intervention (call to icasa.simulate())
-# The results shows the correct functioning of the algorithm
-# network_1 = networks.get_network_from_nodes(['Pr', 'L', 'Pow'], False)
-# network_2 = networks.get_network_from_nodes(['W', 'H', 'T'], False)
+    # ALGORITHM
+    # 1 - Offline Local learning
+    model_1, undirected_edges_1 = agent_1.learning(nodes=agent_1.nodes, non_doable=agent_1.non_doable,
+                                                   parameters=parameters, mod='offline', bn=agent_1.bn,
+                                                   obs_data=agent_1.obs_data)
+    agent_1.add_undirected_edges(undirected_edges_1)
+    dot = draw(model_1.edges())
+    dot.view(directory='tmp/1/')
+    model_2, undirected_edges_2 = agent_2.learning(nodes=agent_2.nodes, non_doable=agent_2.non_doable,
+                                                   parameters=parameters, mod='offline', bn=agent_2.bn,
+                                                   obs_data=agent_2.obs_data)
+    agent_2.add_undirected_edges(undirected_edges_2)
+    dot = draw(model_2.edges())
+    dot.view(directory='tmp/2/')
 
-# Initialize agents
-agent_1 = Agent(nodes=network_1['nodes'], non_doable=network_1['non_doable'], edges=network_1['edges'],  obs_data=network_1['dataset'])
-agent_2 = Agent(nodes=network_2['nodes'], non_doable=network_2['non_doable'], edges=network_2['edges'], obs_data=network_2['dataset'])
-
-start = time.time()
-
-# ALGORITHM
-
-# 1 - Offline Local learning
-model_1, undirected_edges_1 = agent_1.learning(nodes=agent_1.nodes, non_doable=agent_1.non_doable, parameters=parameters, mod='offline', bn=agent_1.bn, obs_data=agent_1.obs_data)
-agent_1.add_undirected_edges(undirected_edges_1)
-dot = draw(model_1.edges())
-dot.view(directory='tmp/1/')
-model_2, undirected_edges_2 = agent_2.learning(nodes=agent_2.nodes, non_doable=agent_2.non_doable, parameters=parameters, mod='offline', bn=agent_2.bn, obs_data=agent_2.obs_data)
-agent_2.add_undirected_edges(undirected_edges_2)
-dot = draw(model_2.edges())
-dot.view(directory='tmp/2/')
-
-# 2 - Request
-# For test reasons we choose the incomplete nodes manually
-# In this case agent 2 wants to send a request message
-nodes_to_investigate = ['H']
-if len(nodes_to_investigate) != 0:
-    msg = agent_2.build_request_msg(nodes_to_investigate, agent_2.undirected_edges)
-    # print('Request message ', msg)
-else:
-    print('No communication')
-    exit(0)
-
-# 3 - Read request and build response
-# The message is sent to agent 1 that reads it
-# The reading does not modify the interior structure of agent 1
-ret = agent_1.read_request(msg)
-
-
-response = []
-if ret:  # If we receive True, we repeat the learning
-
-    # Partial learning as combination of new and agent: in particular we choose to not add the new nodes directly
-    # to agent 1 structure, but treat them as a complete new learning
-    new_edges = get_new_edges(msg['nodes'], agent_1.nodes)  # build edges list as a combination
-    new_nodes = list(set(msg['nodes'] + agent_1.nodes))
-    new_non_doable = list(set(msg['non_doable'] + agent_1.non_doable))
-    if msg['data'] is not None:
-        new_data = concatenate_data(agent_1.obs_data, msg['data'])
+    # 2 - Request
+    # For test reasons we choose the incomplete nodes manually
+    # In this case agent 2 wants to send a request message
+    if len(nodes_to_investigate) != 0:
+        # Nodes in the message are the ones indicated from the user (still manually) and the ones
+        # from undirected edges discovered by the local learning algorithm
+        msg = agent_2.build_request_msg(nodes_to_investigate, agent_2.undirected_edges)
+        print('Request message ', msg)
     else:
-        new_data = agent_1.obs_data
+        print('No communication, ending.')
+        exit(0)
 
-    # Learn about new edges
-    model, undirected_edges = agent_1.learning(nodes=new_nodes, non_doable=new_non_doable, parameters=parameters, mod='online', edges=new_edges, bn=None, obs_data=new_data)
+    # 3 - Read request and build response
+    # The message is sent to agent 1 that reads it
+    # The reading does not modify the interior structure of agent 1
+    ret = agent_1.read_request(msg)
 
-    # The response contains the learnt edges
-    response = agent_1.build_response_msg(model.edges())
-else:  # If we receive False, we check edges already known by agent 1
-    response = get_response_edges(agent_1.edges, nodes_to_investigate)
-print('Response: ', response)
+    response = []
+    if ret:  # If we receive True, we repeat the learning
 
-# Send response to agent 2
+        # Partial learning as combination of new and agent: in particular we choose to not add the new nodes directly
+        # to agent 1 structure, but treat them as a complete new learning
+        new_edges = get_new_edges(msg['nodes'], agent_1.nodes)  # build edges list as a combination
+        new_nodes = list(set(msg['nodes'] + agent_1.nodes))
+        new_non_doable = list(set(msg['non_doable'] + agent_1.non_doable))
+        if msg['data'] is not None:
+            new_data = concatenate_data(agent_1.obs_data, msg['data'])
+        else:
+            new_data = agent_1.obs_data
 
-# 4 - Integration
-# Read received response and update structure
-agent_2.read_response(response)
+        # Learn about new edges
+        model, undirected_edges = agent_1.learning(nodes=new_nodes, non_doable=new_non_doable, parameters=parameters,
+                                                   mod='online', edges=new_edges, bn=None, obs_data=new_data)
 
-end = time.time()
-print('Time elapsed: ', (end-start), 's')
+        # The response contains the learnt edges
+        response = agent_1.build_response_msg(model.edges())
+    else:  # If we receive False, we check edges already known by agent 1
+        response = get_response_edges(agent_1.edges, nodes_to_investigate)
+    print('Response: ', response)
 
-dot = draw(agent_2.edges)
-dot.view(directory='tmp/3/')
+    # Send response to agent 2
+
+    # 4 - Integration
+    # Read received response and update structure
+    agent_2.read_response(response)
+
+    end = time.time()
+    print('Time elapsed: ', (end - start), 's')
+
+    dot = draw(agent_2.edges)
+    dot.view(directory='tmp/3/')
 
 
+if __name__ == '__main__':
+    # Choose how to divide the network
+    network_1 = networks.get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'C', 'S'], False)
+    network_2 = networks.get_network_from_nodes(['CO', 'CO2', 'A', 'W', 'B', 'T', 'O'], False)
 
+    # Example used to test simulated online intervention (call to icasa.simulate())
+    # The results shows the correct functioning of the algorithm
+    # network_1 = networks.get_network_from_nodes(['Pr', 'L', 'Pow'], False)
+    # network_2 = networks.get_network_from_nodes(['W', 'H', 'T'], False)
+
+    # Initialize agents
+    agent_1 = Agent(nodes=network_1['nodes'], non_doable=network_1['non_doable'], edges=network_1['edges'],
+                    obs_data=network_1['dataset'])
+    agent_2 = Agent(nodes=network_2['nodes'], non_doable=network_2['non_doable'], edges=network_2['edges'],
+                    obs_data=network_2['dataset'])
+
+    # List the nodes to send in the message from agent 2 to agent 1
+    nodes_to_investigate = ['T']
+
+    # Run the entire algorithm
+    run(agent_1, agent_2, nodes_to_investigate)
 
 
 

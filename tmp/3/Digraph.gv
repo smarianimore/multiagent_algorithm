@@ -6,10 +6,7 @@ digraph {
 	B -> W
 	O -> T
 	W -> T
-	S -> H
-	S -> O
-	H -> Pow
-	T -> C
-	T -> H
-	T -> S
+	C -> T
+	S -> T
+	H -> T
 }
