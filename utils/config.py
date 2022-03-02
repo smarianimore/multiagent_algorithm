@@ -1,14 +1,14 @@
-# Network parameters
+# PARAMETERS
 parameters = {
     'max_cond_vars': 4,
-    'do_size': 5,
+    'do_size': 10,
     'do_conf': 0.9,
-    'ci_conf': 0.1
+    'ci_conf': 0.2
 }
 
 resp_time = 0
 
-# ONLINE
+# DEVICES
 read_kind = {"T": 'device',
              "S": 'device',
              "W": 'device',
@@ -53,5 +53,6 @@ read_devices_short = {
     "T": "Thermometer-829cc07927"
 }
 
+# SOCKET
 HOST = "127.0.0.1"
 PORT = 7777

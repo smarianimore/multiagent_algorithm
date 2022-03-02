@@ -35,18 +35,3 @@ def get_network_from_nodes(nodes, test):
     return network
 
 
-nodes_a = ['Pr', 'L', 'Pow', 'H', 'C', 'S']
-network_a = {
-    "nodes": nodes_a,
-    "edges": all_edges if test else [("Pr", "L"), ("Pr", "S"), ("L", "Pow"), ("S", "H"), ("H", "Pow"), ("S", "C"), ("C", "Pow")],
-    "non_doable": ['Pr', 'Pow'],
-    "dataset": dataset if test else dataset.drop(columns=[x for x in dataset.columns if x not in nodes_a])
-}
-nodes_b = ['CO', 'CO2', 'A', 'W', 'B', 'T', 'O']
-network_b = {
-    "nodes": nodes_b,
-    "edges": all_edges if test else [("CO", "A"), ("CO2", "A"), ("A", "W"), ("B", "W"), ("O", "T"), ("W", "T")],
-    "non_doable": ['CO', 'CO2', 'T'],
-    "dataset": dataset if test else dataset.drop(columns=[x for x in dataset.columns if x not in nodes_b])
-}
-

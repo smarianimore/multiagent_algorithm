@@ -1,6 +1,7 @@
 # This file contains a communication example between two agents
 # In particular, agent 1 and agent 2, where agent 2 sends a request to agent 1
-# Note that the code works also with empty requests
+# The request contains nodes that the agent 2 finds as incomplete or nodes from undirected edges
+# If there are not such nodes, no message will be sent
 
 from agent import Agent
 import networks
@@ -10,7 +11,7 @@ import pandas as pd
 from utils.drawing import draw
 
 
-# Select only the results in which there are nodes required
+# Select only the edges in which there are nodes required
 def get_response_edges(predicted_edges, request_nodes):
     if predicted_edges is None or request_nodes is None:
         return 'None object in building edges for response'
@@ -44,6 +45,7 @@ def get_new_edges(nodes_to_investigate, nodes):
         return list(set(new_edges))
 
 
+# Retrieve nodes from edges list
 def nodes_from_edges(edges):
     nodes = []
     for edge in edges:
@@ -70,11 +72,11 @@ def concatenate_data(old_data, new_data, override=True):
     return pd.concat([old_data, new_data], axis=1)
 
 
+# Double-agent Learning
 def run(agent_1, agent_2, nodes_to_investigate):
     start = time.time()
 
-    # ALGORITHM
-    # 1 - Offline Local learning
+    # 1 - Offline Local learning (Agent 1 and Agent 2)
     model_1, undirected_edges_1 = agent_1.learning(nodes=agent_1.nodes, non_doable=agent_1.non_doable,
                                                    parameters=parameters, mod='offline', bn=agent_1.bn,
                                                    obs_data=agent_1.obs_data)
@@ -88,10 +90,8 @@ def run(agent_1, agent_2, nodes_to_investigate):
     dot = draw(model_2.edges())
     dot.view(directory='tmp/2/')
 
-    # 2 - Request
-    # For test reasons we choose the incomplete nodes manually
-    # In this case agent 2 wants to send a request message
-    if len(nodes_to_investigate) != 0:
+    # 2 - Request (Agent 2)
+    if len(nodes_to_investigate) != 0 or len(agent_2.undirected_edges) != 0:
         # Nodes in the message are the ones indicated from the user (still manually) and the ones
         # from undirected edges discovered by the local learning algorithm
         msg = agent_2.build_request_msg(nodes_to_investigate, agent_2.undirected_edges)
@@ -100,17 +100,14 @@ def run(agent_1, agent_2, nodes_to_investigate):
         print('No communication, ending.')
         exit(0)
 
-    # 3 - Read request and build response
-    # The message is sent to agent 1 that reads it
-    # The reading does not modify the interior structure of agent 1
+    # 3 - Read request and build response (Agent 1)
+    # The message is sent to agent 1 that reads it, without add any new nodes to agent 1 structure
     ret = agent_1.read_request(msg)
 
     response = []
-    if ret:  # If we receive True, we repeat the learning
-
-        # Partial learning as combination of new and agent: in particular we choose to not add the new nodes directly
-        # to agent 1 structure, but treat them as a complete new learning
-        new_edges = get_new_edges(msg['nodes'], agent_1.nodes)  # build edges list as a combination
+    if ret:  # If we receive True, we do a partial learning investigating new nodes
+        # Partial learning as combination of new and agent knowledge (no modification of agent 1 network)
+        new_edges = get_new_edges(msg['nodes'], agent_1.nodes)
         new_nodes = list(set(msg['nodes'] + agent_1.nodes))
         new_non_doable = list(set(msg['non_doable'] + agent_1.non_doable))
         if msg['data'] is not None:
@@ -130,7 +127,7 @@ def run(agent_1, agent_2, nodes_to_investigate):
 
     # Send response to agent 2
 
-    # 4 - Integration
+    # 4 - Integration (Agent 2)
     # Read received response and update structure
     agent_2.read_response(response)
 
@@ -158,6 +155,8 @@ if __name__ == '__main__':
                     obs_data=network_2['dataset'])
 
     # List the nodes to send in the message from agent 2 to agent 1
+    # So far, this array is managed manually, but the idea is to build an automatic method to recognize the nodes to
+    # investigate from outliers values
     nodes_to_investigate = ['T']
 
     # Run the entire algorithm

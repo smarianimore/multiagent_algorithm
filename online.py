@@ -142,50 +142,50 @@ class icasa:
         return df
 
     # The function simulates the values without making a real intervention
-    def simulate(self, evidence, do_size=2):
-
-        evidence = evidence_to_numeric(evidence)
-
-        node = str(tuple(evidence.items())[0][0])
-        value = tuple(evidence.items())[0][1]
-
-        df = pd.DataFrame(columns=['Pr', 'L', 'T', 'W', 'H', 'Pow']).astype(int)
-
-        sample = {}
-        for i in range(do_size):
-
-            # Simulate past values
-            if i == 0:
-                for n in df.columns:
-                    if n == 'Pr':
-                        sample['Pr'] = 0
-                    elif n == 'L':
-                        sample['L'] = 0
-                    elif n == 'Pow':
-                        sample['Pow'] = 500
-                    elif n == 'H':
-                        sample['H'] = 600
-                    elif n == 'W':
-                        sample['W'] = 0
-                    elif n == 'T':
-                        sample['T'] = 293.15
-
-                # Intervention
-                sample[node] = value
-
-            # Change values based on intervention
-            if node == 'L':
-                sample['Pow'] = sample['Pow'] * 2 if sample['L'] == 1 else sample['Pow'] // 2
-            elif node == 'H':
-                sample['Pow'] = sample['Pow'] * 2 if sample['H'] > 500 else sample['Pow'] // 2
-                sample['T'] = sample['T'] * 2 if sample['H'] > 500 else sample['T'] // 2
-            elif node == 'W':
-                sample['T'] = sample['T'] * 2 if sample['W'] == 0 else sample['T'] // 2
-
-            # Add sample to dataset
-            df = df.append(pd.Series(sample, name=i))
-
-        return conversion(df)
+    # def simulate(self, evidence, do_size=2):
+    #
+    #     evidence = evidence_to_numeric(evidence)
+    #
+    #     node = str(tuple(evidence.items())[0][0])
+    #     value = tuple(evidence.items())[0][1]
+    #
+    #     df = pd.DataFrame(columns=['Pr', 'L', 'T', 'W', 'H', 'Pow']).astype(int)
+    #
+    #     sample = {}
+    #     for i in range(do_size):
+    #
+    #         # Simulate past values
+    #         if i == 0:
+    #             for n in df.columns:
+    #                 if n == 'Pr':
+    #                     sample['Pr'] = 0
+    #                 elif n == 'L':
+    #                     sample['L'] = 0
+    #                 elif n == 'Pow':
+    #                     sample['Pow'] = 500
+    #                 elif n == 'H':
+    #                     sample['H'] = 600
+    #                 elif n == 'W':
+    #                     sample['W'] = 0
+    #                 elif n == 'T':
+    #                     sample['T'] = 293.15
+    #
+    #             # Intervention
+    #             sample[node] = value
+    #
+    #         # Change values based on intervention
+    #         if node == 'L':
+    #             sample['Pow'] = sample['Pow'] * 2 if sample['L'] == 1 else sample['Pow'] // 2
+    #         elif node == 'H':
+    #             sample['Pow'] = sample['Pow'] * 2 if sample['H'] > 500 else sample['Pow'] // 2
+    #             sample['T'] = sample['T'] * 2 if sample['H'] > 500 else sample['T'] // 2
+    #         elif node == 'W':
+    #             sample['T'] = sample['T'] * 2 if sample['W'] == 0 else sample['T'] // 2
+    #
+    #         # Add sample to dataset
+    #         df = df.append(pd.Series(sample, name=i))
+    #
+    #     return conversion(df)
 
 
 if __name__ == '__main__':
@@ -211,7 +211,7 @@ if __name__ == '__main__':
     # print(df)
 
     # TEST intervention
-    evidence = {'H': 0}
+    evidence = {'W': 1}
 
     # print(home.do(evidence=evidence, do_size=5,  resp_time=1))
     home.intervention(evidence)
