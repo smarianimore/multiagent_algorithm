@@ -1,15 +1,20 @@
-import pandas as pd
-import json
-from requests import get, put
-from utils.conversion import conversion
-from time import sleep
-from utils.conversion import evidence_to_numeric
 from utils.config import read_kind, read_devices, read_devices_short, HOST, PORT, resp_time
+from utils.conversion import conversion
+from requests import get, put
+from time import sleep
+import pandas as pd
+import random
 import socket
+import json
+
+random.seed(12)
 
 
 class icasa:
     def __init__(self):
+        self.host = HOST
+        self.port = PORT
+
         self.root = f'http://localhost:9000'
 
         self.get_devices_url = f'{self.root}/icasa/devices/devices'
@@ -23,14 +28,17 @@ class icasa:
         self.speed_url = f'{self.root}/icasa/clocks/clock/default'
         self.restart_url = f'{self.root}/icasaRestart'
 
-        self.data = None
-
-        self.read_kind = read_kind
+        self.read_kind =read_kind
         self.read_devices = read_devices
         self.read_devices_short = read_devices_short
 
-        self.host = HOST
-        self.port = PORT
+        columns = [f'{k}' for k, v in self.read_devices_short.items()]
+        columns.append('Pow')
+        self.data = pd.DataFrame(columns={node: [] for node in columns}).astype(int)
+
+    # Store sample in dataset
+    def store(self):
+        self.data.to_csv('dataset_online_sampling.csv', index=False, index_label=False, mode='a', header=False)
 
     # GET a new sample
     def sample(self):
@@ -59,35 +67,31 @@ class icasa:
         return n_data
 
     # The function actualizes the device values with a PUT request (works only if PUTs work)
-    # def intervention(self, evidence, resp_time=0):
-    #     for kind, (name, property), value in evidence:
-    #         if kind == 'device':
-    #             resp = put(self.put_device_url + f'/{name}',
-    #                                 data=json.dumps({'id': name, property: value}))
-    #         elif kind == 'zone':
-    #             resp = put(self.put_zone_url + f'/{name}',
-    #                                 data=json.dumps({property: value}))
-    #         elif kind == 'person':
-    #             resp = put(self.put_device_url + f'/{name}',
-    #                        data=json.dumps({'id': name, property: value}))
-    #         else:
-    #             assert False, 'not recognize option: kind'
-    #
-    #         if resp.status_code != 200:
-    #             print("pushing data fail!", "Error code: ", resp.status_code)
-    #
-    #     print('waiting for response...', end='')
-    #     sleep(resp_time) if resp_time > 0 else None
-    #     print('[OK]')
-    #
-    #     return self.sample()
+    def intervention_by_API(self, evidence):
+        for kind, (name, property), value in evidence:
+            if kind == 'device':
+                resp = put(self.put_device_url + f'/{name}' + f'/{property}',
+                                    data=json.dumps(value))
+            elif kind == 'zone':
+                resp = put(self.put_zone_url + f'/{name}',
+                                    data=json.dumps({property: value}))
+            elif kind == 'person':
+                resp = put(self.put_device_url + f'/{name}',
+                           data=json.dumps({'id': name, property: value}))
+            else:
+                assert False, 'not recognize option: kind'
 
-    # def format_evidence(self, evidence):
-    #     return [(self.read_kind[name], (self.read_devices_short[name],
-    #               self.read_devices[self.read_devices_short[name]]),
-    #               value) for name, value in evidence.items()]
+            if resp.status_code != 200:
+                print("pushing data fail!", "Error code: ", resp.status_code)
 
-    def intervention(self, evidence):
+        print('Intervention [OK]')
+
+    def format_evidence(self, evidence):
+        return [(self.read_kind[name], (self.read_devices_short[name],
+                  self.read_devices[self.read_devices_short[name]]),
+                  value) for name, value in evidence.items()]
+
+    def intervention_by_socket(self, evidence):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
             sock.connect((self.host, self.port))
@@ -107,17 +111,18 @@ class icasa:
             evidence = {}
 
         # Format evidence: necessary only with intervention via API
-        # evidence = self.format_evidence(evidence_to_numeric(evidence))
+        formatted = self.format_evidence(evidence)
 
-        column = [f'{k}' for k, v in self.read_devices_short.items()]
+        columns = [f'{k}' for k, v in self.read_devices_short.items()]
         # Append Pow column
-        column.append('Pow')
+        columns.append('Pow')
 
         # Initialize dataset
-        df = pd.DataFrame(columns={node: [] for node in column}).astype(int)
+        df = pd.DataFrame(columns={node: [] for node in columns}).astype(int)
 
-        # Make intervention
-        self.intervention(evidence)
+        # Make intervention using socket or API (pay attention on format evidence)
+        # self.intervention_by_socket(evidence)
+        self.intervention_by_API(formatted)
 
         # Collect do_size samples
         for i in range(do_size):
@@ -132,6 +137,8 @@ class icasa:
                 new_sample['Pow'] = new_sample['H'] * 1000 if new_sample['H'].item() > 500 else 0
             elif node == 'C':
                 new_sample['Pow'] = new_sample['C'] * 1000 if new_sample['C'].item() > 500 else 0
+            else:
+                new_sample['Pow'] = 0
 
             df = pd.concat([df, conversion(new_sample)], axis=0)
             sleep(resp_time) if resp_time > 0 else None
@@ -139,7 +146,17 @@ class icasa:
 
         df.reset_index(drop=True, inplace=True)
 
+        # Store data
+        self.data = df
+        self.store()
+
         return df
+
+    def random_devices_initialization(self):
+        devices_to_initialize = ['T', 'O', 'H', 'C', 'W', 'B', 'S']
+
+        for device in devices_to_initialize:
+            self.intervention_by_API(['device', (device, self.read_devices_short[device]), random.randint(0, 1)])
 
     # The function simulates the values without making a real intervention
     # def simulate(self, evidence, do_size=2):
@@ -213,8 +230,9 @@ if __name__ == '__main__':
     # TEST intervention
     evidence = {'W': 1}
 
-    # print(home.do(evidence=evidence, do_size=5,  resp_time=1))
-    home.intervention(evidence)
-    print(home.sample())
+    home.do(evidence=evidence, do_size=0,  resp_time=0)
+    # home.intervention(evidence)
+    # print(home.sample())
+    print(home.data)
 
 

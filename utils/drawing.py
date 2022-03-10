@@ -11,7 +11,7 @@ def draw(edge, directed=True):
     return dot
 
 
-def difference(gt, pred):
+def difference(gt, pred, stat=False):
     f = Digraph(graph_attr={'rankdir': 'LR'})
     new_edges = [ed for ed in pred if ed not in gt]
     f.attr('edge', color='blue')
@@ -24,4 +24,8 @@ def difference(gt, pred):
     recovered_edges = [ed for ed in pred if ed in gt]
     f.attr('edge', color='green')
     f.edges(recovered_edges)
-    return f
+
+    if stat:
+        return f, new_edges, missed_edges, recovered_edges
+    else:
+        return f

@@ -132,10 +132,13 @@ def run(agent_1, agent_2, nodes_to_investigate):
     agent_2.read_response(response)
 
     end = time.time()
-    print('Time elapsed: ', (end - start), 's')
+    elapsed_time = (end - start)
+    print('Time elapsed: ', elapsed_time, 's')
 
     dot = draw(agent_2.edges)
     dot.view(directory='tmp/3/')
+
+    return model_1, model_2, response['edges'], elapsed_time
 
 
 if __name__ == '__main__':
@@ -160,7 +163,7 @@ if __name__ == '__main__':
     nodes_to_investigate = ['T']
 
     # Run the entire algorithm
-    run(agent_1, agent_2, nodes_to_investigate)
+    model_1, model_2, new_edges, elapsed_time = run(agent_1, agent_2, nodes_to_investigate)
 
 
 

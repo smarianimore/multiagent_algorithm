@@ -122,8 +122,9 @@ heater = {
       "positionX":541
    }
 
+# The PUT for the updating of a specific property of a device wants as body a single int number indicating 1 or 0
 # Execute put to update
-resp = put(f'{put_device}/Heater-1bd6fdc99a', data=json.dumps(heater))
+resp = put(f'{put_device}/Thermometer-829cc07927/thermometer.currentTemperature', data=json.dumps(1))
 print(resp.status_code)
 
 # Check if updated successfully

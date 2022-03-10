@@ -1,67 +1,62 @@
-from ocik import Asia, Room, Circuit, RoomBase, RoomMiddle1, RoomMiddle2, RoomComplete
-from ocik import CausalLeaner
-from graphviz import Digraph, Graph
-import pandas as pd
-import time
+from utils.drawing import draw, difference
+from networks import get_network_from_nodes
+from utils.config import parameters
+from agent import Agent
+from run import run
 import datetime
+import time
+
 
 import os
 os.environ["PATH"] += os.pathsep + 'C:\\Users\\pakyr\\.conda\\envs\\bayesianEnv\\Library\\bin\\graphviz'
 
 # Report path
-REPORT = 'tmp.txt'
+REPORT = 'test.txt'
 
 
-def draw(edge, directed=True):
-    dot = Digraph(graph_attr={'rankdir': 'LR'}) if directed else Graph()
-    dot.edges(edge)
-    return dot
+def double_agent_test(network_1, network_2, nodes_to_investigate):
+    agent_1 = Agent(nodes=network_1['nodes'], non_doable=network_1['non_doable'], edges=network_1['edges'],
+                    obs_data=network_1['dataset'])
+    agent_2 = Agent(nodes=network_2['nodes'], non_doable=network_2['non_doable'], edges=network_2['edges'],
+                    obs_data=network_2['dataset'])
+    model_1, model_2, new_edges, elapsed = run(agent_1, agent_2, nodes_to_investigate)
+
+    return model_1, model_2, new_edges, elapsed
 
 
-def difference(gt, pred):
-    f = Digraph(graph_attr={'rankdir': 'LR'})
-    new_edges = [ed for ed in pred if ed not in gt]
-    f.attr('edge', color='blue')
-    f.edges(new_edges)
+def single_agent_test(network, mod):
+    agent = Agent(nodes=network['nodes'], non_doable=network['non_doable'], edges=network['edges'],
+                    obs_data=network['dataset'])
 
-    missed_edges = [ed for ed in gt if ed not in pred]
-    f.attr('edge', color='red')
-    f.edges(missed_edges)
+    start = time.time()
+    model, undirected_edges = agent.learning(nodes=agent.nodes, non_doable=agent.non_doable,
+                                             parameters=parameters, mod=mod, bn=agent.bn,
+                                             obs_data=agent.obs_data)
+    end = time.time()
+    elapsed = (end - start)
 
-    recovered_edges = [ed for ed in pred if ed in gt]
-    f.attr('edge', color='green')
-    f.edges(recovered_edges)
-    return f, new_edges, missed_edges, recovered_edges
+    return model, elapsed
 
 
-def test(network, non_doable, obs_data, params):
-    room = network
-    bn = room.get_network()
-
-    obs_data_csv = pd.read_csv(f'ocik\\demo\\store\\test\\{obs_data}.csv')
-    estimator = CausalLeaner(bn.nodes(), non_dobale=non_doable, env=bn, obs_data=obs_data_csv)
-    model = estimator.learn(max_cond_vars=params['max_cond_vars'], do_conf=params['do_conf'], ci_conf=params['ci_conf'], do_size=params['do_size'])
-
-    return bn, model
-
-
-def print_results(bn, model, params, elapsed_time, output_name):
+def print_results_single_agent(network, model, elapsed_time, output_name):
     # Parameters
     write_on_report('\n\nParameters:')
-    for par in params:
-        write_on_report(f'\n{par} = {params[par]}')
+    for par in parameters:
+        write_on_report(f'\n{par} = {parameters[par]}')
 
     # Topology and computational time
-    results = f'\n\nTopology: {bn.G} \nNodes: {bn.nodes()} \nEdges: {bn.edges()} \nComputational time: {elapsed_time} s'
+    gt_nodes = network['nodes']
+    gt_edges = network['edges']
+    results = f"\n\nNodes: {gt_nodes}\tlen={len(gt_nodes)} \nEdges: {gt_edges}\tlen={len(gt_edges)} \nComputational time: {elapsed_time} s"
     print(results)
     write_on_report(results)
 
     # Saving results
-    dot, new_edges, missed_edges, recovered_edges = difference(bn.edges(), model.edges())
+    dot, new_edges, missed_edges, recovered_edges = difference(gt_edges, model.edges(), stat=True)
     dot.view(directory=f'tmp/test/{output_name}')
 
     # Edge statistics
-    n_edges = len(bn.edges())  # Ground-truth number of edges
+    n_edges = len(gt_edges)  # Ground-truth number of edges
     new_edges = len(new_edges)
     missed_edges = len(missed_edges)
     recovered_edges = len(recovered_edges)
@@ -80,54 +75,96 @@ def write_on_report(text, file=REPORT):
         f.write(text)
 
 
-if __name__ == "__main__":
+def single_agent_procedure():
+    # PROCEDURE FOR SINGLE AGENT TEST
     # In order to run the test you have to
     # 1. Configure the networks you want to test and include it in the tests array
-    # 2. Optional: add some notes for the report
-    # 3. Set the parameters for the learning algorithm
+    # 2. Choose the learning modality (online or offline)
+    # 3. Set the parameters for the learning algorithm from config file
+    # 4. Optional: add some notes for the report
 
     # Definitions of the networks
-    t1 = [RoomBase(), ['Pr', 'Pow', 'T'], 'network']
-    t2 = [RoomMiddle1(), ['Pr', 'Pow', 'T'], 'network']
-    t3 = [RoomMiddle2(), ['Pr', 'Pow', 'T'], 'network']
-    t4 = [RoomComplete(), ['Pr', 'Pow', 'T', 'CO', 'CO2'], 'network']
+    t1 = get_network_from_nodes(['T', 'H', 'C'], False)
+    t2 = get_network_from_nodes([], False)
+    t3 = get_network_from_nodes([], False)
+    t4 = get_network_from_nodes([], False)
 
     # Array containing the networks to be tested
-    tests = [t1, t2, t3, t4]
+    tests = [t1]
 
     # Initialization
     total_time = 0
     write_on_report(f'\n\n#### {datetime.datetime.now()}')
 
+    # Choose learning modality
+    n_agents = 1
+    mod = 'offline'
+    write_on_report(f'\nLearning modality:\t{mod}\t{n_agents} agent')
+
     # Leave some comments to clarify the possible meaning of a test
     # For example: "Incremental do_size" means that the test is made to verify do_size variable effects
-    notes = "search for the best recover rate"
+    notes = "forming test script"
     write_on_report(f'\nNotes:\t{notes}')
 
-    max_cond_vars = 4  # max number of variables to condition on (seems not to make any difference)
-    do_conf = 0.9  # confidence on do operation
-    ci_conf = 0.5  # confidence level for chi-square test on non-doable nodes
-    do_size = 10  # number of do operation for each evidence
-    params = {'max_cond_vars': max_cond_vars,
-              'do_conf': do_conf,
-              'ci_conf': ci_conf,
-              'do_size': do_size}
-
     # Testing process
-    for i, t in enumerate(tests):
-        instance = t[0]
-        non_doable = t[1]
-        obs_data = t[2]
+    for i, net in enumerate(tests):
+        network = net
         output_name = 'network_' + str(i + 1)
 
-        start = time.time()
-        bn, model = test(instance, non_doable, obs_data, params)
-        end = time.time()
+        model, elapsed = single_agent_test(network, mod)
 
-        elapsed_time = round((end-start), 2)
+        elapsed_time = round(elapsed, 2)
         total_time += elapsed_time
         write_on_report(f'\n\n## Test {i + 1}')
-        print_results(bn, model, params, elapsed_time, output_name)
+        print_results_single_agent(network, model, elapsed_time, output_name)
 
     print('Elapsed total time: ', total_time, ' s')
     write_on_report(f'\n\nElapsed total time: {total_time} s')
+
+
+def double_agent_procedure():
+    network_1 = get_network_from_nodes(['T', 'H', 'C'], False)
+    network_2 = get_network_from_nodes([], False)
+    nodes_to_investigate = []
+
+    # Initialization
+    total_time = 0
+    write_on_report(f'\n\n#### {datetime.datetime.now()}')
+
+    # Choose learning modality
+    n_agents = 2
+    mod = 'mixed'
+    write_on_report(f'\nLearning modality:\t{mod}\t{n_agents} agent')
+
+    # Leave some comments to clarify the possible meaning of a test
+    # For example: "Incremental do_size" means that the test is made to verify do_size variable effects
+    notes = "forming test script"
+    write_on_report(f'\nNotes:\t{notes}')
+
+    model_1, model_2, new_edges, elapsed = double_agent_test(network_1, network_2, nodes_to_investigate)
+
+    # model_1 contiene la struttura dell'agente che ha ricevuto richiesta
+    # model_2 contiene la struttura dell'agente che ha fatto richiesta
+    # new_edges contiene gli edges scoperti da chi ha ricevuto richiesta
+    # (model_2.edges - new_edges) è la struttura dell'agente richiedente prima della richesta
+
+    # Con questo tipo di learning si può confrontare se effettivamente la comunicazione aiuta nell'apprendimento
+    # di alcune connessioni. Es: comunicando T, si riceve H->T, ma nella realtà esiste anche C->T. Questo è indice
+    # del fatto che, in questo caso, si è appreso la metà 1 edge su 2.
+    # In teoria ci si può riferire sempre alla ground-truth per analizzare i risultati.
+    # Indicare quante nuove connessioni sono state apprese:
+    # - rispetto a quelle che l'agente conosceva (new_edges)
+    # - rispetto a quante ne esistono realmente (new_edges|gt_edges)
+    # Esempio:
+    # network_1 = ['Pr', 'L', 'Pow', 'H', 'C', 'S']
+    # network_2 = ['CO', 'CO2', 'A', 'W', 'B', 'T', 'O']
+    # nodes_to_investigate = ['T']
+    # L'agente 2 sa che esistono O->T e W->T, ma non conosce H->T e C->T
+    # comunicando con l'agente 1 scopre H->T
+    # in questo caso l'algoritmo ha scoperto una nuova connessione rispetto a quelle che l'agente 2 conosceva,
+    # ma solamente 1/2 di quelle che avrebbe potuto scoprire, infatti manca C->T.
+
+
+if __name__ == "__main__":
+    single_agent_procedure()
+

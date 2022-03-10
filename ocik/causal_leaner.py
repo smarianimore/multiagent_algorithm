@@ -109,7 +109,7 @@ class CausalLeaner:
             G = nx.DiGraph(list(self.edges))
             graph = nx.DiGraph(list(self.edges))
 
-            if mod == 'offline':
+            if mod != 'online':
                 return 'Only allowed online mode with partial learning!'
 
         non_doable = set(self.non_doable)

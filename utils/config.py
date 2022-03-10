@@ -6,7 +6,7 @@ parameters = {
     'ci_conf': 0.2
 }
 
-resp_time = 0
+resp_time = 1
 
 # DEVICES
 read_kind = {"T": 'device',
@@ -19,9 +19,8 @@ read_kind = {"T": 'device',
              "O": 'device',
              "A": 'device',
              "Pr": 'device',
-             "Jessica": 'person',
-             "room": 'zone',
-             "outdoor": 'zone'
+             "CO": 'device',
+             "B": 'device'
              }
 
 read_devices = {"Thermometer-b1f74267ed": 'thermometer.currentTemperature',

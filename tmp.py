@@ -1,4 +1,3 @@
-from ocik.causal_leaner import CausalLeaner
 import networks
 from agent import Agent
 from utils.config import parameters
@@ -20,9 +19,9 @@ def learning(agent, mod):
 
 if __name__ == '__main__':
     complete = ['Pr', 'L', 'Pow', 'H', 'C', 'S', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']
-    partial = ['H', 'C', 'T']
+    partial = ['W', 'T', 'O']
 
-    network = networks.get_network_from_nodes(complete, False)
+    network = networks.get_network_from_nodes(partial, False)
 
     agent = Agent(nodes=network['nodes'], non_doable=network['non_doable'], edges=network['edges'],
                     obs_data=network['dataset'])
