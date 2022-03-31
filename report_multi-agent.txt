@@ -1,0 +1,66 @@
+#### 2022-03-22 18:30:31.488754
+timestamp: 1647970231.488754
+Multi-agent learning
+Notes:	
+
+Offline parameters:
+max_cond_vars = 4
+do_size = 500
+do_conf = 0.9
+ci_conf = 0.4
+
+Online parameters:
+max_cond_vars = 4
+do_size = 3
+do_conf = 0.6
+ci_conf = 0.1
+
+Agent 1 network
+Ground-truth 
+Nodes: ['Pow', 'S', 'Pr', 'C', 'L', 'H']	len=6 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('S', 'H'), ('S', 'C')]	len=7
+Predicted 
+Nodes: ['Pow', 'S', 'Pr', 'C', 'L', 'H']	len=6 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('S', 'H'), ('S', 'C')]	len=7
+Missed edges: []
+Computational time: 24.082740545272827 s
+New edges: 0 
+Missed edges: 0 
+Recovered edges: 7
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+Agent 2 network
+Ground-truth 
+Nodes: ['CO', 'B', 'T', 'CO2', 'A', 'W', 'O']	len=7 
+Edges: [('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T'), ('B', 'W'), ('O', 'W')]	len=6
+Predicted 
+Nodes: ['T', 'CO', 'B', 'CO2', 'A', 'W', 'O']	len=7 
+Edges: [('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T'), ('B', 'W'), ('O', 'W')]	len=6
+Missed edges: [('O', 'T')]
+Computational time: 21.07909893989563 s
+New edges: 1 
+Missed edges: 1 
+Recovered edges: 5
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+Undirected edges: [('T', 'O')]
+Nodes to investigate: ['T']
+Online predicted edges: [('T', 'S'), ('H', 'T'), ('C', 'T')]
+
+Agent 2 network after request
+Ground-truth 
+Nodes: ['CO', 'T', 'B', 'CO2', 'A', 'C', 'W', 'O', 'H']	len=9 
+Edges: [('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T'), ('T', 'S'), ('H', 'T'), ('C', 'T')]	len=9
+Predicted 
+Nodes: ['CO', 'B', 'T', 'S', 'CO2', 'A', 'W', 'C', 'O', 'H']	len=10 
+Edges: [('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T'), ('T', 'S'), ('H', 'T'), ('C', 'T')]	len=9
+Missed edges: []
+Computational time: 26.50506544113159 s
+New edges: 1 
+Missed edges: 0 
+Recovered edges: 8
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+

@@ -1,0 +1,3105 @@
+
+
+#### 2022-03-15 16:23:22.413756
+Learning modality:	offline	1 agent
+Notes:	Investigating recover rate
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('T', 'W')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T'), ('W', 'T')]
+Computational time: 2.25 s
+New edges: 2 
+Missed edges: 3 
+Recovered edges: 3
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 7.1 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'H'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('W', 'T')]	len=12
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 15.65 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'H'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 20.89 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 45.89 s
+
+#### 2022-03-15 16:25:45.594436
+Learning modality:	offline	1 agent
+Notes:	Investigating recover rate
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 400
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('T', 'W')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T'), ('W', 'T')]
+Computational time: 7.7 s
+New edges: 2 
+Missed edges: 3 
+Recovered edges: 3
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 400
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 29.08 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 400
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('W', 'T')]	len=11
+Missed edges: [('Pr', 'S'), ('L', 'Pow'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 59.58 s
+New edges: 3 
+Missed edges: 4 
+Recovered edges: 8
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 400
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 80.28 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 176.64 s
+
+#### 2022-03-15 16:29:30.651723
+Learning modality:	offline	1 agent
+Notes:	Investigating recover rate
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 800
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('W', 'T')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T')]
+Computational time: 15.36 s
+New edges: 1 
+Missed edges: 2 
+Recovered edges: 4
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 800
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 41.96 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 800
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('W', 'T')]	len=11
+Missed edges: [('Pr', 'S'), ('L', 'Pow'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 110.93 s
+New edges: 3 
+Missed edges: 4 
+Recovered edges: 8
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 800
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 147.88 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 316.13 s
+
+#### 2022-03-15 16:41:48.323390
+Learning modality:	offline	1 agent
+Notes:	Investigating recover rate
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('W', 'T')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T')]
+Computational time: 25.48 s
+New edges: 1 
+Missed edges: 2 
+Recovered edges: 4
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 66.97 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('W', 'T')]	len=11
+Missed edges: [('Pr', 'S'), ('L', 'Pow'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 173.29 s
+New edges: 3 
+Missed edges: 4 
+Recovered edges: 8
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 234.65 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 500.39 s
+
+#### 2022-03-15 16:52:55.314581
+Learning modality:	offline	1 agent
+Notes:	Investigating recover rate
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 1500
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('W', 'T')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T')]
+Computational time: 30.53 s
+New edges: 1 
+Missed edges: 2 
+Recovered edges: 4
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 1500
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 73.46 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 1500
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'H'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('W', 'T')]	len=12
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 184.49 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 1500
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'H'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 270.77 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 559.25 s
+
+#### 2022-03-15 17:04:52.857657
+Learning modality:	offline	1 agent
+Notes:	Investigating recover rate
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 1200
+do_conf = 0.8
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('W', 'T')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T')]
+Computational time: 21.61 s
+New edges: 1 
+Missed edges: 2 
+Recovered edges: 4
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 1200
+do_conf = 0.8
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 56.05 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 1200
+do_conf = 0.8
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('W', 'T')]	len=12
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 149.45 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 1200
+do_conf = 0.8
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 208.56 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 435.66999999999996 s
+
+#### 2022-03-15 17:14:15.252351
+Learning modality:	offline	1 agent
+Notes:	Investigating recover rate
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 1200
+do_conf = 0.8
+ci_conf = 0.4
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('Pow', 'W'), ('H', 'T'), ('W', 'T')]	len=6
+Missed edges: [('H', 'Pow'), ('O', 'T')]
+Computational time: 21.47 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 4
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 1200
+do_conf = 0.8
+ci_conf = 0.4
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('W', 'T'), ('O', 'W')]	len=10
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 76.58 s
+New edges: 3 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 1200
+do_conf = 0.8
+ci_conf = 0.4
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W', 'O']	len=10 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('W', 'T'), ('O', 'W')]	len=13
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 162.11 s
+New edges: 4 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 1200
+do_conf = 0.8
+ci_conf = 0.4
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W', 'O']	len=13 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('CO2', 'L'), ('W', 'T'), ('O', 'W')]	len=17
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 217.5 s
+New edges: 5 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 477.66 s
+
+#### 2022-03-15 17:25:29.510647
+Learning modality:	offline	1 agent
+Notes:	
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.8
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('T', 'W')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T'), ('W', 'T')]
+Computational time: 2.19 s
+New edges: 2 
+Missed edges: 3 
+Recovered edges: 3
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.8
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 6.34 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.8
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('W', 'T')]	len=12
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 15.69 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.8
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 21.97 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 46.19 s
+
+#### 2022-03-15 17:26:27.743482
+Learning modality:	offline	1 agent
+Notes:	
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.95
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('W', 'T')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T')]
+Computational time: 2.45 s
+New edges: 1 
+Missed edges: 2 
+Recovered edges: 4
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.95
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 7.27 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.95
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'H'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('W', 'T')]	len=12
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 17.32 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.95
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'H'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 24.89 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 51.93 s
+
+#### 2022-03-15 17:29:42.155197
+Learning modality:	offline	1 agent
+Notes:	
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.8
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('Pow', 'W'), ('H', 'T'), ('T', 'W'), ('O', 'W'), ('O', 'H')]	len=8
+Missed edges: [('H', 'Pow'), ('O', 'T'), ('W', 'T')]
+Computational time: 6.7 s
+New edges: 5 
+Missed edges: 3 
+Recovered edges: 3
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.8
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('T', 'B'), ('W', 'T'), ('O', 'W'), ('O', 'H')]	len=12
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 17.68 s
+New edges: 5 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.8
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'C', 'B', 'H', 'T', 'W', 'O']	len=10 
+Edges: [('Pr', 'S'), ('Pr', 'L'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('W', 'T'), ('O', 'W')]	len=14
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 31.67 s
+New edges: 4 
+Missed edges: 2 
+Recovered edges: 10
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.8
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'C', 'B', 'H', 'T', 'CO', 'A', 'CO2', 'W', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'C'), ('S', 'H'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('CO', 'H'), ('CO', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'L'), ('CO2', 'A'), ('W', 'T'), ('O', 'W')]	len=20
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 43.58 s
+New edges: 7 
+Missed edges: 2 
+Recovered edges: 13
+Recover rate: 86.66666666666667 %
+Missed rate: 13.333333333333334 %
+
+Elapsed total time: 99.63 s
+
+#### 2022-03-15 17:31:34.040771
+Learning modality:	offline	1 agent
+Notes:	
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.95
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'H', 'Pow', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('Pr', 'H'), ('L', 'Pow'), ('H', 'T'), ('Pow', 'W'), ('Pow', 'H'), ('T', 'W'), ('O', 'H'), ('O', 'W')]	len=9
+Missed edges: [('H', 'Pow'), ('O', 'T'), ('W', 'T')]
+Computational time: 11.08 s
+New edges: 6 
+Missed edges: 3 
+Recovered edges: 3
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.95
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'H', 'B', 'Pow', 'C', 'W', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('Pr', 'H'), ('Pr', 'B'), ('L', 'Pow'), ('H', 'T'), ('H', 'Pow'), ('B', 'W'), ('Pow', 'B'), ('Pow', 'C'), ('Pow', 'W'), ('C', 'T'), ('W', 'T'), ('T', 'B'), ('O', 'H'), ('O', 'W')]	len=15
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 33.92 s
+New edges: 8 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.95
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'H', 'B', 'Pow', 'C', 'W', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('Pr', 'H'), ('Pr', 'B'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'T'), ('H', 'Pow'), ('B', 'W'), ('Pow', 'B'), ('Pow', 'C'), ('Pow', 'W'), ('C', 'T'), ('W', 'T'), ('T', 'B'), ('T', 'S'), ('O', 'W')]	len=18
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 55.0 s
+New edges: 8 
+Missed edges: 2 
+Recovered edges: 10
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.95
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'B', 'Pow', 'C', 'H', 'T', 'CO', 'A', 'CO2', 'W', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('Pr', 'B'), ('L', 'Pow'), ('S', 'C'), ('S', 'H'), ('B', 'W'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('H', 'Pow'), ('H', 'T'), ('T', 'B'), ('T', 'S'), ('CO', 'A'), ('CO', 'H'), ('CO', 'L'), ('CO', 'S'), ('A', 'W'), ('CO2', 'L'), ('CO2', 'S'), ('CO2', 'A'), ('W', 'T'), ('O', 'W')]	len=24
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 146.83 s
+New edges: 11 
+Missed edges: 2 
+Recovered edges: 13
+Recover rate: 86.66666666666667 %
+Missed rate: 13.333333333333334 %
+
+Elapsed total time: 246.83 s
+
+
+
+#### 2022-03-15 17:49:40.625235
+Learning modality:	offline	1 agent
+Notes:	
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 1000
+do_conf = 0.9
+ci_conf = 0.4
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'W', 'H', 'T']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'W'), ('W', 'T'), ('H', 'T'), ('H', 'Pow')]	len=6
+Missed edges: [('O', 'T')]
+Computational time: 17.84 s
+New edges: 1 
+Missed edges: 1 
+Recovered edges: 5
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 1000
+do_conf = 0.9
+ci_conf = 0.4
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('W', 'T'), ('O', 'W')]	len=10
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 83.69 s
+New edges: 3 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 1000
+do_conf = 0.9
+ci_conf = 0.4
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('W', 'T'), ('O', 'W')]	len=12
+Missed edges: [('Pr', 'S'), ('L', 'Pow'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 144.66 s
+New edges: 4 
+Missed edges: 4 
+Recovered edges: 8
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 1000
+do_conf = 0.9
+ci_conf = 0.4
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W', 'O']	len=13 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('CO2', 'L'), ('W', 'T'), ('O', 'W')]	len=17
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 228.52 s
+New edges: 5 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 474.71000000000004 s
+
+#### 2022-03-15 17:58:45.427860
+Learning modality:	offline	1 agent
+Notes:	
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 1000
+do_conf = 0.9
+ci_conf = 0.6
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'W', 'H', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'W'), ('W', 'T'), ('H', 'T'), ('H', 'Pow'), ('O', 'W')]	len=7
+Missed edges: [('O', 'T')]
+Computational time: 24.88 s
+New edges: 2 
+Missed edges: 1 
+Recovered edges: 5
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 1000
+do_conf = 0.9
+ci_conf = 0.6
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('W', 'T'), ('O', 'W')]	len=10
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 56.62 s
+New edges: 3 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 1000
+do_conf = 0.9
+ci_conf = 0.6
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'C', 'B', 'H', 'T', 'W', 'O']	len=10 
+Edges: [('Pr', 'S'), ('Pr', 'L'), ('S', 'H'), ('S', 'C'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('W', 'T'), ('O', 'W')]	len=13
+Missed edges: [('L', 'Pow'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 148.86 s
+New edges: 4 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 1000
+do_conf = 0.9
+ci_conf = 0.6
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W', 'O']	len=13 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('CO', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'L'), ('CO2', 'A'), ('W', 'T'), ('O', 'W')]	len=18
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 210.1 s
+New edges: 6 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 440.46000000000004 s
+
+#### 2022-03-15 18:06:58.140050
+Learning modality:	offline	1 agent
+Notes:	
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 1000
+do_conf = 0.9
+ci_conf = 0.8
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'W', 'H', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'W'), ('W', 'T'), ('H', 'T'), ('H', 'Pow'), ('O', 'H'), ('O', 'W')]	len=8
+Missed edges: [('O', 'T')]
+Computational time: 22.57 s
+New edges: 3 
+Missed edges: 1 
+Recovered edges: 5
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 1000
+do_conf = 0.9
+ci_conf = 0.8
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('T', 'B'), ('W', 'T'), ('O', 'H'), ('O', 'W')]	len=12
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 63.97 s
+New edges: 5 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 1000
+do_conf = 0.9
+ci_conf = 0.8
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'C', 'B', 'H', 'T', 'W', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('S', 'H'), ('S', 'C'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('W', 'T'), ('O', 'W')]	len=13
+Missed edges: [('L', 'Pow'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 166.56 s
+New edges: 4 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 1000
+do_conf = 0.9
+ci_conf = 0.8
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'C', 'B', 'H', 'T', 'CO', 'A', 'CO2', 'W', 'O']	len=13 
+Edges: [('Pr', 'S'), ('Pr', 'L'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('CO', 'H'), ('CO', 'A'), ('CO', 'S'), ('A', 'W'), ('CO2', 'A'), ('CO2', 'L'), ('W', 'T'), ('O', 'W')]	len=20
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 229.84 s
+New edges: 7 
+Missed edges: 2 
+Recovered edges: 13
+Recover rate: 86.66666666666667 %
+Missed rate: 13.333333333333334 %
+
+Elapsed total time: 482.94 s
+
+#### 2022-03-15 18:24:08.080220
+Learning modality:	offline	1 agent
+Notes:	
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 1500
+do_conf = 0.9
+ci_conf = 0.8
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'W', 'H', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'W'), ('W', 'T'), ('H', 'T'), ('H', 'Pow'), ('O', 'H'), ('O', 'W')]	len=8
+Missed edges: [('O', 'T')]
+Computational time: 33.02 s
+New edges: 3 
+Missed edges: 1 
+Recovered edges: 5
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 1500
+do_conf = 0.9
+ci_conf = 0.8
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('T', 'B'), ('W', 'T'), ('O', 'H'), ('O', 'W')]	len=12
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 78.01 s
+New edges: 5 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 1500
+do_conf = 0.9
+ci_conf = 0.8
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'C', 'B', 'H', 'T', 'W', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('W', 'T'), ('O', 'W')]	len=14
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 209.91 s
+New edges: 4 
+Missed edges: 2 
+Recovered edges: 10
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 1500
+do_conf = 0.9
+ci_conf = 0.8
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'B', 'H', 'C', 'T', 'CO', 'A', 'CO2', 'W', 'O']	len=13 
+Edges: [('Pr', 'S'), ('Pr', 'L'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('Pow', 'B'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('C', 'Pow'), ('C', 'T'), ('T', 'S'), ('CO', 'H'), ('CO', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'L'), ('CO2', 'A'), ('W', 'T'), ('O', 'W')]	len=20
+Missed edges: [('O', 'T')]
+Computational time: 327.68 s
+New edges: 6 
+Missed edges: 1 
+Recovered edges: 14
+Recover rate: 93.33333333333333 %
+Missed rate: 6.666666666666667 %
+
+Elapsed total time: 648.62 s
+
+#### 2022-03-15 18:37:34.813209
+Learning modality:	offline	1 agent
+Notes:	
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 1800
+do_conf = 0.9
+ci_conf = 0.8
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'W', 'H', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'W'), ('W', 'T'), ('H', 'T'), ('H', 'Pow'), ('O', 'H'), ('O', 'W')]	len=8
+Missed edges: [('O', 'T')]
+Computational time: 37.13 s
+New edges: 3 
+Missed edges: 1 
+Recovered edges: 5
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 1800
+do_conf = 0.9
+ci_conf = 0.8
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('T', 'B'), ('W', 'T'), ('O', 'H'), ('O', 'W')]	len=12
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 111.43 s
+New edges: 5 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 1800
+do_conf = 0.9
+ci_conf = 0.8
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'B', 'H', 'C', 'T', 'W', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('Pow', 'B'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('C', 'Pow'), ('C', 'T'), ('T', 'S'), ('W', 'T'), ('O', 'W')]	len=14
+Missed edges: [('O', 'T')]
+Computational time: 284.51 s
+New edges: 3 
+Missed edges: 1 
+Recovered edges: 11
+Recover rate: 91.66666666666666 %
+Missed rate: 8.333333333333332 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 1800
+do_conf = 0.9
+ci_conf = 0.8
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'B', 'H', 'C', 'T', 'CO', 'A', 'CO2', 'W', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('Pow', 'B'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('C', 'T'), ('C', 'Pow'), ('T', 'S'), ('CO', 'A'), ('CO', 'H'), ('CO', 'S'), ('A', 'W'), ('CO2', 'L'), ('CO2', 'A'), ('W', 'T'), ('O', 'W')]	len=20
+Missed edges: [('O', 'T')]
+Computational time: 370.2 s
+New edges: 6 
+Missed edges: 1 
+Recovered edges: 14
+Recover rate: 93.33333333333333 %
+Missed rate: 6.666666666666667 %
+
+Elapsed total time: 803.27 s
+
+#### 2022-03-16 09:33:46.533903
+Learning modality:	offline	1 agent
+Notes:	
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 1800
+do_conf = 0.95
+ci_conf = 0.9
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'H', 'Pow', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('Pr', 'H'), ('L', 'Pow'), ('H', 'T'), ('H', 'Pow'), ('Pow', 'W'), ('W', 'T'), ('O', 'H'), ('O', 'W')]	len=9
+Missed edges: [('O', 'T')]
+Computational time: 44.6 s
+New edges: 4 
+Missed edges: 1 
+Recovered edges: 5
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 1800
+do_conf = 0.95
+ci_conf = 0.9
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'H', 'B', 'Pow', 'W', 'T', 'C', 'O']	len=9 
+Edges: [('Pr', 'B'), ('Pr', 'L'), ('Pr', 'H'), ('L', 'Pow'), ('H', 'T'), ('H', 'Pow'), ('B', 'W'), ('Pow', 'B'), ('Pow', 'W'), ('W', 'T'), ('T', 'B'), ('C', 'Pow'), ('C', 'T'), ('O', 'H'), ('O', 'W')]	len=15
+Missed edges: [('O', 'T')]
+Computational time: 177.8 s
+New edges: 7 
+Missed edges: 1 
+Recovered edges: 8
+Recover rate: 88.88888888888889 %
+Missed rate: 11.11111111111111 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 1800
+do_conf = 0.95
+ci_conf = 0.9
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'H', 'B', 'Pow', 'W', 'C', 'T', 'O']	len=10 
+Edges: [('Pr', 'B'), ('Pr', 'L'), ('Pr', 'H'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'T'), ('H', 'Pow'), ('B', 'W'), ('Pow', 'B'), ('Pow', 'W'), ('W', 'T'), ('C', 'Pow'), ('C', 'T'), ('T', 'B'), ('T', 'S'), ('O', 'W')]	len=18
+Missed edges: [('O', 'T')]
+Computational time: 378.82 s
+New edges: 7 
+Missed edges: 1 
+Recovered edges: 11
+Recover rate: 91.66666666666666 %
+Missed rate: 8.333333333333332 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 1800
+do_conf = 0.95
+ci_conf = 0.9
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'B', 'Pow', 'H', 'C', 'T', 'CO', 'A', 'CO2', 'W', 'O']	len=13 
+Edges: [('Pr', 'B'), ('Pr', 'S'), ('Pr', 'L'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('B', 'W'), ('Pow', 'B'), ('H', 'T'), ('H', 'Pow'), ('C', 'T'), ('C', 'Pow'), ('T', 'S'), ('T', 'CO2'), ('CO', 'H'), ('CO', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'S'), ('CO2', 'L'), ('CO2', 'A'), ('W', 'T'), ('O', 'W')]	len=23
+Missed edges: [('O', 'T')]
+Computational time: 443.9 s
+New edges: 9 
+Missed edges: 1 
+Recovered edges: 14
+Recover rate: 93.33333333333333 %
+Missed rate: 6.666666666666667 %
+
+
+
+#### 2022-03-16 12:34:40.886777
+Learning modality:	offline	1 agent
+Notes:	try best with small do size
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.95
+ci_conf = 0.9
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'H', 'Pow', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'H'), ('Pr', 'L'), ('L', 'Pow'), ('H', 'T'), ('Pow', 'H'), ('Pow', 'W'), ('W', 'T'), ('O', 'H'), ('O', 'W')]	len=9
+Missed edges: [('H', 'Pow'), ('O', 'T')]
+Computational time: 10.59 s
+New edges: 5 
+Missed edges: 2 
+Recovered edges: 4
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.95
+ci_conf = 0.9
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'H', 'B', 'Pow', 'C', 'W', 'T', 'O']	len=9 
+Edges: [('Pr', 'B'), ('Pr', 'H'), ('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('B', 'W'), ('Pow', 'C'), ('Pow', 'B'), ('Pow', 'W'), ('C', 'T'), ('W', 'T'), ('T', 'B'), ('O', 'H'), ('O', 'W')]	len=15
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 33.43 s
+New edges: 8 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.95
+ci_conf = 0.9
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'H', 'B', 'Pow', 'C', 'W', 'T', 'O']	len=10 
+Edges: [('Pr', 'B'), ('Pr', 'H'), ('Pr', 'S'), ('Pr', 'L'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('B', 'W'), ('Pow', 'C'), ('Pow', 'B'), ('Pow', 'W'), ('C', 'T'), ('W', 'T'), ('T', 'S'), ('T', 'B'), ('O', 'W')]	len=18
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 57.66 s
+New edges: 8 
+Missed edges: 2 
+Recovered edges: 10
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.95
+ci_conf = 0.9
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'B', 'Pow', 'C', 'H', 'T', 'CO', 'A', 'CO2', 'W', 'O']	len=13 
+Edges: [('Pr', 'S'), ('Pr', 'L'), ('Pr', 'B'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('B', 'W'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('T', 'CO2'), ('CO', 'S'), ('CO', 'H'), ('CO', 'A'), ('A', 'W'), ('CO2', 'L'), ('CO2', 'A'), ('CO2', 'S'), ('W', 'T'), ('O', 'W')]	len=23
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 117.19 s
+New edges: 10 
+Missed edges: 2 
+Recovered edges: 13
+Recover rate: 86.66666666666667 %
+Missed rate: 13.333333333333334 %
+
+Elapsed total time: 218.87 s
+
+#### 2022-03-16 12:54:38.814733
+Learning modality:	offline	1 agent
+Notes:	try best with small do size
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 500
+do_conf = 0.95
+ci_conf = 0.9
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'H', 'Pow', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'H'), ('Pr', 'L'), ('L', 'Pow'), ('H', 'T'), ('Pow', 'W'), ('Pow', 'H'), ('W', 'T'), ('O', 'H'), ('O', 'W')]	len=9
+Missed edges: [('H', 'Pow'), ('O', 'T')]
+Computational time: 19.15 s
+New edges: 5 
+Missed edges: 2 
+Recovered edges: 4
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 500
+do_conf = 0.95
+ci_conf = 0.9
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'H', 'B', 'Pow', 'W', 'T', 'C', 'O']	len=9 
+Edges: [('Pr', 'H'), ('Pr', 'B'), ('Pr', 'L'), ('L', 'Pow'), ('H', 'T'), ('H', 'Pow'), ('B', 'W'), ('Pow', 'W'), ('Pow', 'B'), ('W', 'T'), ('T', 'B'), ('C', 'Pow'), ('C', 'T'), ('O', 'H'), ('O', 'W')]	len=15
+Missed edges: [('O', 'T')]
+Computational time: 60.9 s
+New edges: 7 
+Missed edges: 1 
+Recovered edges: 8
+Recover rate: 88.88888888888889 %
+Missed rate: 11.11111111111111 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 500
+do_conf = 0.95
+ci_conf = 0.9
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'H', 'B', 'Pow', 'C', 'W', 'T', 'O']	len=10 
+Edges: [('Pr', 'H'), ('Pr', 'S'), ('Pr', 'B'), ('Pr', 'L'), ('L', 'Pow'), ('S', 'C'), ('S', 'H'), ('H', 'T'), ('H', 'Pow'), ('B', 'W'), ('Pow', 'C'), ('Pow', 'W'), ('Pow', 'B'), ('C', 'T'), ('W', 'T'), ('T', 'S'), ('T', 'B'), ('O', 'W')]	len=18
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 108.8 s
+New edges: 8 
+Missed edges: 2 
+Recovered edges: 10
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 500
+do_conf = 0.95
+ci_conf = 0.9
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'B', 'Pow', 'C', 'H', 'T', 'CO', 'A', 'CO2', 'W', 'O']	len=13 
+Edges: [('Pr', 'B'), ('Pr', 'S'), ('Pr', 'L'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('B', 'W'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('T', 'CO2'), ('CO', 'H'), ('CO', 'A'), ('CO', 'S'), ('A', 'W'), ('CO2', 'L'), ('CO2', 'A'), ('CO2', 'S'), ('W', 'T'), ('O', 'W')]	len=23
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 202.58 s
+New edges: 10 
+Missed edges: 2 
+Recovered edges: 13
+Recover rate: 86.66666666666667 %
+Missed rate: 13.333333333333334 %
+
+Elapsed total time: 391.43 s
+
+#### 2022-03-17 16:29:34.921241
+Learning modality:	offline	1 agent
+Notes:	analysis of max conditional var
+
+## Test 1
+
+Parameters:
+max_cond_vars = 0
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'W'), ('Pow', 'H'), ('H', 'T'), ('T', 'W')]	len=6
+Missed edges: [('H', 'Pow'), ('O', 'T'), ('W', 'T')]
+Computational time: 2.02 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 3
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 0
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'W', 'B', 'H', 'T']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'W'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('W', 'T'), ('B', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T')]	len=11
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 3.88 s
+New edges: 4 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 0
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'C', 'W', 'B', 'H', 'T']	len=9 
+Edges: [('Pr', 'S'), ('Pr', 'L'), ('L', 'Pow'), ('S', 'H'), ('S', 'T'), ('S', 'C'), ('Pow', 'W'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('W', 'T'), ('B', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T')]	len=15
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 5.61 s
+New edges: 5 
+Missed edges: 2 
+Recovered edges: 10
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 0
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'C', 'W', 'B', 'H', 'T', 'CO', 'A', 'CO2']	len=12 
+Edges: [('Pr', 'S'), ('Pr', 'L'), ('L', 'Pow'), ('S', 'H'), ('S', 'C'), ('S', 'T'), ('Pow', 'B'), ('Pow', 'C'), ('Pow', 'W'), ('C', 'T'), ('W', 'T'), ('B', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('CO', 'A'), ('CO', 'W'), ('CO', 'S'), ('A', 'W'), ('CO2', 'W'), ('CO2', 'A')]	len=21
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 8.02 s
+New edges: 8 
+Missed edges: 2 
+Recovered edges: 13
+Recover rate: 86.66666666666667 %
+Missed rate: 13.333333333333334 %
+
+Elapsed total time: 19.53 s
+
+#### 2022-03-17 16:31:04.305343
+Learning modality:	offline	1 agent
+Notes:	analysis of max conditional var
+
+## Test 1
+
+Parameters:
+max_cond_vars = 1
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('T', 'W')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T'), ('W', 'T')]
+Computational time: 2.38 s
+New edges: 2 
+Missed edges: 3 
+Recovered edges: 3
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 1
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 5.55 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 1
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'T'), ('S', 'H'), ('H', 'Pow'), ('H', 'T'), ('W', 'T')]	len=12
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 10.63 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 1
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'T'), ('S', 'H'), ('H', 'Pow'), ('H', 'T'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 14.25 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 32.81 s
+
+#### 2022-03-17 16:32:04.129767
+Learning modality:	offline	1 agent
+Notes:	analysis of max conditional var
+
+## Test 1
+
+Parameters:
+max_cond_vars = 2
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('T', 'W')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T'), ('W', 'T')]
+Computational time: 2.28 s
+New edges: 2 
+Missed edges: 3 
+Recovered edges: 3
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 2
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 6.07 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 2
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('W', 'T')]	len=12
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 14.83 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 2
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 18.97 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 42.15 s
+
+#### 2022-03-17 16:32:59.998246
+Learning modality:	offline	1 agent
+Notes:	analysis of max conditional var
+
+## Test 1
+
+Parameters:
+max_cond_vars = 3
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('T', 'W')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T'), ('W', 'T')]
+Computational time: 2.34 s
+New edges: 2 
+Missed edges: 3 
+Recovered edges: 3
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 3
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 6.3 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 3
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'H'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('W', 'T')]	len=12
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 15.38 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 3
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'H'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 18.94 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 42.96000000000001 s
+
+#### 2022-03-17 16:34:01.273163
+Learning modality:	offline	1 agent
+Notes:	analysis of max conditional var
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('T', 'W')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T'), ('W', 'T')]
+Computational time: 2.25 s
+New edges: 2 
+Missed edges: 3 
+Recovered edges: 3
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 6.33 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'H'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('W', 'T')]	len=12
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 15.91 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'H'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 19.39 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 43.88 s
+
+#### 2022-03-17 16:35:23.621948
+Learning modality:	offline	1 agent
+Notes:	analysis of max conditional var
+
+## Test 1
+
+Parameters:
+max_cond_vars = 5
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('T', 'W')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T'), ('W', 'T')]
+Computational time: 2.23 s
+New edges: 2 
+Missed edges: 3 
+Recovered edges: 3
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 5
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 6.28 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 5
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'H'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('W', 'T')]	len=12
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 15.63 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 5
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'H'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 19.89 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 44.03 s
+
+#### 2022-03-17 16:36:20.511037
+Learning modality:	offline	1 agent
+Notes:	analysis of max conditional var
+
+## Test 1
+
+Parameters:
+max_cond_vars = 6
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('T', 'W')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T'), ('W', 'T')]
+Computational time: 2.32 s
+New edges: 2 
+Missed edges: 3 
+Recovered edges: 3
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 6
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 6.3 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 6
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('W', 'T')]	len=12
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 16.07 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 6
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 19.91 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 44.599999999999994 s
+
+#### 2022-03-17 16:42:27.847608
+Learning modality:	offline	1 agent
+Notes:	analysis of max conditional var
+
+## Test 1
+
+Parameters:
+max_cond_vars = 0
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'W'), ('Pow', 'H'), ('H', 'T'), ('W', 'T')]	len=6
+Missed edges: [('H', 'Pow'), ('O', 'T')]
+Computational time: 22.27 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 4
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 0
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'W', 'B', 'H', 'T']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'W'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('W', 'T'), ('B', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow')]	len=11
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 39.44 s
+New edges: 4 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 0
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'C', 'W', 'B', 'H', 'T']	len=9 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('S', 'T'), ('S', 'Pow'), ('S', 'C'), ('S', 'H'), ('Pow', 'W'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('W', 'T'), ('B', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow')]	len=15
+Missed edges: [('L', 'Pow'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 58.78 s
+New edges: 6 
+Missed edges: 3 
+Recovered edges: 9
+Recover rate: 75.0 %
+Missed rate: 25.0 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 0
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'Pow', 'C', 'W', 'B', 'H', 'T', 'CO', 'A', 'CO2']	len=12 
+Edges: [('Pr', 'S'), ('Pr', 'L'), ('L', 'Pow'), ('S', 'Pow'), ('S', 'T'), ('S', 'H'), ('S', 'C'), ('Pow', 'W'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('W', 'T'), ('B', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('CO', 'A'), ('CO', 'S'), ('CO', 'W'), ('A', 'W'), ('A', 'T'), ('CO2', 'A'), ('CO2', 'W')]	len=23
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 78.91 s
+New edges: 10 
+Missed edges: 2 
+Recovered edges: 13
+Recover rate: 86.66666666666667 %
+Missed rate: 13.333333333333334 %
+
+Elapsed total time: 199.39999999999998 s
+
+#### 2022-03-17 16:46:18.788668
+Learning modality:	offline	1 agent
+Notes:	analysis of max conditional var
+
+## Test 1
+
+Parameters:
+max_cond_vars = 1
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('W', 'T')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T')]
+Computational time: 20.42 s
+New edges: 1 
+Missed edges: 2 
+Recovered edges: 4
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 1
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 55.35 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 1
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'T'), ('S', 'H'), ('H', 'Pow'), ('H', 'T'), ('W', 'T')]	len=11
+Missed edges: [('Pr', 'S'), ('L', 'Pow'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 114.11 s
+New edges: 3 
+Missed edges: 4 
+Recovered edges: 8
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 1
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'T'), ('S', 'H'), ('H', 'Pow'), ('H', 'T'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 169.67 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 359.54999999999995 s
+
+#### 2022-03-17 16:53:23.037147
+Learning modality:	offline	1 agent
+Notes:	analysis of max conditional var
+
+## Test 1
+
+Parameters:
+max_cond_vars = 2
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('W', 'T')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T')]
+Computational time: 21.35 s
+New edges: 1 
+Missed edges: 2 
+Recovered edges: 4
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 2
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 60.05 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 2
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('W', 'T')]	len=11
+Missed edges: [('Pr', 'S'), ('L', 'Pow'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 171.74 s
+New edges: 3 
+Missed edges: 4 
+Recovered edges: 8
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 2
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 211.49 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 464.63 s
+
+#### 2022-03-17 17:02:11.479651
+Learning modality:	offline	1 agent
+Notes:	analysis of max conditional var
+
+## Test 1
+
+Parameters:
+max_cond_vars = 3
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('W', 'T')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T')]
+Computational time: 24.08 s
+New edges: 1 
+Missed edges: 2 
+Recovered edges: 4
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 3
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 63.57 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 3
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'H'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('W', 'T')]	len=11
+Missed edges: [('Pr', 'S'), ('L', 'Pow'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 163.88 s
+New edges: 3 
+Missed edges: 4 
+Recovered edges: 8
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 3
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'H'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 208.05 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 459.58000000000004 s
+
+#### 2022-03-17 17:12:55.122172
+Learning modality:	offline	1 agent
+Notes:	analysis of max conditional var
+
+## Test 1
+
+Parameters:
+max_cond_vars = 5
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('W', 'T')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T')]
+Computational time: 22.75 s
+New edges: 1 
+Missed edges: 2 
+Recovered edges: 4
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 5
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('H', 'Pow'), ('H', 'T'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 61.74 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 5
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('W', 'T')]	len=11
+Missed edges: [('Pr', 'S'), ('L', 'Pow'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 188.23 s
+New edges: 3 
+Missed edges: 4 
+Recovered edges: 8
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 5
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('B', 'W'), ('S', 'H'), ('S', 'C'), ('H', 'Pow'), ('H', 'T'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 281.31 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 554.03 s
+
+#### 2022-03-17 17:28:35.127783
+Learning modality:	offline	1 agent
+Notes:	analysis of max conditional var
+
+## Test 1
+
+Parameters:
+max_cond_vars = 6
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'T', 'W']	len=6 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'H'), ('H', 'T'), ('W', 'T')]	len=5
+Missed edges: [('H', 'Pow'), ('O', 'T')]
+Computational time: 25.39 s
+New edges: 1 
+Missed edges: 2 
+Recovered edges: 4
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 6
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'H', 'T', 'W']	len=8 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('H', 'T'), ('H', 'Pow'), ('W', 'T')]	len=9
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 68.46 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 6
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'W']	len=9 
+Edges: [('Pr', 'L'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'H'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('W', 'T')]	len=11
+Missed edges: [('Pr', 'S'), ('L', 'Pow'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 170.7 s
+New edges: 3 
+Missed edges: 4 
+Recovered edges: 8
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 6
+do_size = 1200
+do_conf = 0.4
+ci_conf = 0.1
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'Pow', 'C', 'B', 'S', 'H', 'T', 'CO', 'A', 'CO2', 'W']	len=12 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('B', 'W'), ('S', 'C'), ('S', 'H'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('CO', 'A'), ('A', 'W'), ('CO2', 'A'), ('W', 'T')]	len=15
+Missed edges: [('Pr', 'S'), ('C', 'Pow'), ('O', 'T')]
+Computational time: 223.41 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 12
+Recover rate: 80.0 %
+Missed rate: 20.0 %
+
+Elapsed total time: 487.9599999999999 s
+
+#### 2022-03-21 15:16:23.524976
+Learning modality:	offline	1 agent
+Notes:	check best
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.95
+ci_conf = 0.9
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6
+Predicted 
+Nodes: ['Pr', 'L', 'H', 'Pow', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'H'), ('Pr', 'L'), ('L', 'Pow'), ('H', 'T'), ('Pow', 'W'), ('Pow', 'H'), ('W', 'T'), ('O', 'W'), ('O', 'H')]	len=9
+Missed edges: [('H', 'Pow'), ('O', 'T')]
+Computational time: 10.36 s
+New edges: 5 
+Missed edges: 2 
+Recovered edges: 4
+Recover rate: 66.66666666666666 %
+Missed rate: 33.33333333333333 %
+
+## Test 2
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.95
+ci_conf = 0.9
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']	len=9 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=9
+Predicted 
+Nodes: ['Pr', 'L', 'H', 'B', 'Pow', 'C', 'W', 'T', 'O']	len=9 
+Edges: [('Pr', 'H'), ('Pr', 'L'), ('Pr', 'B'), ('L', 'Pow'), ('H', 'T'), ('H', 'Pow'), ('B', 'W'), ('Pow', 'W'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('W', 'T'), ('T', 'B'), ('O', 'W'), ('O', 'H')]	len=15
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 34.61 s
+New edges: 8 
+Missed edges: 2 
+Recovered edges: 7
+Recover rate: 77.77777777777779 %
+Missed rate: 22.22222222222222 %
+
+## Test 3
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.95
+ci_conf = 0.9
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']	len=10 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=12
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'H', 'B', 'Pow', 'C', 'W', 'T', 'O']	len=10 
+Edges: [('Pr', 'S'), ('Pr', 'H'), ('Pr', 'L'), ('Pr', 'B'), ('L', 'Pow'), ('S', 'C'), ('S', 'H'), ('H', 'T'), ('H', 'Pow'), ('B', 'W'), ('Pow', 'W'), ('Pow', 'B'), ('Pow', 'C'), ('C', 'T'), ('W', 'T'), ('T', 'B'), ('T', 'S'), ('O', 'W')]	len=18
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 55.26 s
+New edges: 8 
+Missed edges: 2 
+Recovered edges: 10
+Recover rate: 83.33333333333334 %
+Missed rate: 16.666666666666664 %
+
+## Test 4
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.95
+ci_conf = 0.9
+
+Ground-truth 
+Nodes: ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('L', 'Pow'), ('S', 'H'), ('H', 'Pow'), ('S', 'C'), ('C', 'Pow'), ('H', 'T'), ('C', 'T'), ('CO', 'A'), ('CO2', 'A'), ('A', 'W'), ('B', 'W'), ('O', 'T'), ('W', 'T')]	len=15
+Predicted 
+Nodes: ['Pr', 'L', 'S', 'B', 'Pow', 'C', 'H', 'T', 'CO', 'A', 'CO2', 'W', 'O']	len=13 
+Edges: [('Pr', 'L'), ('Pr', 'S'), ('Pr', 'B'), ('L', 'Pow'), ('S', 'C'), ('S', 'H'), ('B', 'W'), ('Pow', 'C'), ('Pow', 'B'), ('C', 'T'), ('H', 'T'), ('H', 'Pow'), ('T', 'S'), ('T', 'CO2'), ('CO', 'A'), ('CO', 'S'), ('CO', 'H'), ('A', 'W'), ('CO2', 'L'), ('CO2', 'S'), ('CO2', 'A'), ('W', 'T'), ('O', 'W')]	len=23
+Missed edges: [('C', 'Pow'), ('O', 'T')]
+Computational time: 94.23 s
+New edges: 10 
+Missed edges: 2 
+Recovered edges: 13
+Recover rate: 86.66666666666667 %
+Missed rate: 13.333333333333334 %
+
+Elapsed total time: 194.45999999999998 s

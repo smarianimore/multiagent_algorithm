@@ -1,9 +1,29 @@
 digraph {
 	graph [rankdir=LR]
 	edge [color=blue]
-	W -> O
+	Pow -> B
+	Pow -> W
+	T -> S
+	T -> H
+	T -> B
+	CO -> W
+	CO -> S
+	CO2 -> W
 	edge [color=red]
+	Pr -> L
+	Pr -> S
+	H -> T
 	O -> T
 	edge [color=green]
+	L -> Pow
 	W -> T
+	B -> W
+	H -> Pow
+	C -> T
+	C -> Pow
+	S -> H
+	S -> C
+	CO -> A
+	A -> W
+	CO2 -> A
 }

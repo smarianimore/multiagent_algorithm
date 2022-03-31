@@ -1,7 +1,0 @@
-digraph {
-	graph [rankdir=LR]
-	Pr -> L
-	Pow -> H
-	Pow -> C
-	S -> H
-}

@@ -103,14 +103,14 @@ class CausalLeaner:
             completeG = nx.complete_graph(n=self.nodes, create_using=nx.Graph)
             G = nx.DiGraph(list(completeG.edges()))
             graph = nx.DiGraph(list(G.edges()) + list(G.reverse().edges()))
-        # PARTIAL LEARNING
+        # PARTIAL LEARNING: if we pass edges, the algorithm performs the learning only on that connections
         else:
+            if mod != 'online':
+                return 'Only allowed online mode with partial learning!'
+
             # Step 1: Initialize a partial graph
             G = nx.DiGraph(list(self.edges))
             graph = nx.DiGraph(list(self.edges))
-
-            if mod != 'online':
-                return 'Only allowed online mode with partial learning!'
 
         non_doable = set(self.non_doable)
         doable = set(graph.nodes) - non_doable

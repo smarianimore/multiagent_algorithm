@@ -1,31 +1,22 @@
 digraph {
 	graph [rankdir=LR]
 	edge [color=blue]
-	Pr -> CO2
-	Pow -> B
-	Pow -> H
-	Pow -> C
-	T -> B
-	T -> O
-	T -> H
-	T -> S
-	CO -> S
-	CO2 -> L
+	O -> W
 	edge [color=red]
-	Pr -> S
-	H -> Pow
 	H -> T
-	C -> Pow
-	W -> T
+	C -> T
 	O -> T
 	edge [color=green]
 	Pr -> L
+	Pr -> S
 	L -> Pow
 	S -> H
+	H -> Pow
 	S -> C
-	C -> T
-	B -> W
+	C -> Pow
 	CO -> A
-	A -> W
 	CO2 -> A
+	A -> W
+	B -> W
+	W -> T
 }

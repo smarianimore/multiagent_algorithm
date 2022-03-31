@@ -137,3 +137,415 @@ Recover rate: 50.0 %
 Missed rate: 50.0 %
 
 Elapsed total time: 0.14 s
+
+#### 2022-03-11 11:07:11.424005
+Learning modality:	offline	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 10
+do_conf = 0.9
+ci_conf = 0.2
+
+Nodes: ['T', 'H', 'C']	len=3 
+Edges: [('H', 'T'), ('C', 'T')]	len=2 
+Computational time: 0.18 s
+New edges: 1 
+Missed edges: 1 
+Recovered edges: 1
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+Elapsed total time: 0.18 s
+
+#### 2022-03-11 11:10:31.482865
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 10
+do_conf = 0.9
+ci_conf = 0.2
+
+Nodes: ['T', 'H', 'C']	len=3 
+Edges: [('H', 'T'), ('C', 'T')]	len=2 
+Computational time: 0.97 s
+New edges: 1 
+Missed edges: 1 
+Recovered edges: 1
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+Elapsed total time: 0.97 s
+
+#### 2022-03-11 11:10:55.477753
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 10
+do_conf = 0.9
+ci_conf = 0.2
+
+Nodes: ['T', 'H', 'C']	len=3 
+Edges: [('H', 'T'), ('C', 'T')]	len=2 
+Computational time: 42.05 s
+New edges: 1 
+Missed edges: 1 
+Recovered edges: 1
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+Elapsed total time: 42.05 s
+
+#### 2022-03-11 11:12:08.469496
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+#### 2022-03-11 11:17:19.774116
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 10
+do_conf = 0.9
+ci_conf = 0.2
+
+Nodes: ['T', 'H', 'C', 'O']	len=4 
+Edges: [('H', 'T'), ('C', 'T'), ('O', 'T')]	len=3 
+Computational time: 42.25 s
+New edges: 1 
+Missed edges: 2 
+Recovered edges: 1
+Recover rate: 33.33333333333333 %
+Missed rate: 66.66666666666666 %
+
+Elapsed total time: 42.25 s
+
+#### 2022-03-11 11:18:59.909474
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 10
+do_conf = 0.9
+ci_conf = 0.2
+
+Nodes: ['S', 'H', 'C']	len=3 
+Edges: [('S', 'H'), ('S', 'C')]	len=2 
+Computational time: 146.95 s
+New edges: 0 
+Missed edges: 0 
+Recovered edges: 2
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+Elapsed total time: 146.95 s
+
+#### 2022-03-11 11:36:03.356554
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+## Test 1
+
+#### 2022-03-11 11:36:57.295822
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 1
+do_conf = 0.9
+ci_conf = 0.2
+resp_time = 1
+
+Nodes: ['S', 'H', 'C']	len=3 
+Edges: [('S', 'H'), ('S', 'C')]	len=2 
+Computational time: 14.87 s
+New edges: 0 
+Missed edges: 0 
+Recovered edges: 2
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+Elapsed total time: 14.87 s
+
+#### 2022-03-11 11:38:52.466106
+Learning modality:	offline	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 1
+do_conf = 0.9
+ci_conf = 0.2
+
+Nodes: ['S', 'H', 'C']	len=3 
+Edges: [('S', 'H'), ('S', 'C')]	len=2 
+Computational time: 0.03 s
+New edges: 0 
+Missed edges: 1 
+Recovered edges: 1
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+Elapsed total time: 0.03 s
+
+#### 2022-03-11 11:48:23.210121
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 100
+do_conf = 0.4
+ci_conf = 0.1
+resp_time = 1
+
+Nodes: ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']	len=7 
+Edges: [('Pr', 'L'), ('L', 'Pow'), ('H', 'Pow'), ('H', 'T'), ('O', 'T'), ('W', 'T')]	len=6 
+Computational time: 629.43 s
+New edges: 3 
+Missed edges: 3 
+Recovered edges: 3
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+Elapsed total time: 629.43 s
+
+#### 2022-03-11 12:37:10.511499
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 10
+do_conf = 0.4
+ci_conf = 0.1
+resp_time = 1
+
+Nodes: ['H', 'T', 'C']	len=3 
+Edges: [('H', 'T'), ('C', 'T')]	len=2 
+Computational time: 41.67 s
+New edges: 1 
+Missed edges: 1 
+Recovered edges: 1
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+Elapsed total time: 41.67 s
+
+#### 2022-03-11 12:38:18.039410
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 10
+do_conf = 0.4
+ci_conf = 0.1
+resp_time = 0
+
+Nodes: ['H', 'T', 'C']	len=3 
+Edges: [('H', 'T'), ('C', 'T')]	len=2 
+Computational time: 0.79 s
+New edges: 1 
+Missed edges: 1 
+Recovered edges: 1
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+Elapsed total time: 0.79 s
+
+#### 2022-03-11 12:38:52.128209
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 20
+do_conf = 0.9
+ci_conf = 0.1
+resp_time = 0
+
+Nodes: ['H', 'T', 'C']	len=3 
+Edges: [('H', 'T'), ('C', 'T')]	len=2 
+Computational time: 1.57 s
+New edges: 1 
+Missed edges: 1 
+Recovered edges: 1
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+Elapsed total time: 1.57 s
+
+#### 2022-03-11 12:39:05.649689
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 20
+do_conf = 0.9
+ci_conf = 0.4
+resp_time = 0
+
+Nodes: ['H', 'T', 'C']	len=3 
+Edges: [('H', 'T'), ('C', 'T')]	len=2 
+Computational time: 1.45 s
+New edges: 1 
+Missed edges: 1 
+Recovered edges: 1
+Recover rate: 50.0 %
+Missed rate: 50.0 %
+
+Elapsed total time: 1.45 s
+
+#### 2022-03-11 12:39:20.849375
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 10
+do_conf = 0.9
+ci_conf = 0.4
+resp_time = 0
+
+Nodes: ['H', 'T', 'C']	len=3 
+Edges: [('H', 'T'), ('C', 'T')]	len=2 
+Computational time: 0.79 s
+New edges: 0 
+Missed edges: 0 
+Recovered edges: 2
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+Elapsed total time: 0.79 s
+
+#### 2022-03-11 12:39:35.417936
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 10
+do_conf = 0.9
+ci_conf = 0.4
+resp_time = 0
+
+Nodes: ['H', 'T', 'C']	len=3 
+Edges: [('H', 'T'), ('C', 'T')]	len=2 
+Computational time: 0.79 s
+New edges: 0 
+Missed edges: 0 
+Recovered edges: 2
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+Elapsed total time: 0.79 s
+
+#### 2022-03-11 12:39:50.304396
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 10
+do_conf = 0.9
+ci_conf = 0.4
+resp_time = 1
+
+Nodes: ['H', 'T', 'C']	len=3 
+Edges: [('H', 'T'), ('C', 'T')]	len=2 
+Computational time: 41.72 s
+New edges: 0 
+Missed edges: 0 
+Recovered edges: 2
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+Elapsed total time: 41.72 s
+
+#### 2022-03-11 15:36:32.675559
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 10
+do_conf = 0.9
+ci_conf = 0.4
+resp_time = 0
+
+Nodes: ['H', 'T', 'C']	len=3 
+Edges: [('H', 'T'), ('C', 'T')]	len=2 
+Computational time: 0.9 s
+New edges: 2 
+Missed edges: 2 
+Recovered edges: 0
+Recover rate: 0.0 %
+Missed rate: 100.0 %
+
+Elapsed total time: 0.9 s
+
+#### 2022-03-11 15:37:19.727916
+Learning modality:	online	1 agent
+Notes:	forming test script
+
+## Test 1
+
+Parameters:
+max_cond_vars = 4
+do_size = 10
+do_conf = 0.9
+ci_conf = 0.4
+resp_time = 0
+
+Nodes: ['H', 'T', 'C']	len=3 
+Edges: [('H', 'T'), ('C', 'T')]	len=2 
+Computational time: 0.93 s
+New edges: 0 
+Missed edges: 0 
+Recovered edges: 2
+Recover rate: 100.0 %
+Missed rate: 0.0 %
+
+Elapsed total time: 0.93 s

@@ -1,7 +1,0 @@
-digraph {
-	graph [rankdir=LR]
-	CO -> A
-	A -> W
-	CO2 -> A
-	B -> W
-}

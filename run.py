@@ -3,12 +3,29 @@
 # The request contains nodes that the agent 2 finds as incomplete or nodes from undirected edges
 # If there are not such nodes, no message will be sent
 
-from agent import Agent
-import networks
-import time
+from utils.drawing import draw, difference
 from utils.config import parameters
+from agent import Agent
 import pandas as pd
-from utils.drawing import draw
+import networks
+import datetime
+import time
+
+REPORT = 'report_multi-agent.txt'
+
+# The parameters for the online learning remains all the same (because we proved that the final results
+# are the same) except for the do size
+online_parameters = {
+    'max_cond_vars': 4,
+    'do_size': 3,
+    'do_conf': 0.6,
+    'ci_conf': 0.1
+}
+
+
+def write_on_report(text, file=REPORT):
+    with open(file, 'a') as f:
+        f.write(text)
 
 
 # Select only the edges in which there are nodes required
@@ -72,29 +89,73 @@ def concatenate_data(old_data, new_data, override=True):
     return pd.concat([old_data, new_data], axis=1)
 
 
-# Double-agent Learning
-def run(agent_1, agent_2, nodes_to_investigate):
-    start = time.time()
+def write_results(gt, pred, elapsed_time, description):
+    write_on_report(f"\n{description}")
 
+    gt_nodes = nodes_from_edges(gt)
+    gt_edges = pred
+    pred_nodes = nodes_from_edges(pred)
+    pred_edges = pred
+
+    # Print figures
+    dot, new_edges, missed_edges, recovered_edges = difference(gt, pred, stat=True)
+    # dot.view(directory=f'tmp/test/{output_name}')
+
+    gt_net = f"\nGround-truth \nNodes: {gt_nodes}\tlen={len(gt_nodes)} \nEdges: {gt_edges}\tlen={len(gt_edges)}"
+    pred_net = f"\nPredicted \nNodes: {pred_nodes}\tlen={len(pred_nodes)} \nEdges: {pred_edges}\tlen={len(pred_edges)}"
+    missed = f"\nMissed edges: {missed_edges}"
+    comp_time = f"\nComputational time: {elapsed_time} s"
+    results = gt_net + pred_net + missed + comp_time
+    write_on_report(results)
+
+    # Edge statistics
+    n_edges = len(gt)  # Ground-truth number of edges
+    new_edges = len(new_edges)
+    missed_edges = len(missed_edges)
+    recovered_edges = len(recovered_edges)
+
+    # Performance measure
+    edge_results = f'\nNew edges: {new_edges} \nMissed edges: {missed_edges} \nRecovered edges: {recovered_edges}'
+    write_on_report(edge_results)
+    recover_rate = f'\nRecover rate: {(recovered_edges / n_edges) * 100} %'
+    write_on_report(recover_rate)
+    missed_rate = f'\nMissed rate: {(missed_edges / n_edges) * 100} %'
+    write_on_report(missed_rate)
+
+
+# Double-agent Learning
+def run(agent_1, agent_2, nodes_to_investigate, timestamp):
+
+    start = time.time()
     # 1 - Offline Local learning (Agent 1 and Agent 2)
     model_1, undirected_edges_1 = agent_1.learning(nodes=agent_1.nodes, non_doable=agent_1.non_doable,
                                                    parameters=parameters, mod='offline', bn=agent_1.bn,
                                                    obs_data=agent_1.obs_data)
+    time_1 = (time.time() - start)
     agent_1.add_undirected_edges(undirected_edges_1)
-    dot = draw(model_1.edges())
-    dot.view(directory='tmp/1/')
+    dot = difference(agent_1.edges, model_1.edges()) # compare gt and pred
+    # dot = draw(model_1.edges()) # see only pred
+    dot.view(filename='1', directory=f'tmp/{timestamp}/')
+    write_results(agent_1.edges, model_1.edges(), time_1, "\nAgent 1 network")
+
+    start = time.time()
     model_2, undirected_edges_2 = agent_2.learning(nodes=agent_2.nodes, non_doable=agent_2.non_doable,
                                                    parameters=parameters, mod='offline', bn=agent_2.bn,
                                                    obs_data=agent_2.obs_data)
+    time_2 = (time.time() - start)
     agent_2.add_undirected_edges(undirected_edges_2)
-    dot = draw(model_2.edges())
-    dot.view(directory='tmp/2/')
+    dot = difference(agent_2.edges, model_2.edges())  # compare gt and pred
+    # dot = draw(model_2.edges()) # see only pred
+    dot.view(filename='2', directory=f'tmp/{timestamp}/')
+    write_results(agent_2.edges, model_2.edges(), time_2, "\nAgent 2 network")
 
     # 2 - Request (Agent 2)
     if len(nodes_to_investigate) != 0 or len(agent_2.undirected_edges) != 0:
         # Nodes in the message are the ones indicated from the user (still manually) and the ones
         # from undirected edges discovered by the local learning algorithm
         msg = agent_2.build_request_msg(nodes_to_investigate, agent_2.undirected_edges)
+        write_on_report(f'\n\nUndirected edges: {agent_2.undirected_edges}')
+        write_on_report(f'\nNodes to investigate: {nodes_to_investigate}')
         print('Request message ', msg)
     else:
         print('No communication, ending.')
@@ -115,12 +176,14 @@ def run(agent_1, agent_2, nodes_to_investigate):
         else:
             new_data = agent_1.obs_data
 
+        start = time.time()
         # Learn about new edges
-        model, undirected_edges = agent_1.learning(nodes=new_nodes, non_doable=new_non_doable, parameters=parameters,
+        model, undirected_edges = agent_1.learning(nodes=new_nodes, non_doable=new_non_doable, parameters=online_parameters,
                                                    mod='online', edges=new_edges, bn=None, obs_data=new_data)
-
+        time_3 = (time.time() - start)
         # The response contains the learnt edges
         response = agent_1.build_response_msg(model.edges())
+        write_on_report(f'\nOnline predicted edges: {model.edges()}')
     else:  # If we receive False, we check edges already known by agent 1
         response = get_response_edges(agent_1.edges, nodes_to_investigate)
     print('Response: ', response)
@@ -135,21 +198,37 @@ def run(agent_1, agent_2, nodes_to_investigate):
     elapsed_time = (end - start)
     print('Time elapsed: ', elapsed_time, 's')
 
-    dot = draw(agent_2.edges)
-    dot.view(directory='tmp/3/')
+    # dot = difference(agent_2.edges, model_2.edges())
+    dot = difference([("H", "T"), ("C", "T"), ("CO", "A"), ("CO2", "A"), ("A", "W"), ("B", "W"),
+            ("O", "T"), ("W", "T")], agent_2.edges)
+    dot.view(filename='3', directory=f'tmp/{timestamp}/')
+    write_results([("H", "T"), ("C", "T"), ("CO", "A"), ("CO2", "A"), ("A", "W"), ("B", "W"),
+            ("O", "T"), ("W", "T")], agent_2.edges, time_3, "\nAgent 2 network after request")
 
     return model_1, model_2, response['edges'], elapsed_time
 
 
 if __name__ == '__main__':
+    now = datetime.datetime.now()
+    timestamp = datetime.datetime.timestamp(now)
+    write_on_report(f'\n\n#### {now}')
+    write_on_report(f'\ntimestamp: {timestamp}')
+    write_on_report(f'\nMulti-agent learning')
+
+    notes = ""
+    write_on_report(f'\nNotes:\t{notes}')
+
+    write_on_report('\n\nOffline parameters:')
+    for par in parameters:
+        write_on_report(f'\n{par} = {parameters[par]}')
+
+    write_on_report('\n\nOnline parameters:')
+    for par in online_parameters:
+        write_on_report(f'\n{par} = {online_parameters[par]}')
+
     # Choose how to divide the network
     network_1 = networks.get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'C', 'S'], False)
     network_2 = networks.get_network_from_nodes(['CO', 'CO2', 'A', 'W', 'B', 'T', 'O'], False)
-
-    # Example used to test simulated online intervention (call to icasa.simulate())
-    # The results shows the correct functioning of the algorithm
-    # network_1 = networks.get_network_from_nodes(['Pr', 'L', 'Pow'], False)
-    # network_2 = networks.get_network_from_nodes(['W', 'H', 'T'], False)
 
     # Initialize agents
     agent_1 = Agent(nodes=network_1['nodes'], non_doable=network_1['non_doable'], edges=network_1['edges'],
@@ -163,7 +242,7 @@ if __name__ == '__main__':
     nodes_to_investigate = ['T']
 
     # Run the entire algorithm
-    model_1, model_2, new_edges, elapsed_time = run(agent_1, agent_2, nodes_to_investigate)
+    model_1, model_2, new_edges, elapsed_time = run(agent_1, agent_2, nodes_to_investigate, timestamp)
 
 
 

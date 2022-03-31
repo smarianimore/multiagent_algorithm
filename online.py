@@ -3,11 +3,8 @@ from utils.conversion import conversion
 from requests import get, put
 from time import sleep
 import pandas as pd
-import random
 import socket
 import json
-
-random.seed(12)
 
 
 class icasa:
@@ -107,11 +104,6 @@ class icasa:
         print('Intervention ok')
 
     def do(self, evidence, do_size=2, resp_time=resp_time):
-        if evidence is None:
-            evidence = {}
-
-        # Format evidence: necessary only with intervention via API
-        formatted = self.format_evidence(evidence)
 
         columns = [f'{k}' for k, v in self.read_devices_short.items()]
         # Append Pow column
@@ -120,29 +112,38 @@ class icasa:
         # Initialize dataset
         df = pd.DataFrame(columns={node: [] for node in columns}).astype(int)
 
-        # Make intervention using socket or API (pay attention on format evidence)
-        # self.intervention_by_socket(evidence)
-        self.intervention_by_API(formatted)
+        if evidence is not None:
+            # Format evidence: necessary only with intervention via API
+            formatted = self.format_evidence(evidence)
+
+            # Make intervention using socket or API (pay attention on format evidence)
+            # self.intervention_by_socket(evidence)
+            self.intervention_by_API(formatted)
 
         # Collect do_size samples
         for i in range(do_size):
             new_sample = self.sample()
 
             # Pow
-            node = str(tuple(evidence.items())[0][0])
-            if node == 'L':
-                new_sample['Pow'] = 100 if new_sample['L'].bool() else 0
-            elif node == 'H':
-                # Giustificabile come al di sotto di una certa soglia il sensore non riesce a misurare la potenza
-                new_sample['Pow'] = new_sample['H'] * 1000 if new_sample['H'].item() > 500 else 0
-            elif node == 'C':
-                new_sample['Pow'] = new_sample['C'] * 1000 if new_sample['C'].item() > 500 else 0
+            if evidence is not None:
+                node = str(tuple(evidence.items())[0][0])
+                if node == 'L':
+                    new_sample['Pow'] = 100 if new_sample['L'].bool() else 0
+                elif node == 'H':
+                    # Giustificabile come al di sotto di una certa soglia il sensore non riesce a misurare la potenza
+                    new_sample['Pow'] = new_sample['H'] * 1000 if new_sample['H'].item() > 500 else 0
+                elif node == 'C':
+                    new_sample['Pow'] = new_sample['C'] * 1000 if new_sample['C'].item() > 500 else 0
+                else:
+                    new_sample['Pow'] = 0
             else:
-                new_sample['Pow'] = 0
+                light = 100 if new_sample['L'].bool() else 0
+                heater = new_sample['H'] * 1000 if new_sample['H'].item() > 500 else 0
+                cooler = new_sample['Pow'] = new_sample['C'] * 1000 if new_sample['C'].item() > 500 else 0
+                new_sample['Pow'] = light + heater + cooler
 
             df = pd.concat([df, conversion(new_sample)], axis=0)
             sleep(resp_time) if resp_time > 0 else None
-            # The insertion of a values reset at each intervention would help prediction
 
         df.reset_index(drop=True, inplace=True)
 
@@ -151,12 +152,6 @@ class icasa:
         self.store()
 
         return df
-
-    def random_devices_initialization(self):
-        devices_to_initialize = ['T', 'O', 'H', 'C', 'W', 'B', 'S']
-
-        for device in devices_to_initialize:
-            self.intervention_by_API(['device', (device, self.read_devices_short[device]), random.randint(0, 1)])
 
     # The function simulates the values without making a real intervention
     # def simulate(self, evidence, do_size=2):
@@ -227,10 +222,12 @@ if __name__ == '__main__':
     # df = home.simulate(evidence, 10)
     # print(df)
 
-    # TEST intervention
-    evidence = {'W': 1}
+    # In order to make sampling without intervention, we can call do method with a None evidence
 
-    home.do(evidence=evidence, do_size=0,  resp_time=0)
+    # TEST intervention
+    evidence = {'L': 0}
+
+    home.do(evidence=None, do_size=2,  resp_time=0)
     # home.intervention(evidence)
     # print(home.sample())
     print(home.data)

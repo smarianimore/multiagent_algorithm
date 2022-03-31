@@ -12,7 +12,7 @@ def draw(edge, directed=True):
 
 
 def difference(gt, pred, stat=False):
-    f = Digraph(graph_attr={'rankdir': 'LR'})
+    f = Digraph(graph_attr={'rankdir': 'LR'}, format='png')
     new_edges = [ed for ed in pred if ed not in gt]
     f.attr('edge', color='blue')
     f.edges(new_edges)

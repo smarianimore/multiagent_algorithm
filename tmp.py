@@ -19,9 +19,14 @@ def learning(agent, mod):
 
 if __name__ == '__main__':
     complete = ['Pr', 'L', 'Pow', 'H', 'C', 'S', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']
-    partial = ['W', 'T', 'O']
+    partial = ['T', 'O', 'W']
+    t1 = ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']
+    t2 = ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']
+    t3 = ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']
+    t4 = ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']
 
-    network = networks.get_network_from_nodes(partial, False)
+
+    network = networks.get_network_from_nodes(complete, False)
 
     agent = Agent(nodes=network['nodes'], non_doable=network['non_doable'], edges=network['edges'],
                     obs_data=network['dataset'])
