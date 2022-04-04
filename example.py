@@ -1,4 +1,4 @@
-from ocik import RoomBase
+from ocik import RoomBase, BigRoom
 from ocik import CausalLeaner
 import pandas as pd
 import time
@@ -64,12 +64,12 @@ start = time.time()
 
 # Big Network: this class allows to build and test a random network with random CPD and specific number of nodes
 
-# n_nodes = 20
-# room = BigRoom(n_nodes=n_nodes)
-# bn = room.get_network()
-#
-# # Since the network is created with numerical names, the printing methods do not work on it
-# printable = False
+n_nodes = 80
+room = BigRoom(n_nodes=n_nodes)
+bn = room.get_network()
+
+# Since the network is created with numerical names, the printing methods do not work on it
+printable = False
 #
 #
 # # Makes the nodes printable
@@ -85,8 +85,10 @@ start = time.time()
 #
 #
 # # For simplicity we assume not to have non-doable nodes
-# estimator = CausalLeaner(bn.nodes(), non_dobale=[], env=bn, obs_data=None)
-# model, undirected_edges = estimator.learn(max_cond_vars=4, do_size=1)
+estimator = CausalLeaner(bn.nodes(), non_dobale=[], env=bn, obs_data=None)
+start = time.time()
+model, undirected_edges = estimator.learn(max_cond_vars=4, do_size=1, mod='offline')
+end = time.time()
 #
 # masked_edges = masking(n_nodes, bn.edges())
 # masked_model_edges = masking(n_nodes, model.edges)
@@ -100,14 +102,14 @@ start = time.time()
 # dot.view(directory='tmp/')
 ##########################################################################
 
-end = time.time()
+
 print('\nTime elapsed for the computation is: ', round(end-start, 2), ' s')
 
-if printable:
-    dot = difference(bn.edges(), model.edges())
-    dot.view(directory='tmp/')
-else:
-    exit(200)
+# if printable:
+#     dot = difference(bn.edges(), model.edges())
+#     dot.view(directory='tmp/')
+# else:
+#     exit(200)
 
 # Test con tracking attivo: produce un grafo per ogni step
 # model, track = estimator.learn(max_cond_vars=4, do_size=100, trace=True, verbose=True)

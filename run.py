@@ -7,6 +7,7 @@ from utils.drawing import draw, difference
 from utils.config import parameters
 from agent import Agent
 import pandas as pd
+import threading
 import networks
 import datetime
 import time
@@ -22,6 +23,19 @@ online_parameters = {
     'ci_conf': 0.1
 }
 
+agent_1_parameters = {
+    'max_cond_vars': 4,
+    'do_size': 500,
+    'do_conf': 0.9,
+    'ci_conf': 0.4
+}
+
+agent_2_parameters = {
+    'max_cond_vars': 4,
+    'do_size': 500,
+    'do_conf': 0.9,
+    'ci_conf': 0.4
+}
 
 def write_on_report(text, file=REPORT):
     with open(file, 'a') as f:
@@ -124,30 +138,31 @@ def write_results(gt, pred, elapsed_time, description):
 
 
 # Double-agent Learning
-def run(agent_1, agent_2, nodes_to_investigate, timestamp):
-
+def run(agent_1, agent_2, gt_1, gt_2, gt_3, nodes_to_investigate, timestamp):
     start = time.time()
     # 1 - Offline Local learning (Agent 1 and Agent 2)
     model_1, undirected_edges_1 = agent_1.learning(nodes=agent_1.nodes, non_doable=agent_1.non_doable,
-                                                   parameters=parameters, mod='offline', bn=agent_1.bn,
+                                                   parameters=agent_1_parameters, mod='offline', bn=agent_1.bn,
                                                    obs_data=agent_1.obs_data)
     time_1 = (time.time() - start)
+    agent_1.reset_edges(list(model_1.edges()))
     agent_1.add_undirected_edges(undirected_edges_1)
-    dot = difference(agent_1.edges, model_1.edges()) # compare gt and pred
+    dot = difference(gt_1, model_1.edges()) # compare gt and pred
     # dot = draw(model_1.edges()) # see only pred
     dot.view(filename='1', directory=f'tmp/{timestamp}/')
-    write_results(agent_1.edges, model_1.edges(), time_1, "\nAgent 1 network")
+    write_results(gt_1, model_1.edges(), time_1, "\nAgent 1 network")
 
     start = time.time()
     model_2, undirected_edges_2 = agent_2.learning(nodes=agent_2.nodes, non_doable=agent_2.non_doable,
-                                                   parameters=parameters, mod='offline', bn=agent_2.bn,
+                                                   parameters=agent_2_parameters, mod='offline', bn=agent_2.bn,
                                                    obs_data=agent_2.obs_data)
     time_2 = (time.time() - start)
+    agent_2.reset_edges(list(model_2.edges()))
     agent_2.add_undirected_edges(undirected_edges_2)
-    dot = difference(agent_2.edges, model_2.edges())  # compare gt and pred
+    dot = difference(gt_2, model_2.edges())  # compare gt and pred
     # dot = draw(model_2.edges()) # see only pred
     dot.view(filename='2', directory=f'tmp/{timestamp}/')
-    write_results(agent_2.edges, model_2.edges(), time_2, "\nAgent 2 network")
+    write_results(gt_2, model_2.edges(), time_2, "\nAgent 2 network")
 
     # 2 - Request (Agent 2)
     if len(nodes_to_investigate) != 0 or len(agent_2.undirected_edges) != 0:
@@ -198,12 +213,11 @@ def run(agent_1, agent_2, nodes_to_investigate, timestamp):
     elapsed_time = (end - start)
     print('Time elapsed: ', elapsed_time, 's')
 
+    # difference function needs ground-truth network to visualize results
     # dot = difference(agent_2.edges, model_2.edges())
-    dot = difference([("H", "T"), ("C", "T"), ("CO", "A"), ("CO2", "A"), ("A", "W"), ("B", "W"),
-            ("O", "T"), ("W", "T")], agent_2.edges)
+    dot = difference(gt_3, agent_2.edges)
     dot.view(filename='3', directory=f'tmp/{timestamp}/')
-    write_results([("H", "T"), ("C", "T"), ("CO", "A"), ("CO2", "A"), ("A", "W"), ("B", "W"),
-            ("O", "T"), ("W", "T")], agent_2.edges, time_3, "\nAgent 2 network after request")
+    write_results(gt_3, agent_2.edges, time_3, "\nAgent 2 network after request")
 
     return model_1, model_2, response['edges'], elapsed_time
 
@@ -218,17 +232,21 @@ if __name__ == '__main__':
     notes = ""
     write_on_report(f'\nNotes:\t{notes}')
 
-    write_on_report('\n\nOffline parameters:')
-    for par in parameters:
-        write_on_report(f'\n{par} = {parameters[par]}')
+    write_on_report('\n\nOffline agent 1 parameters:')
+    for par in agent_1_parameters:
+        write_on_report(f'\n{par} = {agent_1_parameters[par]}')
+
+    write_on_report('\n\nOffline agent 2 parameters:')
+    for par in agent_2_parameters:
+        write_on_report(f'\n{par} = {agent_2_parameters[par]}')
 
     write_on_report('\n\nOnline parameters:')
     for par in online_parameters:
         write_on_report(f'\n{par} = {online_parameters[par]}')
 
     # Choose how to divide the network
-    network_1 = networks.get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'C', 'S'], False)
-    network_2 = networks.get_network_from_nodes(['CO', 'CO2', 'A', 'W', 'B', 'T', 'O'], False)
+    network_1 = networks.get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C'], False)
+    network_2 = networks.get_network_from_nodes(['W', 'O', 'T', 'B', 'A', 'CO', 'CO2'], False)
 
     # Initialize agents
     agent_1 = Agent(nodes=network_1['nodes'], non_doable=network_1['non_doable'], edges=network_1['edges'],
@@ -241,8 +259,15 @@ if __name__ == '__main__':
     # investigate from outliers values
     nodes_to_investigate = ['T']
 
+    # Ground-truth agent 1
+    gt_1 = [("Pr", "L"), ("Pr", "S"), ("L", "Pow"), ("S", "H"), ("H", "Pow"), ("S", "C"), ("C", "Pow")]
+    # Ground-truth agent 2
+    gt_2 = [("CO", "A"), ("CO2", "A"), ("A", "W"), ("B", "W"), ("O", "T"), ("W", "T")]
+    # Ground-truth agent 2 post request
+    gt_3 = [("H", "T"), ("C", "T"), ("CO", "A"), ("CO2", "A"), ("A", "W"), ("B", "W"), ("O", "T"), ("W", "T")]
+
     # Run the entire algorithm
-    model_1, model_2, new_edges, elapsed_time = run(agent_1, agent_2, nodes_to_investigate, timestamp)
+    model_1, model_2, new_edges, elapsed_time = run(agent_1, agent_2, gt_1, gt_2, gt_3, nodes_to_investigate, timestamp)
 
 
 

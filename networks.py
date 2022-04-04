@@ -6,7 +6,7 @@ dataset = pd.read_csv("ocik\\demo\\store\\test\\indexed.csv", sep=',')
 all_edges = [("Pr", "L"), ("Pr", "S"), ("L", "Pow"), ("S", "H"), ("H", "Pow"), ("S", "C"),
             ("C", "Pow"), ("H", "T"), ("C", "T"), ("CO", "A"), ("CO2", "A"), ("A", "W"), ("B", "W"),
             ("O", "T"), ("W", "T")]
-all_non_doable = ['Pow', 'T', 'CO', 'CO2', 'O']
+all_non_doable = ['Pr', 'Pow', 'T', 'CO', 'CO2', 'O']
 test = False  # True when we are testing the algorithm, False otherwise
 
 

@@ -1,9 +1,9 @@
 # PARAMETERS
 parameters = {
-    'max_cond_vars': 0,
-    'do_size': 1,
-    'do_conf': 0.4,
-    'ci_conf': 0.1
+    'max_cond_vars': 4,
+    'do_size': 100,
+    'do_conf': 0.9,
+    'ci_conf': 0.4
 }
 
 resp_time = 1

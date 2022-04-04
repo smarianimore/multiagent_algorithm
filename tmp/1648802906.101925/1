@@ -1,0 +1,7 @@
+digraph {
+	graph [rankdir=LR]
+	edge [color=blue]
+	edge [color=red]
+	edge [color=green]
+	B -> W
+}

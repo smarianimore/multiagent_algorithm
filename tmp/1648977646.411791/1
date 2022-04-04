@@ -1,0 +1,13 @@
+digraph {
+	graph [rankdir=LR]
+	edge [color=blue]
+	edge [color=red]
+	edge [color=green]
+	Pr -> L
+	Pr -> S
+	L -> Pow
+	S -> H
+	S -> C
+	H -> Pow
+	C -> Pow
+}

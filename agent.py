@@ -19,6 +19,10 @@ class Agent:
         self.undirected_edges = []
         self.incomplete = []
 
+    def reset_edges(self, learned_edges):
+        self.edges.clear()
+        self.edges = learned_edges
+
     def build_network(self):
         # Define network structure
         bn = BayesianNetwork(self.edges)

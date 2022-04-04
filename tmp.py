@@ -19,7 +19,7 @@ def learning(agent, mod):
 
 if __name__ == '__main__':
     complete = ['Pr', 'L', 'Pow', 'H', 'C', 'S', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']
-    partial = ['T', 'O', 'W']
+    partial = ['L', 'Pow', 'H', 'C', 'O', 'T', 'B', 'W']
     t1 = ['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O']
     t2 = ['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O']
     t3 = ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O']
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     agent = Agent(nodes=network['nodes'], non_doable=network['non_doable'], edges=network['edges'],
                     obs_data=network['dataset'])
 
-    learning(agent, "online")
+    learning(agent, "offline")
 
 
 
