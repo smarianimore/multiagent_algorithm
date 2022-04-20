@@ -8,6 +8,7 @@ import os
 os.environ["PATH"] += os.pathsep + 'C:\\Users\\pakyr\\.conda\\envs\\bayesianEnv\\Library\\bin\\graphviz'
 
 
+# Class for an Agent of the environment
 class Agent:
     def __init__(self, nodes, non_doable, edges, obs_data):
         self.nodes = nodes
@@ -19,10 +20,12 @@ class Agent:
         self.undirected_edges = []
         self.incomplete = []
 
+    # replace list of edges
     def reset_edges(self, learned_edges):
         self.edges.clear()
         self.edges = learned_edges
 
+    # build the Bayesian Network with probabilities
     def build_network(self):
         # Define network structure
         bn = BayesianNetwork(self.edges)
@@ -118,7 +121,7 @@ class Agent:
 
     def build_request_msg(self, nodes_to_investigate: list, undirected_edges: list):
         # The message contains:
-        #   - nodes with outliers values
+        #   - nodes with outliers values (nodes_to_investigate)
         #   - nodes in undirected connections
         # In case of duplicates, eliminate them
 
@@ -180,7 +183,7 @@ class Agent:
             print('Nodes already known, checking the previous learning results...')
             return False  # Not going to learn
         else:
-            # Code for adding new nodes to structure
+            # Code for adding new nodes to existing structure before to make incremental learning
             # for node in msg['nodes']:
             #     if node not in self.nodes:
             #         self.add_node(node)

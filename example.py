@@ -35,7 +35,7 @@ start = time.time()
 # estimator = CausalLeaner(bn.nodes(), non_dobale=['Pr', 'Pow', 'T', 'O'], env=bn, obs_data=obs_data_csv)
 # model, undirected_edges = estimator.learn(mod='offline', max_cond_vars=4, do_size=500, do_conf=0.9, ci_conf=0.5)
 
-##########################################################################
+#########################################################################
 
 # Complete room: class for the complete room
 
@@ -50,7 +50,7 @@ start = time.time()
 
 ##########################################################################
 
-# Test ######################################################
+# Test ###################################################################
 
 # room = Test()
 # bn = room.get_network()
@@ -93,7 +93,7 @@ end = time.time()
 # masked_edges = masking(n_nodes, bn.edges())
 # masked_model_edges = masking(n_nodes, model.edges)
 #
-# # Performances
+# # Print performances
 # gt = bn.edges()
 # pred = model.edges()
 # recovered_edges = [ed for ed in pred if ed in gt]

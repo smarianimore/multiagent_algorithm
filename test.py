@@ -2,7 +2,6 @@ from utils.drawing import draw, difference
 from networks import get_network_from_nodes
 from utils.config import parameters, resp_time
 from agent import Agent
-from run import run
 import datetime
 import time
 
@@ -12,16 +11,6 @@ os.environ["PATH"] += os.pathsep + 'C:\\Users\\pakyr\\.conda\\envs\\bayesianEnv\
 
 # Report path
 REPORT = 'single_agent.txt'
-
-
-def double_agent_test(network_1, network_2, nodes_to_investigate):
-    agent_1 = Agent(nodes=network_1['nodes'], non_doable=network_1['non_doable'], edges=network_1['edges'],
-                    obs_data=network_1['dataset'])
-    agent_2 = Agent(nodes=network_2['nodes'], non_doable=network_2['non_doable'], edges=network_2['edges'],
-                    obs_data=network_2['dataset'])
-    model_1, model_2, new_edges, elapsed = run(agent_1, agent_2, nodes_to_investigate)
-
-    return model_1, model_2, new_edges, elapsed
 
 
 # single agent -> complete learning
@@ -131,49 +120,6 @@ def single_agent_procedure():
 
     print('Elapsed total time: ', total_time, ' s')
     write_on_report(f'\n\nElapsed total time: {total_time} s')
-
-
-def double_agent_procedure():
-    network_1 = get_network_from_nodes(['T', 'H', 'C'], False)
-    network_2 = get_network_from_nodes([], False)
-    nodes_to_investigate = []
-
-    # Initialization
-    total_time = 0
-    write_on_report(f'\n\n#### {datetime.datetime.now()}')
-
-    # Choose learning modality
-    n_agents = 2
-    mod = 'mixed'
-    write_on_report(f'\nLearning modality:\t{mod}\t{n_agents} agent')
-
-    # Leave some comments to clarify the possible meaning of a test
-    # For example: "Incremental do_size" means that the test is made to verify do_size variable effects
-    notes = "forming test script"
-    write_on_report(f'\nNotes:\t{notes}')
-
-    model_1, model_2, new_edges, elapsed = double_agent_test(network_1, network_2, nodes_to_investigate)
-
-    # model_1 contiene la struttura dell'agente che ha ricevuto richiesta
-    # model_2 contiene la struttura dell'agente che ha fatto richiesta
-    # new_edges contiene gli edges scoperti da chi ha ricevuto richiesta
-    # (model_2.edges - new_edges) è la struttura dell'agente richiedente prima della richesta
-
-    # Con questo tipo di learning si può confrontare se effettivamente la comunicazione aiuta nell'apprendimento
-    # di alcune connessioni. Es: comunicando T, si riceve H->T, ma nella realtà esiste anche C->T. Questo è indice
-    # del fatto che, in questo caso, si è appreso la metà 1 edge su 2.
-    # In teoria ci si può riferire sempre alla ground-truth per analizzare i risultati.
-    # Indicare quante nuove connessioni sono state apprese:
-    # - rispetto a quelle che l'agente conosceva (new_edges)
-    # - rispetto a quante ne esistono realmente (new_edges|gt_edges)
-    # Esempio:
-    # network_1 = ['Pr', 'L', 'Pow', 'H', 'C', 'S']
-    # network_2 = ['CO', 'CO2', 'A', 'W', 'B', 'T', 'O']
-    # nodes_to_investigate = ['T']
-    # L'agente 2 sa che esistono O->T e W->T, ma non conosce H->T e C->T
-    # comunicando con l'agente 1 scopre H->T
-    # in questo caso l'algoritmo ha scoperto una nuova connessione rispetto a quelle che l'agente 2 conosceva,
-    # ma solamente 1/2 di quelle che avrebbe potuto scoprire, infatti manca C->T.
 
 
 if __name__ == "__main__":

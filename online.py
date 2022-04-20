@@ -116,7 +116,7 @@ class icasa:
             # Format evidence: necessary only with intervention via API
             formatted = self.format_evidence(evidence)
 
-            # Make intervention using socket or API (pay attention on format evidence)
+            # Make intervention via socket or API (pay attention on format evidence)
             # self.intervention_by_socket(evidence)
             self.intervention_by_API(formatted)
 
@@ -225,11 +225,11 @@ if __name__ == '__main__':
     # In order to make sampling without intervention, we can call do method with a None evidence
 
     # TEST intervention
-    evidence = {'L': 0}
-
-    home.do(evidence=None, do_size=2,  resp_time=0)
+    # evidence = {'L': 0}
+    #
+    # home.do(evidence=None, do_size=2,  resp_time=0)
     # home.intervention(evidence)
     # print(home.sample())
-    print(home.data)
+    # print(home.data)
 
 
