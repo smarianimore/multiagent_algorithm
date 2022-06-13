@@ -3,7 +3,7 @@
 Built on Kanvaly's original repo forked at [https://github.com/smarianimore/causality_detection](https://github.com/smarianimore/causality_detection)
 
 Within `utils`:
- - `config.py` should be changed according to the scenario actually simulated through iCasa, and also storse learning params, and intervention TCP socket address
+ - `config.py` should be changed according to the scenario actually simulated through iCasa, and also stores learning params, and intervention TCP socket address
  - `drawing.py` must be configured with the correct path to graphviz binaries
  - `probabilityEstimation` computes probabilities based on observational data and parents relationships in the causal net
 
