@@ -7,10 +7,11 @@ import time
 
 
 import os
-os.environ["PATH"] += os.pathsep + 'C:\\Users\\pakyr\\.conda\\envs\\bayesianEnv\\Library\\bin\\graphviz'
+#os.environ["PATH"] += os.pathsep + 'C:\\Users\\pakyr\\.conda\\envs\\bayesianEnv\\Library\\bin\\graphviz'
+os.environ["PATH"] += "/usr/local/Cellar/graphviz/2.44.1/lib/graphviz"
 
 # Report path
-REPORT = 'single_agent.txt'
+REPORT = 'single_agent_'+str(datetime.datetime.now())+'.txt'
 
 
 # single agent -> complete learning
@@ -98,7 +99,7 @@ def single_agent_procedure():
 
     # Choose learning modality
     n_agents = 1
-    mod = 'online'
+    mod = 'offline'
     write_on_report(f'\nLearning modality:\t{mod}\t{n_agents} agent')
 
     # Leave some comments to clarify the possible meaning of a test

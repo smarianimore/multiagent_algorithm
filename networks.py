@@ -3,7 +3,8 @@
 import pandas as pd
 
 # Ground-truth information: observational data, edges and non-doable nodes
-dataset = pd.read_csv("ocik\\demo\\store\\test\\indexed.csv", sep=',')
+#dataset = pd.read_csv("ocik\\demo\\store\\test\\indexed.csv", sep=',')
+dataset = pd.read_csv("ocik/demo/store/test/indexed.csv", sep=',')
 all_edges = [("Pr", "L"), ("Pr", "S"), ("L", "Pow"), ("S", "H"), ("H", "Pow"), ("S", "C"),
             ("C", "Pow"), ("H", "T"), ("C", "T"), ("CO", "A"), ("CO2", "A"), ("A", "W"), ("B", "W"),
             ("O", "T"), ("W", "T")]
