@@ -1,6 +1,7 @@
 from utils.drawing import draw, difference
 from networks import get_network_from_nodes
-from utils.config import parameters, resp_time
+#from utils.config import parameters, resp_time
+from utils.config import resp_time
 from agent import Agent
 import datetime
 import time
@@ -10,26 +11,28 @@ import os
 #os.environ["PATH"] += os.pathsep + 'C:\\Users\\pakyr\\.conda\\envs\\bayesianEnv\\Library\\bin\\graphviz'
 os.environ["PATH"] += "/usr/local/Cellar/graphviz/2.44.1/lib/graphviz"
 
-# Report path
-REPORT = 'single_agent_'+str(datetime.datetime.now())+'.txt'
-
 
 # single agent -> complete learning
-def single_agent_test(network, mod):
-    agent = Agent(nodes=network['nodes'], non_doable=network['non_doable'], edges=network['edges'],
-                    obs_data=network['dataset'])
+def single_agent_test(params, network, mod):
+    agent = Agent(nodes=network['nodes'],
+        non_doable=network['non_doable'],
+        edges=network['edges'],
+        obs_data=network['dataset'])
 
     start = time.time()
-    model, undirected_edges = agent.learning(nodes=agent.nodes, non_doable=agent.non_doable,
-                                             parameters=parameters, mod=mod, bn=agent.bn,
-                                             obs_data=agent.obs_data)
+    model, undirected_edges = agent.learning(nodes=agent.nodes,
+        non_doable=agent.non_doable,
+        parameters=params,
+        mod=mod,
+        bn=agent.bn,
+        obs_data=agent.obs_data)
     end = time.time()
     elapsed = (end - start)
 
     return model, elapsed
 
 
-def print_results_single_agent(network, model, elapsed_time, output_name, mod):
+def print_results_single_agent(parameters, network, model, elapsed_time, output_name, mod, directory):
     # Parameters
     write_on_report('\n\nParameters:')
     for par in parameters:
@@ -45,7 +48,7 @@ def print_results_single_agent(network, model, elapsed_time, output_name, mod):
 
     # Print figures
     dot, new_edges, missed_edges, recovered_edges = difference(gt_edges, pred_edges, stat=True)
-    dot.view(directory=f'tmp/test/')
+    dot.view(directory=directory, filename=output_name)
 
     gt_net = f"\n\nGround-truth \nNodes: {gt_nodes}\tlen={len(gt_nodes)} \nEdges: {gt_edges}\tlen={len(gt_edges)}"
     pred_net = f"\nPredicted \nNodes: {pred_nodes}\tlen={len(pred_nodes)} \nEdges: {pred_edges}\tlen={len(pred_edges)}"
@@ -70,12 +73,12 @@ def print_results_single_agent(network, model, elapsed_time, output_name, mod):
     write_on_report(missed_rate)
 
 
-def write_on_report(text, file=REPORT):
-    with open(file, 'a') as f:
+def write_on_report(text, directory="output/reproducibility/", file='single_agent_'+str(datetime.datetime.now())+'.txt'):
+    with open(f"{directory}{file}", 'a') as f:
         f.write(text)
 
 
-def single_agent_procedure():
+def single_agent_procedure(params, nodes, notes, directory, n_agents=1, mod='offline'):
     # PROCEDURE FOR SINGLE AGENT TEST
     # In order to run the test you have to
     # 1. Configure the networks you want to test and include it in the tests array
@@ -84,47 +87,53 @@ def single_agent_procedure():
     # 4. Optional: add some notes for the report
 
     # Definitions of the networks
-    t0 = get_network_from_nodes(['H', 'T', 'C'], False)
-    t1 = get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O'], False)
-    t2 = get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O'], False)
-    t3 = get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O'], False)
-    t4 = get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O'], False)
-
+    #t0 = get_network_from_nodes(['H', 'T', 'C'], False)
+    #t1 = get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O'], False)
+    #t2 = get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O'], False)
+    #t3 = get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O'], False)
+    #t4 = get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O'], False)
+    t = get_network_from_nodes(nodes, False)
     # Array containing the networks to be tested
-    tests = [t4]
+    tests = [t]
 
     # Initialization
     total_time = 0
     write_on_report(f'\n\n#### {datetime.datetime.now()}')
-
-    # Choose learning modality
-    n_agents = 1
-    mod = 'offline'
     write_on_report(f'\nLearning modality:\t{mod}\t{n_agents} agent')
 
-    # Leave some comments to clarify the possible meaning of a test
+    # DOC Leave some comments to clarify the possible meaning of a test
     # For example: "Incremental do_size" means that the test is made to verify do_size variable effects
-    notes = "using the same parameters as multi-agent"
+    #notes = "using the same parameters as multi-agent"
     write_on_report(f'\nNotes:\t{notes}')
 
     # Testing process
     for i, net in enumerate(tests):
         network = net
-        output_name = 'network_' + str(i + 1)
+        output_name = f'network_{datetime.datetime.now()}_' + str(i + 1)
 
-        model, elapsed = single_agent_test(network, mod)
+        model, elapsed = single_agent_test(params, network, mod)
 
         elapsed_time = round(elapsed, 2)
         total_time += elapsed_time
         write_on_report(f'\n\n## Test {i + 1}')
-        print_results_single_agent(network, model, elapsed_time, output_name, mod)
+        print_results_single_agent(params, network, model, elapsed_time, output_name, mod, directory)
 
     print('Elapsed total time: ', total_time, ' s')
     write_on_report(f'\n\nElapsed total time: {total_time} s')
 
 
+PARAMS = {'max_cond_vars': 4,  # DOC parameters are stored in 'config.py'
+          'do_size': 500,
+          'do_conf': 0.9,
+          'ci_conf': 0.4}
+NODES = ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']
+NOTES = "testing reproducibility 1"
+DIR = "output/reproducibility/"
+N_AGENTS = 1
+MOD = 'offline'
+
 if __name__ == "__main__":
-    single_agent_procedure()
+    single_agent_procedure(PARAMS, NODES, NOTES, DIR, N_AGENTS, MOD)
 
     # Call n times when learning online, then pick best results
     # for n in range(5):
