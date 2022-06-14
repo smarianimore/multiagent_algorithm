@@ -12,7 +12,7 @@ from utils.drawing import difference
 os.environ["PATH"] += "/usr/local/Cellar/graphviz/2.44.1/lib/graphviz"  # TODO put in config file
 
 
-def test(params: dict[str: int], network: dict[str: list], mod: str) -> tuple[DiGraph, int]:
+def test(params: dict[str: int], network: dict[str: list], mod: str) -> tuple[DiGraph, float]:
     """
     Tests one agent's learning ability on the given 'network', with the given 'params', in the given 'mod'
 
@@ -26,7 +26,7 @@ def test(params: dict[str: int], network: dict[str: list], mod: str) -> tuple[Di
     """
     agent = Agent(nodes=network['nodes'],
                   non_doable=network['non_doable'],
-                  edges=network['edges'],
+                  gt_edges=network['edges'],
                   obs_data=network['dataset'])
     start = time.time()
 
@@ -38,7 +38,7 @@ def test(params: dict[str: int], network: dict[str: list], mod: str) -> tuple[Di
     return model, elapsed
 
 
-def report_results(parameters: dict[str: int], network: dict[str: list], model: DiGraph, elapsed_time: int,
+def report_results(parameters: dict[str: int], network: dict[str: list], model: DiGraph, elapsed_time: float,
                    output_name: str, mod: str, directory: str):
     """
     Reports learning results for 'model' in 'output_name' file within folder 'directory'.
@@ -116,7 +116,7 @@ def do_tests(params: dict[str: int], nodes: list[str], notes: str, directory: st
     # t2 = get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O'], False)
     # t3 = get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O'], False)
     # t4 = get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O'], False)
-    t = get_network_from_nodes(nodes, False)  # DOC t is a dict
+    t = get_network_from_nodes(nodes, False)  # DOC exploits ground truth to generate network description (t is a dict)
     tests = [t]
 
     # Initialization
@@ -139,6 +139,7 @@ def do_tests(params: dict[str: int], nodes: list[str], notes: str, directory: st
         print(f'\n----- Test {i + 1}:\n')
         report_results(params, net, model, elapsed_time, output_name, mod, directory)
         append_to_report(f'\n---------------------\n')
+        print(f'\n---------------------\n')
 
     print('Tests time: ', total_time, ' s')
     append_to_report(f'\nTests time: {total_time} s')

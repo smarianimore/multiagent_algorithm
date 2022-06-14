@@ -11,25 +11,35 @@ os.environ["PATH"] += "/usr/local/Cellar/graphviz/2.44.1/lib/graphviz"
 
 # Class for an Agent of the environment
 class Agent:
-    def __init__(self, nodes: list[str], non_doable: list[str], edges: list[tuple[str, str]], obs_data: pd.DataFrame) -> object:
+    def __init__(self, nodes: list[str], non_doable: list[str], gt_edges: list[tuple[str, str]],
+                 obs_data: pd.DataFrame) -> object:
+        """
+
+        @rtype: object
+
+        @param nodes:  the list of nodes known to the agent
+        @param non_doable:  the list of non doable nodes
+        @param gt_edges: list of edges (ground truth, used for simulation of interventions)
+        @param obs_data: all the observational data available for the 'nodes'
+        """
         self.nodes = nodes
-        self.edges = edges
+        self.gt_edges = gt_edges
         self.non_doable = non_doable
         self.obs_data = obs_data
-        self.conditional_prob = ConditionalProbability(self.obs_data, self.edges)
+        self.conditional_prob = ConditionalProbability(self.obs_data, self.gt_edges)  # DOC given ground truth build CPT
         self.bn = self.build_network()
         self.undirected_edges = []
         self.incomplete = []
 
     # replace list of edges
     def reset_edges(self, learned_edges):
-        self.edges.clear()
-        self.edges = learned_edges
+        self.gt_edges.clear()
+        self.gt_edges = learned_edges
 
     # build the Bayesian Network with probabilities
     def build_network(self):
         # Define network structure
-        bn = BayesianNetwork(self.edges)
+        bn = BayesianNetwork(self.gt_edges)
 
         # Fill with conditional probabilities
         for node in bn.nodes():
@@ -66,10 +76,10 @@ class Agent:
         self.non_doable.remove(node)
 
     def add_edge(self, edge):
-        self.edges.append(edge)
+        self.gt_edges.append(edge)
 
     def remove_edge(self, edge):
-        self.edges.remove(edge)
+        self.gt_edges.remove(edge)
 
     def add_undirected_edges(self, undirected_edges):
         for edge in undirected_edges:
@@ -223,7 +233,7 @@ class Agent:
 
             # Read edges and add to structure
             for t in response['edges']:
-                if t not in self.edges:
+                if t not in self.gt_edges:
                     self.add_edge(t)
         else:
             print('Empty response, nothing added')

@@ -3,9 +3,9 @@
 import pandas as pd
 
 # Ground-truth information: observational data, edges and non-doable nodes
-#dataset = pd.read_csv("ocik\\demo\\store\\test\\indexed.csv", sep=',')
+# dataset = pd.read_csv("ocik\\demo\\store\\test\\indexed.csv", sep=',')
 dataset = pd.read_csv("ocik/demo/store/test/indexed.csv", sep=',')
-all_edges = [("Pr", "L"), ("Pr", "S"), ("L", "Pow"), ("S", "H"), ("H", "Pow"), ("S", "C"),
+gt_edges = [("Pr", "L"), ("Pr", "S"), ("L", "Pow"), ("S", "H"), ("H", "Pow"), ("S", "C"),
             ("C", "Pow"), ("H", "T"), ("C", "T"), ("CO", "A"), ("CO2", "A"), ("A", "W"), ("B", "W"),
             ("O", "T"), ("W", "T")]
 all_non_doable = ['Pr', 'Pow', 'T', 'CO', 'CO2', 'O']
@@ -17,7 +17,7 @@ def get_network_from_nodes(nodes, test):
     edges = []
     non_doable = []
 
-    for edge in all_edges:
+    for edge in gt_edges:
         if edge[0] in nodes and edge[1] in nodes:
             edges.append(edge)
 
@@ -29,11 +29,9 @@ def get_network_from_nodes(nodes, test):
 
     network = {
         "nodes": nodes,
-        "edges": all_edges if test else edges,
+        "edges": gt_edges if test else edges,
         "non_doable": all_non_doable if test else non_doable,
         "dataset": dataset if test else df
     }
 
     return network
-
-

@@ -1,14 +1,14 @@
 import pandas as pd
-from pgmpy.models import BayesianNetwork
 from pgmpy.estimators import BayesianEstimator
+from pgmpy.models import BayesianNetwork
 
 
 class ConditionalProbability:
-    def __init__(self, dataset, edges):
-        self.dataset = dataset
+    def __init__(self, data, edges):
+        self.dataset = data
         self.edges = edges
         self.model = BayesianNetwork(edges)
-        self.estimator = BayesianEstimator(self.model, dataset)
+        self.estimator = BayesianEstimator(self.model, self.dataset)
 
     def get_node_prob(self, node):
         # Get the values of the probability for a specific node
@@ -24,10 +24,7 @@ class ConditionalProbability:
 
 if __name__ == "__main__":
     dataset = pd.read_csv("../ocik/demo/store/test/network.csv", sep=',')
-    edges = [("Pr", "L"), ("L", "Pow"), ("H", "Pow"), ("C", "Pow"), ("H", "T"), ("C", "T"),
-            ("B", "W"), ("O", "T"), ("W", "T")]
-    p = ConditionalProbability(dataset, edges).get_node_prob('T')
+    gt_edges = [("Pr", "L"), ("L", "Pow"), ("H", "Pow"), ("C", "Pow"), ("H", "T"), ("C", "T"), ("B", "W"), ("O", "T"),
+                ("W", "T")]
+    p = ConditionalProbability(dataset, gt_edges).get_node_prob('T')
     print(p)
-
-
-

@@ -1,11 +1,5 @@
-streamlit~=0.72.0
-pillow~=8.0.1
-altair~=4.1.0
-pandas~=1.1.4
-requests~=2.25.0
-numpy~=1.19.4
-tqdm~=4.50.2
-networkx~=2.5
-scipy~=1.5.4
-pgmpy~=0.1.13
-graphviz
+networkx
+pandas
+scipy
+pgmpy
+requests
