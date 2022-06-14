@@ -53,7 +53,7 @@ def report_results(parameters, network, model, elapsed_time, output_name, mod, d
     spur = f"\nSpurious:\t ({n_spur}) \t {spurious_edges}\n"
     comp_time = f"\nLearning time: {elapsed_time} s\n"
     results = gt_net + pred_net + missed + spur + comp_time
-    print(results)
+    #print(results)
     append_to_report(results)
 
     # Performance
@@ -113,6 +113,7 @@ def do_tests(params: dict, nodes: list, notes: str, directory: str, mod: str = '
         elapsed_time = round(elapsed, 2)
         total_time += elapsed_time
         append_to_report(f'\n----- Test {i + 1}:\n')
+        print(f'\n----- Test {i + 1}:\n')
         report_results(params, net, model, elapsed_time, output_name, mod, directory)
         append_to_report(f'\n---------------------\n')
 
