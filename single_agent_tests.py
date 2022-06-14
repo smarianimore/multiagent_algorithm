@@ -2,6 +2,8 @@ import datetime
 import os
 import time
 
+from networkx import DiGraph
+
 from agent import Agent
 from networks import get_network_from_nodes
 from utils.config import resp_time
@@ -10,7 +12,18 @@ from utils.drawing import difference
 os.environ["PATH"] += "/usr/local/Cellar/graphviz/2.44.1/lib/graphviz"
 
 
-def test(params, network, mod):
+def test(params: dict, network: dict, mod: str) -> tuple:
+    """
+    Tests one agent's learning ability on the given 'network', with the given 'params', in the given 'mod'
+
+    @param params: a dictionary storing the learning parameters
+    @param network: a dictionary representing the network whose causal model should be learnt
+    @param mod: 'offline' to learn from data and simulate interventions, 'online' to intervene on running iCasa
+    simulation
+
+    @rtype: tuple
+    @return: the learnt model and the learning time
+    """
     agent = Agent(nodes=network['nodes'],
                   non_doable=network['non_doable'],
                   edges=network['edges'],
@@ -25,7 +38,20 @@ def test(params, network, mod):
     return model, elapsed
 
 
-def report_results(parameters, network, model, elapsed_time, output_name, mod, directory):
+def report_results(parameters: dict, network: dict, model: DiGraph, elapsed_time: int, output_name: str, mod: str,
+                   directory: str):
+    """
+    Reports learning results for 'model' in 'output_name' file within folder 'directory'.
+
+    @param parameters: a dictionary storing the learning parameters
+    @param network: a dictionary representing the network whose causal model should be learnt
+    @param model: the model actually learnt
+    @param elapsed_time: the learning time
+    @param output_name: the filename where to write results
+    @param mod: 'offline' to learn from data and simulate interventions, 'online' to intervene on running iCasa
+    simulation
+    @param directory: the folder where to store the 'output_name' file
+    """
     # Parameters
     append_to_report('\nParameters:\n')
     for par in parameters:
@@ -53,7 +79,6 @@ def report_results(parameters, network, model, elapsed_time, output_name, mod, d
     spur = f"\nSpurious:\t ({n_spur}) \t {spurious_edges}\n"
     comp_time = f"\nLearning time: {elapsed_time} s\n"
     results = gt_net + pred_net + missed + spur + comp_time
-    #print(results)
     append_to_report(results)
 
     # Performance
@@ -69,7 +94,7 @@ def append_to_report(text, directory="output/reproducibility/",
         f.write(text)
 
 
-def do_tests(params: dict, nodes: list, notes: str, directory: str, mod: str = 'offline') -> None:
+def do_tests(params: dict, nodes: list, notes: str, directory: str, mod: str = 'offline'):
     """
     Tests learning of a single agent.
     In order to run the test you have to
@@ -78,8 +103,6 @@ def do_tests(params: dict, nodes: list, notes: str, directory: str, mod: str = '
       3. Set the parameters for the learning algorithm ('params')
       4. Set the directory where you want the resulting graph ('directory')
       5. Optional: add some notes for the report ('notes')
-
-    @rtype: None
 
     @param params: a dictionary storing the learning parameters
     @param nodes: the list of nodes whose causal model should be learnt
@@ -93,7 +116,7 @@ def do_tests(params: dict, nodes: list, notes: str, directory: str, mod: str = '
     # t2 = get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O'], False)
     # t3 = get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O'], False)
     # t4 = get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O'], False)
-    t = get_network_from_nodes(nodes, False)
+    t = get_network_from_nodes(nodes, False)  # DOC t is a dict
     tests = [t]
 
     # Initialization
@@ -105,7 +128,7 @@ def do_tests(params: dict, nodes: list, notes: str, directory: str, mod: str = '
 
     # Testing process
     # TODO refactor nodes to be a list of tuples ('name', [nodes]) and use 'name' for output filename
-    for i, net in enumerate(tests):
+    for i, net in enumerate(tests):  # 'enumerate' generates indexes
         output_name = f'network_{datetime.datetime.now()}_' + str(i + 1)
 
         model, elapsed = test(params, net, mod)
