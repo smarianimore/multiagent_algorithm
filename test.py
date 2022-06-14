@@ -1,31 +1,24 @@
-from utils.drawing import draw, difference
-from networks import get_network_from_nodes
-#from utils.config import parameters, resp_time
-from utils.config import resp_time
-from agent import Agent
 import datetime
+import os
 import time
 
+from agent import Agent
+from networks import get_network_from_nodes
+from utils.config import resp_time
+from utils.drawing import difference
 
-import os
-#os.environ["PATH"] += os.pathsep + 'C:\\Users\\pakyr\\.conda\\envs\\bayesianEnv\\Library\\bin\\graphviz'
 os.environ["PATH"] += "/usr/local/Cellar/graphviz/2.44.1/lib/graphviz"
 
 
 # single agent -> complete learning
 def single_agent_test(params, network, mod):
     agent = Agent(nodes=network['nodes'],
-        non_doable=network['non_doable'],
-        edges=network['edges'],
-        obs_data=network['dataset'])
+                  non_doable=network['non_doable'],
+                  edges=network['edges'],
+                  obs_data=network['dataset'])
 
     start = time.time()
-    model, undirected_edges = agent.learning(nodes=agent.nodes,
-        non_doable=agent.non_doable,
-        parameters=params,
-        mod=mod,
-        bn=agent.bn,
-        obs_data=agent.obs_data)
+    model, undirected_edges = agent.learning(parameters=params, mod=mod)
     end = time.time()
     elapsed = (end - start)
 
@@ -50,6 +43,7 @@ def print_results_single_agent(parameters, network, model, elapsed_time, output_
     dot, new_edges, missed_edges, recovered_edges = difference(gt_edges, pred_edges, stat=True)
     dot.view(directory=directory, filename=output_name)
 
+    # Stats
     gt_net = f"\n\nGround-truth \nNodes: {gt_nodes}\tlen={len(gt_nodes)} \nEdges: {gt_edges}\tlen={len(gt_edges)}"
     pred_net = f"\nPredicted \nNodes: {pred_nodes}\tlen={len(pred_nodes)} \nEdges: {pred_edges}\tlen={len(pred_edges)}"
     missed = f"\nMissed edges: {missed_edges}"
@@ -73,7 +67,8 @@ def print_results_single_agent(parameters, network, model, elapsed_time, output_
     write_on_report(missed_rate)
 
 
-def write_on_report(text, directory="output/reproducibility/", file='single_agent_'+str(datetime.datetime.now())+'.txt'):
+def write_on_report(text, directory="output/reproducibility/",
+                    file='single_agent_' + str(datetime.datetime.now()) + '.txt'):
     with open(f"{directory}{file}", 'a') as f:
         f.write(text)
 
@@ -87,11 +82,11 @@ def single_agent_procedure(params, nodes, notes, directory, n_agents=1, mod='off
     # 4. Optional: add some notes for the report
 
     # Definitions of the networks
-    #t0 = get_network_from_nodes(['H', 'T', 'C'], False)
-    #t1 = get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O'], False)
-    #t2 = get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O'], False)
-    #t3 = get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O'], False)
-    #t4 = get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O'], False)
+    # t0 = get_network_from_nodes(['H', 'T', 'C'], False)
+    # t1 = get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O'], False)
+    # t2 = get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O'], False)
+    # t3 = get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O'], False)
+    # t4 = get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O'], False)
     t = get_network_from_nodes(nodes, False)
     # Array containing the networks to be tested
     tests = [t]
@@ -103,7 +98,7 @@ def single_agent_procedure(params, nodes, notes, directory, n_agents=1, mod='off
 
     # DOC Leave some comments to clarify the possible meaning of a test
     # For example: "Incremental do_size" means that the test is made to verify do_size variable effects
-    #notes = "using the same parameters as multi-agent"
+    # notes = "using the same parameters as multi-agent"
     write_on_report(f'\nNotes:\t{notes}')
 
     # Testing process
@@ -138,4 +133,3 @@ if __name__ == "__main__":
     # Call n times when learning online, then pick best results
     # for n in range(5):
     #     single_agent_procedure()
-

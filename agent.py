@@ -1,12 +1,13 @@
-import pandas as pd
-from utils.probabilityEstimation import ConditionalProbability
-from ocik.network import BayesianNetwork
-from ocik import CausalLeaner
-from utils.drawing import draw
-
 import os
-#os.environ["PATH"] += os.pathsep + 'C:\\Users\\pakyr\\.conda\\envs\\bayesianEnv\\Library\\bin\\graphviz'
+
+import pandas as pd
+
+from ocik import CausalLeaner
+from ocik.network import BayesianNetwork
+from utils.probabilityEstimation import ConditionalProbability
+
 os.environ["PATH"] += "/usr/local/Cellar/graphviz/2.44.1/lib/graphviz"
+
 
 # Class for an Agent of the environment
 class Agent:
@@ -44,7 +45,8 @@ class Agent:
         return bn
 
     # Get non-duplicate nodes list from edges
-    def nodes_from_edges(self, edges):
+    @staticmethod
+    def nodes_from_edges(edges):
         nodes = []
         for edge in edges:
             nodes.append(edge[0])
@@ -97,12 +99,20 @@ class Agent:
         # self.obs_data = pd.merge(self.obs_data, data_to_concatenate, how='outer', on='index')
         self.obs_data = pd.concat([self.obs_data, data_to_concatenate], axis=1)
 
-        # Decide how to manage NaN values if present
+        # TODO Decide how to manage NaN values if present
 
-    def learning(self, nodes, parameters, non_doable, mod, bn=None, obs_data=None, edges=None):
+    def learning(self, parameters, mod, edges=None):
 
-        estimator = CausalLeaner(nodes=nodes, non_dobale=non_doable, edges=edges, env=bn, obs_data=obs_data)
-        model, undirected_edges = estimator.learn(mod=mod, max_cond_vars=parameters['max_cond_vars'], do_size=parameters['do_size'], do_conf=parameters['do_conf'], ci_conf=parameters['ci_conf'])
+        estimator = CausalLeaner(nodes=self.nodes,
+                                 non_dobale=self.non_doable,
+                                 edges=edges,
+                                 env=self.bn,
+                                 obs_data=self.obs_data)
+        model, undirected_edges = estimator.learn(mod=mod,
+                                                  max_cond_vars=parameters['max_cond_vars'],
+                                                  do_size=parameters['do_size'],
+                                                  do_conf=parameters['do_conf'],
+                                                  ci_conf=parameters['ci_conf'])
 
         return model, undirected_edges
 
@@ -114,10 +124,6 @@ class Agent:
     #     for node in incomplete:
     #         if node in self.nodes:
     #             self.incomplete.append(node)
-
-    def print_structure(self):
-        dot = draw(self.edges)
-        dot.view(directory='tmp/tmp/')
 
     def build_request_msg(self, nodes_to_investigate: list, undirected_edges: list):
         # The message contains:
@@ -143,6 +149,7 @@ class Agent:
             # Example: Pow->W (non-doable->doable)
             # In this case we need data both for Pow and for W, because the chi-square compares the distributions
             obs_data = self.obs_data
+            # NB defaults to 'inplace=False' hence no column is removed from original dataframe
             data_to_send = obs_data.drop(columns=[x for x in obs_data.columns if x not in nodes_to_send])
 
             # Build message
@@ -183,6 +190,7 @@ class Agent:
             print('Nodes already known, checking the previous learning results...')
             return False  # Not going to learn
         else:
+            # QUESTION we do nothing?
             # Code for adding new nodes to existing structure before to make incremental learning
             # for node in msg['nodes']:
             #     if node not in self.nodes:
@@ -219,11 +227,3 @@ class Agent:
                     self.add_edge(t)
         else:
             print('Empty response, nothing added')
-
-
-
-
-
-
-
-
