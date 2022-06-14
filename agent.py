@@ -11,7 +11,7 @@ os.environ["PATH"] += "/usr/local/Cellar/graphviz/2.44.1/lib/graphviz"
 
 # Class for an Agent of the environment
 class Agent:
-    def __init__(self, nodes, non_doable, edges, obs_data):
+    def __init__(self, nodes: list[str], non_doable: list[str], edges: list[tuple[str, str]], obs_data: pd.DataFrame) -> object:
         self.nodes = nodes
         self.edges = edges
         self.non_doable = non_doable

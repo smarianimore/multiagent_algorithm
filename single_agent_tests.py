@@ -9,10 +9,10 @@ from networks import get_network_from_nodes
 from utils.config import resp_time
 from utils.drawing import difference
 
-os.environ["PATH"] += "/usr/local/Cellar/graphviz/2.44.1/lib/graphviz"
+os.environ["PATH"] += "/usr/local/Cellar/graphviz/2.44.1/lib/graphviz"  # TODO put in config file
 
 
-def test(params: dict, network: dict, mod: str) -> tuple:
+def test(params: dict[str: int], network: dict[str: list], mod: str) -> tuple[DiGraph, int]:
     """
     Tests one agent's learning ability on the given 'network', with the given 'params', in the given 'mod'
 
@@ -38,8 +38,8 @@ def test(params: dict, network: dict, mod: str) -> tuple:
     return model, elapsed
 
 
-def report_results(parameters: dict, network: dict, model: DiGraph, elapsed_time: int, output_name: str, mod: str,
-                   directory: str):
+def report_results(parameters: dict[str: int], network: dict[str: list], model: DiGraph, elapsed_time: int,
+                   output_name: str, mod: str, directory: str):
     """
     Reports learning results for 'model' in 'output_name' file within folder 'directory'.
 
@@ -94,7 +94,7 @@ def append_to_report(text, directory="output/reproducibility/",
         f.write(text)
 
 
-def do_tests(params: dict, nodes: list, notes: str, directory: str, mod: str = 'offline'):
+def do_tests(params: dict[str: int], nodes: list[str], notes: str, directory: str, mod: str = 'offline'):
     """
     Tests learning of a single agent.
     In order to run the test you have to
