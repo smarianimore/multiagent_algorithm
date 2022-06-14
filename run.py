@@ -142,7 +142,7 @@ def run(agent_1, agent_2, gt_1, gt_2, gt_3, nodes_to_investigate, timestamp):
     start = time.time()
     # 1 - Offline Local learning (Agent 1 and Agent 2)
     model_1, undirected_edges_1 = agent_1.learning(nodes=agent_1.nodes, non_doable=agent_1.non_doable,
-                                                   parameters=agent_1_parameters, mod='offline', bn=agent_1.gt_BN,
+                                                   parameters=agent_1_parameters, mod='offline', bn=agent_1.gt_bn,
                                                    obs_data=agent_1.obs_data)
     time_1 = (time.time() - start)
     agent_1.replace_edges(list(model_1.edges()))
@@ -154,7 +154,7 @@ def run(agent_1, agent_2, gt_1, gt_2, gt_3, nodes_to_investigate, timestamp):
 
     start = time.time()
     model_2, undirected_edges_2 = agent_2.learning(nodes=agent_2.nodes, non_doable=agent_2.non_doable,
-                                                   parameters=agent_2_parameters, mod='offline', bn=agent_2.gt_BN,
+                                                   parameters=agent_2_parameters, mod='offline', bn=agent_2.gt_bn,
                                                    obs_data=agent_2.obs_data)
     time_2 = (time.time() - start)
     agent_2.replace_edges(list(model_2.edges()))

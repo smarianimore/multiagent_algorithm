@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 
 import pandas as pd
 from networkx import DiGraph
@@ -32,8 +33,8 @@ class Agent:
         self.gt_edges = gt_edges
         self.non_doable = non_doable
         self.obs_data = obs_data
-        self.gt_CPTs = ConditionalProbability(self.obs_data, self.gt_edges)  # DOC given ground truth build CPT
-        self.gt_BN = self.create_gt_bn_net()
+        self.gt_cpt = ConditionalProbability(self.obs_data, self.gt_edges)  # DOC given ground truth build CPT
+        self.gt_bn = self.create_gt_bn_net()
         self.undirected_edges = []
         self.incomplete = []
 
@@ -49,7 +50,7 @@ class Agent:
         bn = BayesianNetwork(self.gt_edges)
         for node in bn.nodes():
             parents = [edge[0] for edge in bn.edges() if node == edge[1]]
-            arr = self.gt_CPTs.get_node_prob(node)
+            arr = self.gt_cpt.get_node_prob(node)
             arr = [arr[1], arr[0]]  # invert the array for construction reasons
             bn.set_cpd(node, arr, parents)
         return bn
@@ -75,7 +76,7 @@ class Agent:
         estimator = CausalLeaner(nodes=self.nodes,
                                  non_dobale=self.non_doable,
                                  edges=edges,
-                                 env=self.gt_BN,
+                                 env=self.gt_bn,  # DOC used to simulate interventions and evaluate performance
                                  obs_data=self.obs_data)
         model, undirected_edges = estimator.learn(mod=mod,
                                                   max_cond_vars=parameters['max_cond_vars'],
@@ -94,34 +95,37 @@ class Agent:
             nodes.append(edge[1])
         return list(set(nodes))
 
-    def build_request_msg(self, nodes_to_investigate: list, undirected_edges: list):
-        # The message contains:
-        #   - nodes with outliers values (nodes_to_investigate)
-        #   - nodes in undirected connections
-        # In case of duplicates, eliminate them
+    def build_request_msg(self, frontier: list, undirected_edges: list) -> Optional[dict]:
+        """
+        Builds the help message to ask help to other agents
 
+        Parameters
+        ----------
+        frontier :
+            nodes with "outlier values" (taken as given, atm)
+        undirected_edges :
+            edges whose direction should be established yet
+
+        Returns
+        -------
+        dict
+            a dictionary of message data (nodes to investigate, which are non doable, known observational data)
+        """
         nodes_to_send = []
-        if len(nodes_to_investigate) != 0:
-            nodes_to_send.extend(nodes_to_investigate)
+        if len(frontier) != 0:
+            nodes_to_send.extend(frontier)
         if len(undirected_edges) != 0:
             nodes_to_send.extend(self.nodes_from_edges(undirected_edges))
-
         nodes_to_send = list(set(nodes_to_send))
 
         if len(nodes_to_send) != 0:
-            non_doable = []
-            for node in nodes_to_send:
-                if node in self.non_doable:
-                    non_doable.append(node)
-
+            non_doable = [node for node in nodes_to_send if node in self.non_doable]
             # Data are necessary for the chi-square
             # Example: Pow->W (non-doable->doable)
             # In this case we need data both for Pow and for W, because the chi-square compares the distributions
-            obs_data = self.obs_data
             # NB defaults to 'inplace=False' hence no column is removed from original dataframe
-            data_to_send = obs_data.drop(columns=[x for x in obs_data.columns if x not in nodes_to_send])
+            data_to_send = self.obs_data.drop(columns=[x for x in self.obs_data.columns if x not in nodes_to_send])
 
-            # Build message
             msg = dict()
             msg['nodes'] = nodes_to_send
             msg['non_doable'] = non_doable
@@ -131,15 +135,23 @@ class Agent:
 
         return msg
 
-    def build_response_msg(self, discovered_edges: list):
+    def build_response_msg(self, discovered_edges: list[tuple[str, str]]) -> Optional[dict]:
+        """
+
+        Parameters
+        ----------
+        discovered_edges : list[tuple[str, str]]
+            the list of edges discovered by the replying agent
+
+        Returns
+        -------
+        dict
+            a dictionary of message data (discovered edges, non doable nodes)
+        """
         msg = dict()
 
-        non_doable = []
         nodes = self.nodes_from_edges(discovered_edges)
-        for node in nodes:
-            if node in self.non_doable:
-                non_doable.append(node)
-
+        non_doable = [node for node in nodes if node in self.non_doable]
         if len(discovered_edges) != 0:
             msg['edges'] = discovered_edges
             msg['non_doable'] = non_doable
@@ -147,8 +159,19 @@ class Agent:
         else:
             return None
 
-    def read_request(self, request_msg):
+    def read_request(self, request_msg: dict) -> bool:
+        """
 
+        Parameters
+        ----------
+        request_msg : dict
+            a dictionary of message data (nodes to investigate, which are non doable, known observational data)
+
+        Returns
+        -------
+        bool
+            whether all the received nodes are already known, hence no further learning is to be done locally
+        """
         if request_msg:
             msg = request_msg
         else:
@@ -184,22 +207,22 @@ class Agent:
     def add_edge(self, edge):
         self.gt_edges.append(edge)
 
-    def read_response(self, response):
-        # We consider trusted the communication between agents, so we directly integrate the response
-        # without repeat the learning
+    def read_response(self, response: dict):
+        """
 
+        Parameters
+        ----------
+        response : dict
+            a dictionary of message data (discovered edges, non doable nodes)
+        """
         if len(response) != 0:
-            # Read nodes and add to structure
             new_nodes = self.nodes_from_edges(response['edges'])
             for node in new_nodes:
                 if node not in self.nodes:
                     self.add_node(node)
-
             for node in response['non_doable']:
                 if node not in self.non_doable:
                     self.add_non_doable(node)
-
-            # Read edges and add to structure
             for t in response['edges']:
                 if t not in self.gt_edges:
                     self.add_edge(t)

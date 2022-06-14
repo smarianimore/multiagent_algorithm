@@ -130,7 +130,7 @@ def do_tests(params: dict[str: int], nodes: list[str], notes: str, directory: st
     directory : str
         where to save output reports and graphs
     mod : str
-        'offline' to learn from data and simulate interventions, 'online' to intervene on running iCasasimulation
+        'offline' to learn from data and simulate interventions, 'online' to intervene on running iCasa simulation
 
     """
     # t0 = get_network_from_nodes(['H', 'T', 'C'], False)
@@ -138,7 +138,7 @@ def do_tests(params: dict[str: int], nodes: list[str], notes: str, directory: st
     # t2 = get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O'], False)
     # t3 = get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O'], False)
     # t4 = get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O'], False)
-    t = create_gt_net_skel(nodes, False)  # DOC exploits ground truth to generate network description (t is a dict)
+    t = create_gt_net_skel(nodes, False)  # DOC exploits ground truth to generate network description (it is a dict)
     tests = [t]
 
     # Initialization

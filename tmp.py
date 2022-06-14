@@ -8,7 +8,7 @@ import time
 def learning(agent, mod):
     start = time.time()
     model, undirected_edges = agent.learning(nodes=agent.nodes, non_doable=agent.non_doable,
-                                             parameters=parameters, mod=mod, bn=agent.gt_BN,
+                                             parameters=parameters, mod=mod, bn=agent.gt_bn,
                                              obs_data=agent.obs_data)
     end = time.time()
 
