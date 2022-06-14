@@ -5,7 +5,7 @@ import time
 from networkx import DiGraph
 
 from agent import Agent
-from networks import get_network_from_nodes
+from networks import create_gt_net_skel
 from utils.config import resp_time
 from utils.drawing import difference
 
@@ -16,13 +16,19 @@ def test(params: dict[str: int], network: dict[str: list], mod: str) -> tuple[Di
     """
     Tests one agent's learning ability on the given 'network', with the given 'params', in the given 'mod'
 
-    @param params: a dictionary storing the learning parameters
-    @param network: a dictionary representing the network whose causal model should be learnt
-    @param mod: 'offline' to learn from data and simulate interventions, 'online' to intervene on running iCasa
-    simulation
+    Parameters
+    ----------
+    params : dict[str: int]
+        a dictionary storing the learning parameters
+    network : dict[str: list]
+        a dictionary storing the learning parameters
+    mod : str
+        'offline' to learn from data and simulate interventions, 'online' to intervene on running iCasa simulation
 
-    @rtype: tuple
-    @return: the learnt model and the learning time
+    Returns
+    -------
+    tuple[DiGraph, float]
+        the learnt model and the learning time
     """
     agent = Agent(nodes=network['nodes'],
                   non_doable=network['non_doable'],
@@ -43,14 +49,23 @@ def report_results(parameters: dict[str: int], network: dict[str: list], model: 
     """
     Reports learning results for 'model' in 'output_name' file within folder 'directory'.
 
-    @param parameters: a dictionary storing the learning parameters
-    @param network: a dictionary representing the network whose causal model should be learnt
-    @param model: the model actually learnt
-    @param elapsed_time: the learning time
-    @param output_name: the filename where to write results
-    @param mod: 'offline' to learn from data and simulate interventions, 'online' to intervene on running iCasa
-    simulation
-    @param directory: the folder where to store the 'output_name' file
+    Parameters
+    ----------
+    parameters : dict[str: int]
+        a dictionary storing the learning parameters
+    network : dict[str: list]
+        a dictionary representing the network whose causal model should be learnt
+    model : DiGraph
+        the model actually learnt
+    elapsed_time : float
+        the model actually learnt
+    output_name : str
+        the filename where to write results
+    mod : str
+        'offline' to learn from data and simulate interventions, 'online' to intervene on running iCasa simulation
+    directory : str
+        the folder where to store the 'output_name' file
+
     """
     # Parameters
     append_to_report('\nParameters:\n')
@@ -104,19 +119,26 @@ def do_tests(params: dict[str: int], nodes: list[str], notes: str, directory: st
       4. Set the directory where you want the resulting graph ('directory')
       5. Optional: add some notes for the report ('notes')
 
-    @param params: a dictionary storing the learning parameters
-    @param nodes: the list of nodes whose causal model should be learnt
-    @param notes: optional notes to write on report file
-    @param directory: where to save output reports and graphs
-    @param mod: 'offline' to learn from data and simulate interventions, 'online' to intervene on running iCasa
-    simulation
+    Parameters
+    ----------
+    params : dict[str: int]
+        a dictionary storing the learning parameters
+    nodes : list[str]
+        the list of nodes whose causal model should be learnt
+    notes : str
+        optional notes to write on report file
+    directory : str
+        where to save output reports and graphs
+    mod : str
+        'offline' to learn from data and simulate interventions, 'online' to intervene on running iCasasimulation
+
     """
     # t0 = get_network_from_nodes(['H', 'T', 'C'], False)
     # t1 = get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'W', 'T', 'O'], False)
     # t2 = get_network_from_nodes(['Pr', 'L', 'Pow', 'H', 'C', 'W', 'B', 'T', 'O'], False)
     # t3 = get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C', 'W', 'B', 'T', 'O'], False)
     # t4 = get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O'], False)
-    t = get_network_from_nodes(nodes, False)  # DOC exploits ground truth to generate network description (t is a dict)
+    t = create_gt_net_skel(nodes, False)  # DOC exploits ground truth to generate network description (t is a dict)
     tests = [t]
 
     # Initialization

@@ -142,10 +142,10 @@ def run(agent_1, agent_2, gt_1, gt_2, gt_3, nodes_to_investigate, timestamp):
     start = time.time()
     # 1 - Offline Local learning (Agent 1 and Agent 2)
     model_1, undirected_edges_1 = agent_1.learning(nodes=agent_1.nodes, non_doable=agent_1.non_doable,
-                                                   parameters=agent_1_parameters, mod='offline', bn=agent_1.bn,
+                                                   parameters=agent_1_parameters, mod='offline', bn=agent_1.gt_BN,
                                                    obs_data=agent_1.obs_data)
     time_1 = (time.time() - start)
-    agent_1.reset_edges(list(model_1.edges()))
+    agent_1.replace_edges(list(model_1.edges()))
     agent_1.add_undirected_edges(undirected_edges_1)
     dot = difference(gt_1, model_1.edges()) # compare gt and pred
     # dot = draw(model_1.edges()) # see only pred
@@ -154,10 +154,10 @@ def run(agent_1, agent_2, gt_1, gt_2, gt_3, nodes_to_investigate, timestamp):
 
     start = time.time()
     model_2, undirected_edges_2 = agent_2.learning(nodes=agent_2.nodes, non_doable=agent_2.non_doable,
-                                                   parameters=agent_2_parameters, mod='offline', bn=agent_2.bn,
+                                                   parameters=agent_2_parameters, mod='offline', bn=agent_2.gt_BN,
                                                    obs_data=agent_2.obs_data)
     time_2 = (time.time() - start)
-    agent_2.reset_edges(list(model_2.edges()))
+    agent_2.replace_edges(list(model_2.edges()))
     agent_2.add_undirected_edges(undirected_edges_2)
     dot = difference(gt_2, model_2.edges())  # compare gt and pred
     # dot = draw(model_2.edges()) # see only pred
@@ -245,8 +245,8 @@ if __name__ == '__main__':
         write_on_report(f'\n{par} = {online_parameters[par]}')
 
     # Choose how to divide the network
-    network_1 = networks.get_network_from_nodes(['Pr', 'L', 'Pow', 'S', 'H', 'C'], False)
-    network_2 = networks.get_network_from_nodes(['W', 'O', 'T', 'B', 'A', 'CO', 'CO2'], False)
+    network_1 = networks.create_gt_net_skel(['Pr', 'L', 'Pow', 'S', 'H', 'C'], False)
+    network_2 = networks.create_gt_net_skel(['W', 'O', 'T', 'B', 'A', 'CO', 'CO2'], False)
 
     # Initialize agents
     agent_1 = Agent(nodes=network_1['nodes'], non_doable=network_1['non_doable'], edges=network_1['edges'],

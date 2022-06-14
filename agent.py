@@ -1,10 +1,11 @@
 import os
 
 import pandas as pd
+from networkx import DiGraph
 
 from ocik import CausalLeaner
 from ocik.network import BayesianNetwork
-from utils.probabilityEstimation import ConditionalProbability
+from utils.cpt_estimator import ConditionalProbability
 
 os.environ["PATH"] += "/usr/local/Cellar/graphviz/2.44.1/lib/graphviz"
 
@@ -12,111 +13,69 @@ os.environ["PATH"] += "/usr/local/Cellar/graphviz/2.44.1/lib/graphviz"
 # Class for an Agent of the environment
 class Agent:
     def __init__(self, nodes: list[str], non_doable: list[str], gt_edges: list[tuple[str, str]],
-                 obs_data: pd.DataFrame) -> object:
+                 obs_data: pd.DataFrame):
         """
+        An agent learning a causal model
 
-        @rtype: object
-
-        @param nodes:  the list of nodes known to the agent
-        @param non_doable:  the list of non doable nodes
-        @param gt_edges: list of edges (ground truth, used for simulation of interventions)
-        @param obs_data: all the observational data available for the 'nodes'
+        Parameters
+        ----------
+        nodes : list[str]
+            the list of nodes known to the agent
+        non_doable : list[str]
+            the list of non doable nodes
+        gt_edges : list[tuple[str, str]]
+            list of edges (ground truth, used for simulation of interventions)
+        obs_data : pd.DataFrame
+            all the observational data available for the 'nodes'
         """
         self.nodes = nodes
         self.gt_edges = gt_edges
         self.non_doable = non_doable
         self.obs_data = obs_data
-        self.conditional_prob = ConditionalProbability(self.obs_data, self.gt_edges)  # DOC given ground truth build CPT
-        self.bn = self.build_network()
+        self.gt_CPTs = ConditionalProbability(self.obs_data, self.gt_edges)  # DOC given ground truth build CPT
+        self.gt_BN = self.create_gt_bn_net()
         self.undirected_edges = []
         self.incomplete = []
 
-    # replace list of edges
-    def reset_edges(self, learned_edges):
-        self.gt_edges.clear()
-        self.gt_edges = learned_edges
+    def create_gt_bn_net(self) -> BayesianNetwork:
+        """
+        Creates the Bayesian Network (hence edges + CPT) of the ground truth edges
 
-    # build the Bayesian Network with probabilities
-    def build_network(self):
-        # Define network structure
+        Returns
+        -------
+        BayesianNetwork
+            a 'BayesianNetwork' of the ground truth
+        """
         bn = BayesianNetwork(self.gt_edges)
-
-        # Fill with conditional probabilities
         for node in bn.nodes():
-            parents = []
-            for edge in bn.edges():
-                if node == edge[1]:
-                    parents.append(edge[0])
-
-            arr = self.conditional_prob.get_node_prob(node)
-            # Invert the array for construction reasons
-            arr = [arr[1], arr[0]]
+            parents = [edge[0] for edge in bn.edges() if node == edge[1]]
+            arr = self.gt_CPTs.get_node_prob(node)
+            arr = [arr[1], arr[0]]  # invert the array for construction reasons
             bn.set_cpd(node, arr, parents)
         return bn
 
-    # Get non-duplicate nodes list from edges
-    @staticmethod
-    def nodes_from_edges(edges):
-        nodes = []
-        for edge in edges:
-            nodes.append(edge[0])
-            nodes.append(edge[1])
-        return list(set(nodes))
+    def learning(self, parameters: dict[str: int], mod: str, edges: list[tuple[str, str]] = None) \
+            -> tuple[DiGraph, list[tuple[str, str]]]:
+        """
 
-    def add_node(self, node):
-        self.nodes.append(node)
+        Parameters
+        ----------
+        parameters :
+            a dictionary storing the learning parameters
+        mod :
+            'offline' to learn from data and simulate interventions, 'online' to intervene on running iCasa simulation
+        edges :
+            QUESTION ???
 
-    def remove_node(self, node):
-        self.nodes.remove(node)
-
-    def add_non_doable(self, node):
-        self.non_doable.append(node)
-
-    def remove_non_doable(self, node):
-        self.non_doable.remove(node)
-
-    def add_edge(self, edge):
-        self.gt_edges.append(edge)
-
-    def remove_edge(self, edge):
-        self.gt_edges.remove(edge)
-
-    def add_undirected_edges(self, undirected_edges):
-        for edge in undirected_edges:
-            self.undirected_edges.append(edge)
-
-    def concatenate_data(self, data_to_concatenate, override=True):
-        # Concatenate original data with received data
-        # Pay attention on:
-        # - identifier for each sample
-        # - dimensions
-        # - no duplicate data (as columns name)
-
-        # When a column is already present, decide if keep it or override it
-        drops = []  # list of same column names for agent data and received data
-        for col in data_to_concatenate.columns:
-            if col in self.obs_data.columns:
-                drops.append(col)
-
-        if override:
-            # override old data
-            self.obs_data.drop(columns=drops, inplace=True)
-        else:
-            # do not override old data
-            data_to_concatenate.drop(columns=drops, inplace=True)
-
-        # Merge of data based on the id
-        # self.obs_data = pd.merge(self.obs_data, data_to_concatenate, how='outer', on='index')
-        self.obs_data = pd.concat([self.obs_data, data_to_concatenate], axis=1)
-
-        # TODO Decide how to manage NaN values if present
-
-    def learning(self, parameters, mod, edges=None):
-
+        Returns
+        -------
+        tuple[DiGraph, list[tuple[str, str]]]
+            the learnt model and the list of undirected edges found
+        """
         estimator = CausalLeaner(nodes=self.nodes,
                                  non_dobale=self.non_doable,
                                  edges=edges,
-                                 env=self.bn,
+                                 env=self.gt_BN,
                                  obs_data=self.obs_data)
         model, undirected_edges = estimator.learn(mod=mod,
                                                   max_cond_vars=parameters['max_cond_vars'],
@@ -126,14 +85,14 @@ class Agent:
 
         return model, undirected_edges
 
-    # Check for incomplete nodes: for now this step is simulated, we add variables manually
-    # def check_incomplete(self):
-    #     # Example
-    #     incomplete = ['T']
-    #
-    #     for node in incomplete:
-    #         if node in self.nodes:
-    #             self.incomplete.append(node)
+    # Get non-duplicate nodes list from edges
+    @staticmethod
+    def nodes_from_edges(edges):
+        nodes = []
+        for edge in edges:
+            nodes.append(edge[0])
+            nodes.append(edge[1])
+        return list(set(nodes))
 
     def build_request_msg(self, nodes_to_investigate: list, undirected_edges: list):
         # The message contains:
@@ -216,6 +175,15 @@ class Agent:
 
             return True  # Going to learn
 
+    def add_node(self, node):
+        self.nodes.append(node)
+
+    def add_non_doable(self, node):
+        self.non_doable.append(node)
+
+    def add_edge(self, edge):
+        self.gt_edges.append(edge)
+
     def read_response(self, response):
         # We consider trusted the communication between agents, so we directly integrate the response
         # without repeat the learning
@@ -237,3 +205,39 @@ class Agent:
                     self.add_edge(t)
         else:
             print('Empty response, nothing added')
+
+    # replace list of edges
+    def replace_edges(self, learned_edges):
+        self.gt_edges.clear()
+        self.gt_edges = learned_edges
+
+    def add_undirected_edges(self, undirected_edges):
+        for edge in undirected_edges:
+            self.undirected_edges.append(edge)
+
+    # FIXME unused apparently
+    def concatenate_data(self, data_to_concatenate, override=True):
+        # Concatenate original data with received data
+        # Pay attention on:
+        # - identifier for each sample
+        # - dimensions
+        # - no duplicate data (as columns name)
+
+        # When a column is already present, decide if keep it or override it
+        drops = []  # list of same column names for agent data and received data
+        for col in data_to_concatenate.columns:
+            if col in self.obs_data.columns:
+                drops.append(col)
+
+        if override:
+            # override old data
+            self.obs_data.drop(columns=drops, inplace=True)
+        else:
+            # do not override old data
+            data_to_concatenate.drop(columns=drops, inplace=True)
+
+        # Merge of data based on the id
+        # self.obs_data = pd.merge(self.obs_data, data_to_concatenate, how='outer', on='index')
+        self.obs_data = pd.concat([self.obs_data, data_to_concatenate], axis=1)
+
+        # TODO Decide how to manage NaN values if present

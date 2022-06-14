@@ -8,8 +8,8 @@ import time
 def learning(agent, mod):
     start = time.time()
     model, undirected_edges = agent.learning(nodes=agent.nodes, non_doable=agent.non_doable,
-                                                   parameters=parameters, mod=mod, bn=agent.bn,
-                                                   obs_data=agent.obs_data)
+                                             parameters=parameters, mod=mod, bn=agent.gt_BN,
+                                             obs_data=agent.obs_data)
     end = time.time()
 
     print('Elapsed time: ', end - start, 's')
@@ -26,7 +26,7 @@ if __name__ == '__main__':
     t4 = ['Pr', 'L', 'Pow', 'S', 'H', 'C', 'CO', 'CO2', 'A', 'W', 'B', 'T', 'O']
 
 
-    network = networks.get_network_from_nodes(complete, False)
+    network = networks.create_gt_net_skel(complete, False)
 
     agent = Agent(nodes=network['nodes'], non_doable=network['non_doable'], edges=network['edges'],
                     obs_data=network['dataset'])

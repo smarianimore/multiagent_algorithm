@@ -9,11 +9,11 @@ gt_edges = [("Pr", "L"), ("Pr", "S"), ("L", "Pow"), ("S", "H"), ("H", "Pow"), ("
             ("C", "Pow"), ("H", "T"), ("C", "T"), ("CO", "A"), ("CO2", "A"), ("A", "W"), ("B", "W"),
             ("O", "T"), ("W", "T")]
 all_non_doable = ['Pr', 'Pow', 'T', 'CO', 'CO2', 'O']
-test = False  # True when we are testing the algorithm, False otherwise
+is_test = False  # True when we are testing the algorithm, False otherwise
 
 
 # Get network from nodes
-def get_network_from_nodes(nodes, test):
+def create_gt_net_skel(nodes, test):
     edges = []
     non_doable = []
 
