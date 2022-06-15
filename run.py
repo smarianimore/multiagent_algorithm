@@ -12,10 +12,11 @@ import networks
 import datetime
 import time
 
-REPORT = 'report_multi-agent.txt'
+# TODO put in config file
+from utils.logging import append_to_report
 
-# The parameters for the online learning remains all the same (because we proved that the final results
-# are the same) except for the do size
+REPORT = 'multi_agent_' + str(datetime.datetime.now()) + '.txt'
+
 online_parameters = {
     'max_cond_vars': 4,
     'do_size': 3,
@@ -36,10 +37,6 @@ agent_2_parameters = {
     'do_conf': 0.9,
     'ci_conf': 0.4
 }
-
-def write_on_report(text, file=REPORT):
-    with open(file, 'a') as f:
-        f.write(text)
 
 
 # Select only the edges in which there are nodes required
@@ -104,7 +101,7 @@ def concatenate_data(old_data, new_data, override=True):
 
 
 def write_results(gt, pred, elapsed_time, description):
-    write_on_report(f"\n{description}")
+    append_to_report(f"\n{description}", file=REPORT)
 
     gt_nodes = nodes_from_edges(gt)
     gt_edges = pred
@@ -120,7 +117,7 @@ def write_results(gt, pred, elapsed_time, description):
     missed = f"\nMissed edges: {missed_edges}"
     comp_time = f"\nComputational time: {elapsed_time} s"
     results = gt_net + pred_net + missed + comp_time
-    write_on_report(results)
+    append_to_report(results, file=REPORT)
 
     # Edge statistics
     n_edges = len(gt)  # Ground-truth number of edges
@@ -130,11 +127,11 @@ def write_results(gt, pred, elapsed_time, description):
 
     # Performance measure
     edge_results = f'\nNew edges: {new_edges} \nMissed edges: {missed_edges} \nRecovered edges: {recovered_edges}'
-    write_on_report(edge_results)
+    append_to_report(edge_results, file=REPORT)
     recover_rate = f'\nRecover rate: {(recovered_edges / n_edges) * 100} %'
-    write_on_report(recover_rate)
+    append_to_report(recover_rate, file=REPORT)
     missed_rate = f'\nMissed rate: {(missed_edges / n_edges) * 100} %'
-    write_on_report(missed_rate)
+    append_to_report(missed_rate, file=REPORT)
 
 
 # Double-agent Learning
@@ -147,8 +144,7 @@ def run(agent_1, agent_2, gt_1, gt_2, gt_3, nodes_to_investigate, timestamp):
     time_1 = (time.time() - start)
     agent_1.replace_edges(list(model_1.edges()))
     agent_1.add_undirected_edges(undirected_edges_1)
-    dot = difference(gt_1, model_1.edges()) # compare gt and pred
-    # dot = draw(model_1.edges()) # see only pred
+    dot = difference(gt_1, model_1.edges())  # compare gt and pred
     dot.view(filename='1', directory=f'tmp/{timestamp}/')
     write_results(gt_1, model_1.edges(), time_1, "\nAgent 1 network")
 
@@ -160,7 +156,6 @@ def run(agent_1, agent_2, gt_1, gt_2, gt_3, nodes_to_investigate, timestamp):
     agent_2.replace_edges(list(model_2.edges()))
     agent_2.add_undirected_edges(undirected_edges_2)
     dot = difference(gt_2, model_2.edges())  # compare gt and pred
-    # dot = draw(model_2.edges()) # see only pred
     dot.view(filename='2', directory=f'tmp/{timestamp}/')
     write_results(gt_2, model_2.edges(), time_2, "\nAgent 2 network")
 
@@ -169,8 +164,8 @@ def run(agent_1, agent_2, gt_1, gt_2, gt_3, nodes_to_investigate, timestamp):
         # Nodes in the message are the ones indicated from the user (still manually) and the ones
         # from undirected edges discovered by the local learning algorithm
         msg = agent_2.build_request_msg(nodes_to_investigate, agent_2.undirected_edges)
-        write_on_report(f'\n\nUndirected edges: {agent_2.undirected_edges}')
-        write_on_report(f'\nNodes to investigate: {nodes_to_investigate}')
+        append_to_report(f'\n\nUndirected edges: {agent_2.undirected_edges}', file=REPORT)
+        append_to_report(f'\nNodes to investigate: {nodes_to_investigate}', file=REPORT)
         print('Request message ', msg)
     else:
         print('No communication, ending.')
@@ -193,12 +188,13 @@ def run(agent_1, agent_2, gt_1, gt_2, gt_3, nodes_to_investigate, timestamp):
 
         start = time.time()
         # Learn about new edges
-        model, undirected_edges = agent_1.learning(nodes=new_nodes, non_doable=new_non_doable, parameters=online_parameters,
+        model, undirected_edges = agent_1.learning(nodes=new_nodes, non_doable=new_non_doable,
+                                                   parameters=online_parameters,
                                                    mod='online', edges=new_edges, bn=None, obs_data=new_data)
         time_3 = (time.time() - start)
         # The response contains the learnt edges
         response = agent_1.build_response_msg(model.edges())
-        write_on_report(f'\nOnline predicted edges: {model.edges()}')
+        append_to_report(f'\nOnline predicted edges: {model.edges()}', file=REPORT)
     else:  # If we receive False, we check edges already known by agent 1
         response = get_response_edges(agent_1.edges, nodes_to_investigate)
     print('Response: ', response)
@@ -225,24 +221,24 @@ def run(agent_1, agent_2, gt_1, gt_2, gt_3, nodes_to_investigate, timestamp):
 if __name__ == '__main__':
     now = datetime.datetime.now()
     timestamp = datetime.datetime.timestamp(now)
-    write_on_report(f'\n\n#### {now}')
-    write_on_report(f'\ntimestamp: {timestamp}')
-    write_on_report(f'\nMulti-agent learning')
+    append_to_report(f'\n\n#### {now}', file=REPORT)
+    append_to_report(f'\ntimestamp: {timestamp}', file=REPORT)
+    append_to_report(f'\nMulti-agent learning', file=REPORT)
 
     notes = ""
-    write_on_report(f'\nNotes:\t{notes}')
+    append_to_report(f'\nNotes:\t{notes}', file=REPORT)
 
-    write_on_report('\n\nOffline agent 1 parameters:')
+    append_to_report('\n\nOffline agent 1 parameters:', file=REPORT)
     for par in agent_1_parameters:
-        write_on_report(f'\n{par} = {agent_1_parameters[par]}')
+        append_to_report(f'\n{par} = {agent_1_parameters[par]}', file=REPORT)
 
-    write_on_report('\n\nOffline agent 2 parameters:')
+    append_to_report('\n\nOffline agent 2 parameters:', file=REPORT)
     for par in agent_2_parameters:
-        write_on_report(f'\n{par} = {agent_2_parameters[par]}')
+        append_to_report(f'\n{par} = {agent_2_parameters[par]}', file=REPORT)
 
-    write_on_report('\n\nOnline parameters:')
+    append_to_report('\n\nOnline parameters:', file=REPORT)
     for par in online_parameters:
-        write_on_report(f'\n{par} = {online_parameters[par]}')
+        append_to_report(f'\n{par} = {online_parameters[par]}', file=REPORT)
 
     # Choose how to divide the network
     network_1 = networks.create_gt_net_skel(['Pr', 'L', 'Pow', 'S', 'H', 'C'], False)
@@ -268,6 +264,3 @@ if __name__ == '__main__':
 
     # Run the entire algorithm
     model_1, model_2, new_edges, elapsed_time = run(agent_1, agent_2, gt_1, gt_2, gt_3, nodes_to_investigate, timestamp)
-
-
-

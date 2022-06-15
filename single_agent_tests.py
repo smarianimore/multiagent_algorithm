@@ -8,6 +8,7 @@ from agent import Agent
 from networks import create_gt_net_skel
 from utils.config import resp_time
 from utils.drawing import difference
+from utils.logging import append_to_report
 
 os.environ["PATH"] += "/usr/local/Cellar/graphviz/2.44.1/lib/graphviz"  # TODO put in config file
 
@@ -30,7 +31,7 @@ def test(params: dict[str: int], network: dict[str: list], mod: str) -> tuple[Di
     tuple[DiGraph, float]
         the learnt model and the learning time
     """
-    agent = Agent(nodes=network['nodes'],
+    agent = Agent(nodes=network['nodes'],  # TODO put keys in config file
                   non_doable=network['non_doable'],
                   gt_edges=network['edges'],
                   obs_data=network['dataset'])
@@ -103,12 +104,6 @@ def report_results(parameters: dict[str: int], network: dict[str: list], model: 
     append_to_report(missed_rate)
 
 
-def append_to_report(text, directory="output/reproducibility/",
-                     file='single_agent_' + str(datetime.datetime.now()) + '.txt'):
-    with open(f"{directory}{file}", 'a') as f:
-        f.write(text)
-
-
 def do_tests(params: dict[str: int], nodes: list[str], notes: str, directory: str, mod: str = 'offline'):
     """
     Tests learning of a single agent.
@@ -167,6 +162,7 @@ def do_tests(params: dict[str: int], nodes: list[str], notes: str, directory: st
     append_to_report(f'\nTests time: {total_time} s')
 
 
+# TODO put in config file
 # DOC learning params, to be set empirically TODO grid-search procedure
 PARAMS = {'max_cond_vars': 4,
           'do_size': 500,

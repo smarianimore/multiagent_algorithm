@@ -13,7 +13,7 @@ class ConditionalProbability:
     def get_node_prob(self, node):
         # Get the values of the probability for a specific node
         if node is not None:
-            cpd_node = self.estimator.estimate_cpd(node, prior_type="K2").get_values()
+            cpd_node = self.estimator.estimate_cpd(node, prior_type="K2").get_values()  # TODO check implications
             return cpd_node
 
     def get_network_prob(self):

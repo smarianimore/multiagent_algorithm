@@ -8,7 +8,7 @@ from ocik import CausalLeaner
 from ocik.network import BayesianNetwork
 from utils.cpt_estimator import ConditionalProbability
 
-os.environ["PATH"] += "/usr/local/Cellar/graphviz/2.44.1/lib/graphviz"
+os.environ["PATH"] += "/usr/local/Cellar/graphviz/2.44.1/lib/graphviz"  # TODO put in config file
 
 
 # Class for an Agent of the environment
@@ -79,7 +79,7 @@ class Agent:
                                  env=self.gt_bn,  # DOC used to simulate interventions and evaluate performance
                                  obs_data=self.obs_data)
         model, undirected_edges = estimator.learn(mod=mod,
-                                                  max_cond_vars=parameters['max_cond_vars'],
+                                                  max_cond_vars=parameters['max_cond_vars'],  # TODO put keys in config
                                                   do_size=parameters['do_size'],
                                                   do_conf=parameters['do_conf'],
                                                   ci_conf=parameters['ci_conf'])
@@ -127,7 +127,7 @@ class Agent:
             data_to_send = self.obs_data.drop(columns=[x for x in self.obs_data.columns if x not in nodes_to_send])
 
             msg = dict()
-            msg['nodes'] = nodes_to_send
+            msg['nodes'] = nodes_to_send  # TODO put keyis in config file
             msg['non_doable'] = non_doable
             msg['data'] = data_to_send
         else:
@@ -153,7 +153,7 @@ class Agent:
         nodes = self.nodes_from_edges(discovered_edges)
         non_doable = [node for node in nodes if node in self.non_doable]
         if len(discovered_edges) != 0:
-            msg['edges'] = discovered_edges
+            msg['edges'] = discovered_edges  # TODO put keys in config file
             msg['non_doable'] = non_doable
             return msg
         else:
@@ -263,4 +263,4 @@ class Agent:
         # self.obs_data = pd.merge(self.obs_data, data_to_concatenate, how='outer', on='index')
         self.obs_data = pd.concat([self.obs_data, data_to_concatenate], axis=1)
 
-        # TODO Decide how to manage NaN values if present
+        # Decide how to manage NaN values if present
