@@ -5,11 +5,12 @@ import time
 from utils.drawing import difference
 
 import os
-os.environ["PATH"] += os.pathsep + 'C:\\Users\\pakyr\\.conda\\envs\\bayesianEnv\\Library\\bin\\graphviz'
+
+os.environ["PATH"] += "/usr/local/Cellar/graphviz/2.44.1/lib/graphviz"  # TODO put in config file
 
 # Set true if the results are printable
-printable = True
-start = time.time()
+#printable = True
+#start = time.time()
 
 # Room: class for the starting network
 
@@ -64,46 +65,46 @@ start = time.time()
 
 # Big Network: this class allows to build and test a random network with random CPD and specific number of nodes
 
-n_nodes = 80
-room = BigRoom(n_nodes=n_nodes)
+n_nodes = 10
+room = BigRoom(n_nodes=n_nodes, edge_prob=0.4)
 bn = room.get_network()
 
 # Since the network is created with numerical names, the printing methods do not work on it
-printable = False
+printable = True
 #
 #
-# # Makes the nodes printable
-# def masking(n_nodes, edges):
-#     mask = {}
-#     for i in range(n_nodes):
-#         mask[i] = str(i)
-#
-#     n = []
-#     for t in edges:
-#         n.append((mask[t[0]], mask[t[1]]))
-#     return n
-#
-#
+# Makes the nodes printable
+def masking(n_nodes, edges):
+    mask = {}
+    for i in range(n_nodes):
+        mask[i] = str(i)
+
+    n = []
+    for t in edges:
+        n.append((mask[t[0]], mask[t[1]]))
+    return n
+
+
 # # For simplicity we assume not to have non-doable nodes
-estimator = CausalLeaner(bn.nodes(), non_dobale=[], env=bn, obs_data=None)
+estimator = CausalLeaner(bn.nodes(), non_doable=[], env=bn, obs_data=None)
 start = time.time()
 model, undirected_edges = estimator.learn(max_cond_vars=4, do_size=1, mod='offline')
 end = time.time()
-#
-# masked_edges = masking(n_nodes, bn.edges())
-# masked_model_edges = masking(n_nodes, model.edges)
-#
-# # Print performances
-# gt = bn.edges()
-# pred = model.edges()
-# recovered_edges = [ed for ed in pred if ed in gt]
-# print('Recovered nodes:\t', len(recovered_edges), '/', len(gt), '\nRecovered rate:\t', len(recovered_edges)/len(gt)*100, '%')
-# dot = difference(masked_edges, masked_model_edges)
-# dot.view(directory='tmp/')
+
+masked_edges = masking(n_nodes, bn.edges())
+masked_model_edges = masking(n_nodes, model.edges)
+
+# Print performances
+gt = bn.edges()
+pred = model.edges()
+recovered_edges = [ed for ed in pred if ed in gt]
+print('Recovered nodes:\t', len(recovered_edges), '/', len(gt), '\nRecovered rate:\t', len(recovered_edges)/len(gt)*100, '%')
+dot = difference(masked_edges, masked_model_edges)
+dot.view(directory='tmp/')
 ##########################################################################
 
 
-print('\nTime elapsed for the computation is: ', round(end-start, 2), ' s')
+print('\nTime elapsed for the computation is: ', round(end - start, 2), ' s')
 
 # if printable:
 #     dot = difference(bn.edges(), model.edges())
@@ -118,4 +119,3 @@ print('\nTime elapsed for the computation is: ', round(end-start, 2), ' s')
 #     f = Digraph()
 #     f.edges(edges)
 #     print(f)
-

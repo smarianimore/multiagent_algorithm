@@ -7,16 +7,18 @@ from pgmpy.base import PDAG
 from online import icasa
 
 
-def simulate(src: str, dst: list, env, mod, cond_evidence: dict = {}, do_size=100):
+def simulate(src: str, dst: list, env, mod, cond_evidence: dict = {}, do_size=100, verbose=False):
     """
     fix src node value and do many simulation and return the data
     """
     result = {}
     evidences = [{src: value, **cond_evidence} for value in [0, 1]]  # DOC hardo-coded value of variables (here they're all boolean)
-    print(f'\t\tevidencies for {src}: {evidences}')
+    if verbose:
+        print(f'\t\tevidencies for {src}: {evidences}')
 
     for i, evidence in enumerate(evidences):
-        print('INTERVENTION: ', evidence)
+        if verbose:
+            print('INTERVENTION: ', evidence)
         # es: {'H': 0} -> intervention -> boolean DataFrame
 
         if mod == 'offline':
@@ -50,22 +52,25 @@ def has_influence(src: str,  # DOC: node to intervene on
                   env,  # DOC: whole Bayesian network (with CPD)
                   mod,
                   do_size=200,
-                  alpha=0.05):
+                  alpha=0.05,
+                  verbose=False):
     """
     test if src node have causal effect on dst node
     """
     n_node = len(cond_node)
     n = 2 ** n_node  # number of combinations
     binaries = [f"%0{n_node}d" % int(format(i, f'#0{n}b')[2:]) for i in range(n)]  # write in binary  # DOC apparently, it's a clever way for generating the range of combinations...
-    print(f'\tbinaries = {binaries}')
     conditional_evidences = [{cond_node[i]: int(b[i]) for i in range(len(cond_node))} for b in binaries]
-    print(f'\tconditional_evidences for {src} on {dst} = {conditional_evidences}')  # DOC ...combinations of values for conditioning variables?
+    if verbose:
+        print(f'\tbinaries = {binaries}')
+        print(f'\tconditional_evidences for {src} on {dst} = {conditional_evidences}')  # DOC ...combinations of values for conditioning variables?
     test = {node: [] for node in dst}
     for cond_evidence in conditional_evidences:
         res = simulate(src, dst, env, mod, cond_evidence, do_size=do_size)
         # DOC: res format is
         #       {src_node_val: {dst_node_1: [#_times_0, #_times_1], ...}}
-        print(f'\tres of {cond_evidence} = {res}')
+        if verbose:
+            print(f'\tres of {cond_evidence} = {res}')
         for node in dst:
             # DOC: you don't care what is expected and what is observed, you only care about difference in distributions, hence you could even swap
             test[node].append(chisquare(
@@ -77,14 +82,14 @@ def has_influence(src: str,  # DOC: node to intervene on
 
 
 class CausalLeaner:
-    def __init__(self, nodes: list, non_dobale: list, edges=None, env=None, obs_data=None):
+    def __init__(self, nodes: list, non_doable: list, edges=None, env=None, obs_data=None):
         self.env = env
         self.nodes = nodes
         self.edges = edges
-        self.non_doable = non_dobale
+        self.non_doable = non_doable
         self.obs_data = obs_data
 
-        if len(non_dobale) != 0 and obs_data is None:
+        if len(non_doable) != 0 and obs_data is None:
             raise Exception('with non doable variables we need observational data')
 
     def learn(self, mod, do_size=100,
@@ -140,7 +145,8 @@ class CausalLeaner:
                                                     [], self.env, mod, do_size=do_size,  # DOC empty list -> no conditioning nodes
                                                     alpha=do_conf)
 
-                print(f'[k = 0 case] influence: {influence}')
+                if verbose:
+                    print(f'[k = 0 case] influence: {influence}')
 
                 #  delete node base on influence result  #
                 edges = list(graph.edges())
@@ -149,13 +155,16 @@ class CausalLeaner:
                         X2Y = influence[X][Y]
                         if not X2Y and graph.has_edge(X, Y):
                             graph.remove_edge(X, Y)
-                            print('do', X, Y, 'remove')
+                            if verbose:
+                                print('do', X, Y, 'remove')
                     else:  # DOC check influence of NON do-able nodes
                         ci_test_res = ci_test(X, Y, [], data=self.obs_data, significance_level=ci_conf)
-                        print(f'ci test between {X}, {Y}')
+                        if verbose:
+                            print(f'ci test between {X}, {Y}')
                         if ci_test_res:
                             graph.remove_edge(X, Y)
-                            print('ci', X, Y, 'remove')
+                            if verbose:
+                                print('ci', X, Y, 'remove')
 
             #######################################
             #      what if we block k path        #
@@ -170,7 +179,8 @@ class CausalLeaner:
                         all_sep_set = all_sep_set | set(combinations(set(graph.neighbors(node))
                                                                      - {v} - non_doable, lim_neighbors))
 
-                    print(f'node = {node} => all_sep_set = {list(all_sep_set)}')
+                    if verbose:
+                        print(f'node = {node} => all_sep_set = {list(all_sep_set)}')
                     influence[node] = {}
                     for sep_set in list(all_sep_set):  # DOC for each combination
                         on = neigh - set(sep_set)
@@ -178,7 +188,8 @@ class CausalLeaner:
                             influence[node][sep_set] = has_influence(node, list(on), sep_set, self.env, mod,
                                                                      do_size=do_size, alpha=do_conf)
 
-                print(f'[k > 0 case] influence: {influence}')
+                if verbose:
+                    print(f'[k > 0 case] influence: {influence}')
 
                 #  delete node base on influence result  #
                 edges = list(graph.edges())
@@ -188,7 +199,8 @@ class CausalLeaner:
                                 set(combinations(set(graph.neighbors(X)) - {Y}, lim_neighbors))
                         ):
                             if len(non_doable & set(separating_set)) == 0:
-                                print('[doable case] test :', X, '->', Y, 'sep:', separating_set)
+                                if verbose:
+                                    print('[doable case] test :', X, '->', Y, 'sep:', separating_set)
                                 # If a conditioning set exists remove the edge, store the
                                 # separating set and move on to finding conditioning set for next edge.
                                 the_sep_set = None
@@ -202,13 +214,16 @@ class CausalLeaner:
                                 X2Y = influence[X][the_sep_set][Y]
                                 if not X2Y and graph.has_edge(X, Y):
                                     graph.remove_edge(X, Y)
-                                    print('do', X, Y, 'remove')
+                                    if verbose:
+                                        print('do', X, Y, 'remove')
                             else:
                                 ci_test_res_ = ci_test(X, Y, separating_set, data=self.obs_data, significance_level=ci_conf)
-                                print(f'ci test between {X}, {Y}')
+                                if verbose:
+                                    print(f'ci test between {X}, {Y}')
                                 if ci_test_res_ and graph.has_edge(X, Y):
                                     graph.remove_edge(X, Y)
-                                    print('ci', X, Y, 'remove')
+                                    if verbose:
+                                        print('ci', X, Y, 'remove')
                                     break
 
                     else:  # DOC node X is NOT do-able
@@ -218,10 +233,12 @@ class CausalLeaner:
                                 set(combinations(set(undir_graph.neighbors(Y)) - {X}, lim_neighbors))
                         ):
                             ci_test_res__ = ci_test(X, Y, separating_set, data=self.obs_data, significance_level=ci_conf)
-                            print(f'ci test between {X}, {Y}')
+                            if verbose:
+                                print(f'ci test between {X}, {Y}')
                             if ci_test_res__ and graph.has_edge(X, Y):
                                 graph.remove_edge(X, Y)
-                                print('[non-doable case] ci', X, Y, 'remove')
+                                if verbose:
+                                    print('[non-doable case] ci', X, Y, 'remove')
                                 break
 
             # Step 3: After iterating over all the edges, expand the search space by increasing the size

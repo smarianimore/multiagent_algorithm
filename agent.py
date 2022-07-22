@@ -74,7 +74,7 @@ class Agent:
             the learnt model and the list of undirected edges found
         """
         estimator = CausalLeaner(nodes=self.nodes,
-                                 non_dobale=self.non_doable,
+                                 non_doable=self.non_doable,
                                  edges=edges,
                                  env=self.gt_bn,  # DOC used to simulate interventions and evaluate performance
                                  obs_data=self.obs_data)
@@ -127,7 +127,7 @@ class Agent:
             data_to_send = self.obs_data.drop(columns=[x for x in self.obs_data.columns if x not in nodes_to_send])
 
             msg = dict()
-            msg['nodes'] = nodes_to_send  # TODO put keyis in config file
+            msg['nodes'] = nodes_to_send  # TODO put keys in config file
             msg['non_doable'] = non_doable
             msg['data'] = data_to_send
         else:

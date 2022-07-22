@@ -14,6 +14,7 @@ class BigRoom:
         self.bn = BayesianNetwork(bayesian.edges)
 
         # Set the CPD: so far the setting is random, but we could find a way to extract and use the CPD of the random network
+        # QUESTION: the CPD is not formally correct? (e.g. probabilities do not sum up?)
         for node in self.bn.nodes():
             parents = []
             for edge in self.bn.edges():

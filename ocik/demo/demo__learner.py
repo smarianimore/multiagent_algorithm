@@ -50,7 +50,7 @@ def app():
         # obs_data = bn.sample(5000)
         obs_data = pd.read_csv('tmp/room.csv')
 
-        estimator = CausalLeaner(bn.nodes(), non_dobale=[], env=bn, obs_data=obs_data)
+        estimator = CausalLeaner(bn.nodes(), non_doable=[], env=bn, obs_data=obs_data)
         model, track = estimator.learn(max_cond_vars=4, do_size=100, trace=True)
         for i, edges in enumerate(track):
             var = "order " + str(i) + " : " if i != len(track) - 1 else "final result:"
@@ -89,7 +89,7 @@ def app():
         # obs_data = bn.sample(5000)
         obs_data = pd.read_csv('tmp/room.csv')
 
-        estimator = CausalLeaner(bn.nodes(), non_dobale=['L', 'T'], env=bn, obs_data=obs_data)
+        estimator = CausalLeaner(bn.nodes(), non_doable=['L', 'T'], env=bn, obs_data=obs_data)
         model, track = estimator.learn(max_cond_vars=4, do_size=100, trace=True)
         for i, edges in enumerate(track):
             var = "order " + str(i) + " : " if i != len(track) - 1 else "final result after postprocessing:"
