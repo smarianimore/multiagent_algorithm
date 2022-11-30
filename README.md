@@ -10,8 +10,8 @@ Within `utils`:
 Main components:
  - `agent.py`: represents the learning agent, hence encapsulates [Kanvaly's learning algorithm](https://github.com/smarianimore/causality_detection) and implements the request-response protocol for multi-agent learning
    - param `edges` decides whether learning is from scratch or incrementally built on previous knowledge
- - `example.py`: used only for random networks (scenarios), to launch single-agent experiments, relying on the networks (scenarios) defined in `ocik/example.py`
+ - `single-rngnet-test.py`: used only for random networks (scenarios), to launch single-agent experiments, relying on the networks (scenarios) defined in `ocik/example.py`
  - `ocik/causal_learner.py`: Kanavly's algo modified to choose offline/online mode
  - `online.py`: handles interventions request to [iCasa side](https://github.com/smarianimore/iCasa)
  - `single_agent_tests.py`: single agent experiments
- - `run.py`: two agents experiments (**second one** is the one that asks for help, atm)
+ - `two-agents-tests.py`: two agents experiments (**second one** is the one that asks for help, atm)
