@@ -1,8 +1,0 @@
-digraph {
-	graph [rankdir=LR]
-	edge [color=blue]
-	edge [color=red]
-	L -> Pow
-	edge [color=green]
-	Pr -> L
-}
