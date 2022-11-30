@@ -143,9 +143,10 @@ def write_results(gt, pred, elapsed_time, description):
 def run(agent_1, agent_2, gt_1, gt_2, gt_3, nodes_to_investigate):
     start = time.time()
     # 1 - Local learning (Agent 1 and Agent 2)
-    model_1, undirected_edges_1 = agent_1.learning(nodes=agent_1.nodes, non_doable=agent_1.non_doable,
-                                                   parameters=agent_1red_params, mod='offline', bn=agent_1.gt_bn,
-                                                   obs_data=agent_1.obs_data)
+    model_1, undirected_edges_1 = agent_1.learning(#nodes=agent_1.nodes, non_doable=agent_1.non_doable,
+                                                   parameters=agent_1red_params, mod='offline',
+                                                    #bn=agent_1.gt_bn, obs_data=agent_1.obs_data
+                                                    edges=None)  # NB was missing
     time_1 = (time.time() - start)  # local learning time consumption
     agent_1.replace_edges(list(model_1.edges()))
     agent_1.add_undirected_edges(undirected_edges_1)
@@ -248,9 +249,9 @@ if __name__ == '__main__':
     net_2blue = networks.create_gt_net_skel(['W', 'O', 'T', 'B', 'A', 'CO', 'CO2'], False)
 
     # Initialize agents
-    agent_1red = Agent(nodes=net_1red['nodes'], non_doable=net_1red['non_doable'], edges=net_1red['edges'],
+    agent_1red = Agent(nodes=net_1red['nodes'], non_doable=net_1red['non_doable'], gt_edges=net_1red['edges'],
                        obs_data=net_1red['dataset'])
-    agent_2blue = Agent(nodes=net_2blue['nodes'], non_doable=net_2blue['non_doable'], edges=net_2blue['edges'],
+    agent_2blue = Agent(nodes=net_2blue['nodes'], non_doable=net_2blue['non_doable'], gt_edges=net_2blue['edges'],
                         obs_data=net_2blue['dataset'])
 
     # List the nodes to send in the message from agent 2 to agent 1
