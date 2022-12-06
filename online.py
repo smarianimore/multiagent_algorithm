@@ -48,6 +48,7 @@ class icasa:
 
         for device in resp_device.json():
             id = device['id']
+            print(f"DEBUG: id={id}, json={device}")
             if id not in self.read_devices:
                 print('Device not known!')
                 continue
@@ -66,9 +67,13 @@ class icasa:
     # The function actualizes the device values with a PUT request (works only if PUTs work)
     def intervention_by_API(self, evidence):
         for kind, (name, property), value in evidence:
+            print(f"DEBUG: name={name}, property={property}")
             if kind == 'device':
-                resp = put(self.put_device_url + f'/{name}' + f'/{property}',
+                url = self.put_device_url + f'/{name}' + f'/{property}'
+                print(f"DEBUG: url={url}")
+                resp = put(url,
                                     data=json.dumps(value))
+                print(f"DEBUG: url={resp.request.url}, method={resp.request.method}, headers={resp.request.headers}, body={resp.request.body}")
             elif kind == 'zone':
                 resp = put(self.put_zone_url + f'/{name}',
                                     data=json.dumps({property: value}))

@@ -16,8 +16,8 @@ import time
 from utils.logging import append_to_report
 
 now = datetime.datetime.now()
-timestamp = datetime.datetime.timestamp(now)
-REPORT = 'two_agents_' + str(timestamp)
+#timestamp = datetime.datetime.timestamp(now)
+REPORT = 'two_agents_' + str(now)
 OUTPUT_DIR = "output/reproducibility/"
 
 online_parameters = {
@@ -155,9 +155,10 @@ def run(agent_1, agent_2, gt_1, gt_2, gt_3, nodes_to_investigate):
     write_results(gt_1, model_1.edges(), time_1, "\nAgent 1 network")
 
     start = time.time()
-    model_2, undirected_edges_2 = agent_2.learning(nodes=agent_2.nodes, non_doable=agent_2.non_doable,
-                                                   parameters=agent_2blue_params, mod='offline', bn=agent_2.gt_bn,
-                                                   obs_data=agent_2.obs_data)
+    model_2, undirected_edges_2 = agent_2.learning(#nodes=agent_2.nodes, non_doable=agent_2.non_doable,
+                                                   parameters=agent_2blue_params, mod='offline',
+                                                    #bn=agent_2.gt_bn, obs_data=agent_2.obs_data
+                                                    edges=None)
     time_2 = (time.time() - start)  # local learning time consumption
     agent_2.replace_edges(list(model_2.edges()))
     agent_2.add_undirected_edges(undirected_edges_2)
@@ -194,9 +195,10 @@ def run(agent_1, agent_2, gt_1, gt_2, gt_3, nodes_to_investigate):
 
         start = time.time()
         # Learn about new edges
-        model, undirected_edges = agent_1.learning(nodes=new_nodes, non_doable=new_non_doable,
-                                                   parameters=online_parameters,
-                                                   mod='online', edges=new_edges, bn=None, obs_data=new_data)
+        model, undirected_edges = agent_1.learning(#nodes=new_nodes, non_doable=new_non_doable,
+                                                   parameters=online_parameters, mod='online',
+                                                    #bn=None, obs_data=new_data
+                                                    edges=new_edges)
         time_3 = (time.time() - start)
         # The response contains the learnt edges
         response = agent_1.build_response_msg(model.edges())
@@ -226,7 +228,7 @@ def run(agent_1, agent_2, gt_1, gt_2, gt_3, nodes_to_investigate):
 
 if __name__ == '__main__':
     append_to_report(f'\n\n#### {now}', file=f"{REPORT}.txt")
-    append_to_report(f'\ntimestamp: {timestamp}', file=f"{REPORT}.txt")
+    append_to_report(f'\ntimestamp: {now}', file=f"{REPORT}.txt")
     append_to_report(f'\nMulti-agent learning', file=f"{REPORT}.txt")
 
     notes = ""
